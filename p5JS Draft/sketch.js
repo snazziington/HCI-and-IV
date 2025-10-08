@@ -29,7 +29,7 @@ function draw() {
 		stars[i].draw();
 	}
 
-	for (var i = 0; i < stars.length; i++) {
+	for (var i = 0; i < bigStars.length; i++) {
 		bigStars[i].draw();
 	}
 	fill('white')
@@ -66,13 +66,13 @@ class bigStar {
 	constructor() {
 		this.x = random(width);
 		this.y = random(height);
-		this.size = random(0.25, 2);
+		this.size = random(0.05, 2);
 		this.t = random(TAU);
 	}
 
 	draw() {
 		this.t += 0.1;
-		var scale = this.size + sin(this.t) / 4;
+		var scale = this.size + sin(this.t) / 1000;
 		let opacity = this.size * 12;
 		noStroke();
 

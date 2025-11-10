@@ -4,13 +4,13 @@ var stars = [];
 var bigStars = [];
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
+	createCanvas(1920, 1080);
 	//starImg = loadImage('/assets/star.png');
-	for (var i = 0; i < 1000; i++) {
+	for (var i = 0; i < 3000; i++) {
 		stars[i] = new Star();
 	}
 
-	for (var i = 0; i < 300; i++) {
+	for (var i = 0; i < 500; i++) {
 		bigStars[i] = new bigStar();
 	}
 
@@ -22,7 +22,7 @@ function draw() {
 	let r = noise(0, 1, time) * 6 + 6;
 	let g = noise(2, 3, time) * 6 + 6;
 	let b = noise(4, 5, time) * 22 + 22;
-	let a = 100;
+	let a = 255;
 	background(r, g, b, a);
 	cursor('/assets/star.png');
 	for (var i = 0; i < stars.length; i++) {
@@ -33,9 +33,20 @@ function draw() {
 		bigStars[i].draw();
 	}
 	fill('white')
-	circle(width / 2, height / 2, 4)
+	//circle(width / 2, height / 2, 4)
 }
 
+let img;
+
+function keyPressed() {
+  if (key === 's') {
+    img.save();
+  } else if (key === 'j') {
+    img.save('sky.jpg');
+  } else if (key === 'p') {
+    saveCanvas();
+  }
+}
 
 // Star class
 class Star {

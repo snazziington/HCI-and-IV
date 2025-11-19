@@ -1,29 +1,55 @@
 // Star twinkle by wvnl on p5js.org; https://editor.p5js.org/wvnl/sketches
+//#region Initialising Variables
+let stars = [];
+let bigStars = [];
+let canvasArea;
+let button, libButton, quizButton, helpButton
+let testStars = [];
 
-var stars = [];
-var bigStars = [];
-
+//#region Setup
 function setup() {
-	createCanvas(1920, 1080);
+	//#region Canvas/Background
+	createCanvas(windowWidth, windowHeight);
+    canvasArea = windowWidth + windowHeight;
+
 	//starImg = loadImage('/assets/star.png');
-	for (var i = 0; i < 3000; i++) {
+	for (var i = 0; i < canvasArea; i++) {
 		stars[i] = new Star();
 	}
 
-	for (var i = 0; i < 500; i++) {
+	for (var i = 0; i < canvasArea / 4; i++) {
 		bigStars[i] = new bigStar();
 	}
+	//#endregion
+	
+	//#region Sidebar Buttons
+	libButton = createButton ('🕮')
 
+	quizButton = createButton ('Q')
+
+	helpButton = createButton ('⚙')
+	
+	//#endregion
 }
+//#endregion
 
+//#region Draw
 function draw() {
+
+	if (windowWidth > 700){
+		libButton.position(0, 0);
+		quizButton.position(0, windowHeight / 8 * 1);
+		helpButton.position(0, windowHeight / 8 * 2);
+	}
+
+	else{
+		libButton.position(windowWidth / 2.15 + 125, windowHeight * 0.89);
+		quizButton.position(windowWidth / 2.15, windowHeight * 0.89);
+		helpButton.position(windowWidth / 2.15 - 125, windowHeight * 0.89);
+	}	
+
 	resizeCanvas(windowWidth, windowHeight);
-	let time = frameCount * 0.001
-	let r = noise(0, 1, time) * 6 + 6;
-	let g = noise(2, 3, time) * 6 + 6;
-	let b = noise(4, 5, time) * 22 + 22;
-	let a = 255;
-	background(r, g, b, a);
+	background('#090920');
 	cursor('/assets/star.png');
 	for (var i = 0; i < stars.length; i++) {
 		stars[i].draw();
@@ -33,34 +59,73 @@ function draw() {
 		bigStars[i].draw();
 	}
 	fill('white')
-	//circle(width / 2, height / 2, 4)
+
+	testStars = [
+			{x: 300, y: 500},
+			{x: 700, y: 200}
+		]
+
+	drawingConstellations()
+
+}
+//#endregion
+
+function drawingConstellations(){
+		fill('red')
+
+		testStars[0] = circle(testStars[0].x, testStars[0].y, 10);
+		testStars[1] = circle(testStars[1].x, testStars[1].y, 10);
+
+		testStars = [
+			{x: 300, y: 500},
+			{x: 700, y: 200}
+		]
 }
 
-let img;
+/*	Am trying to think of how I can program in the constellation function
+	Smt like "if mouse is within 50px of circle and mouseClicked, then
+	start a line from the origin of the circle to the mouse."
+*/
 
-function keyPressed() {
-  if (key === 's') {
-    img.save();
-  } else if (key === 'j') {
-    img.save('sky.jpg');
-  } else if (key === 'p') {
-    saveCanvas();
-  }
+function mouseClicked(){
+	for (let i = 0; i < testStars.length; i++){
+		if (dist(mouseX, mouseY, testStars[i].x, testStars[i].y) < 100){
+			print(`mouse is near star ${i}`);
+			circle(mouseX, mouseY, 20);
+			print(i);
+			print(testStars[1].x)
+			print(testStars[1].y)
+			print(testStars[0].x)
+			print(testStars[0].y)
+			
+	}
+		else {
+			print('far star');
+			print(i);
+			print(testStars[1].x)
+			print(testStars[1].y)
+			print(testStars[0].x)
+			print(testStars[0].y)
+		}
+	}
 }
 
-// Star class
+function drawLine(x, y){
+	line(x, y, mouseX, mouseY)
+}
+//#region Stars (Background)
 class Star {
 	constructor() {
 		this.x = random(width);
 		this.y = random(height);
-		this.size = random(2, 4);
-		this.t = random(TAU);
+		this.size = random(0.6, 2);
+		this.t = random(0, TAU);
 	}
 
 	draw() {
-		this.t += 0.1;
-		var scale = this.size + sin(this.t) / 4;
-		let opacity = this.size * 6;
+		this.t += 0.05;
+		var scale = this.size + sin(this.t) * 2;
+		let opacity = this.size * 5;
 		noStroke();
 
 		// Highlight
@@ -77,13 +142,13 @@ class bigStar {
 	constructor() {
 		this.x = random(width);
 		this.y = random(height);
-		this.size = random(0.05, 2);
+		this.size = random(1, 2.49);
 		this.t = random(TAU);
 	}
 
 	draw() {
-		this.t += 0.1;
-		var scale = this.size + sin(this.t) / 1000;
+		this.t += 0.03;
+		var scale = this.size + sin(this.t) / 4;
 		let opacity = this.size * 12;
 		noStroke();
 
@@ -96,3 +161,4 @@ class bigStar {
 		ellipse(this.x, this.y, scale, scale);
 	}
 }
+//#endregion

@@ -66,7 +66,7 @@ function draw() {
 		]
 
 	drawingConstellations()
-
+	checkDraw()
 }
 //#endregion
 
@@ -85,18 +85,30 @@ function drawingConstellations(){
 /*	Am trying to think of how I can program in the constellation function
 	Smt like "if mouse is within 50px of circle and mouseClicked, then
 	start a line from the origin of the circle to the mouse."
+
+	Will probably have to do smt like "if you're not already drawing
+	and you click near a star, then draw a line connecting the mouse
+	to the original star until you click on a new star OR click off
+	if you click on a new star, the line attaches onto the new star
+	If you click off, then the line disappears i guess. so that
+	players aren't locked into having to complete a star if
+	they don't wanna"
 */
 
-function mouseClicked(){
+function checkDraw(){
 	for (let i = 0; i < testStars.length; i++){
 		if (dist(mouseX, mouseY, testStars[i].x, testStars[i].y) < 100){
 			print(`mouse is near star ${i}`);
-			circle(mouseX, mouseY, 20);
+			circle(mouseX, mouseY, 15);
 			print(i);
 			print(testStars[1].x)
 			print(testStars[1].y)
 			print(testStars[0].x)
 			print(testStars[0].y)
+			fill('red');
+			stroke('red')
+			strokeWeight(3);
+			line(testStars[i].x, testStars[i].y, mouseX, mouseY)
 			
 	}
 		else {

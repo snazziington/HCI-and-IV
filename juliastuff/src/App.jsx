@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   // Big Dipper stars (adapted coordinates)
-  const scaleX = 40; // 17 * 40 ~ 680px
-  const scaleY = 40; // 15 * 40 ~ 600px
-  const offset = 50; // padding from edges
-
+  const scaleX = 40;
+  const scaleY = 40;
+  const offset = 50;
   const SVG_HEIGHT = 700;
 
   const [dots] = useState([
@@ -18,14 +17,15 @@ function App() {
     { id: 1, x: 17 * scaleX + offset, y: SVG_HEIGHT - (6 * scaleY + offset) },
   ]);
 
-
   const [lines, setLines] = useState([]);
   const [currentLine, setCurrentLine] = useState(null);
 
+  // Start line on a dot
   const handleMouseDown = (dot) => {
     setCurrentLine({ x1: dot.x, y1: dot.y, x2: dot.x, y2: dot.y });
   };
 
+  // Update line while dragging
   const handleMouseMove = (e) => {
     if (currentLine) {
       setCurrentLine({
@@ -35,26 +35,41 @@ function App() {
       });
     }
   };
-
-  // Attach global mouseup to finalize line
+  
   useEffect(() => {
-    const handleMouseUp = () => {
+    const handleMouseUp = (e) => {
       if (currentLine) {
-        setLines((prev) => [...prev, currentLine]);
+        const svg = document.querySelector("svg"); // get SVG element
+        const rect = svg.getBoundingClientRect();  // get SVG position
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const dot = dots.find(
+          (d) => Math.abs(d.x - mouseX) < 10 && Math.abs(d.y - mouseY) < 10
+        );
+
+        if (dot) {
+          setLines((prev) => [
+            ...prev,
+            { x1: currentLine.x1, y1: currentLine.y1, x2: dot.x, y2: dot.y },
+          ]);
+        }
+
         setCurrentLine(null);
       }
     };
-
     window.addEventListener("mouseup", handleMouseUp);
     return () => window.removeEventListener("mouseup", handleMouseUp);
-  }, [currentLine]);
+  }, [currentLine, dots]);
 
   const handleUndo = () => {
     setLines((prev) => prev.slice(0, -1));
+    setCurrentLine(null);
   };
 
   const handleClear = () => {
     setLines([]);
+    setCurrentLine(null);
   };
 
   return (
@@ -94,7 +109,7 @@ function App() {
           />
         ))}
 
-        {/* Draw dots */}
+        {/* Draw stars */}
         {dots.map((dot) => (
           <circle
             key={dot.id}

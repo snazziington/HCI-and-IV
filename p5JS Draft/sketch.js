@@ -33,9 +33,11 @@ function setup() {
 }
 //#endregion
 
+let isDragging = false;
+let x1, y1, x2, y2;
+
 //#region Draw
 function draw() {
-
 	if (windowWidth > 700){
 		libButton.position(0, 0);
 		quizButton.position(0, windowHeight / 8 * 1);
@@ -67,6 +69,9 @@ function draw() {
 
 	drawingConstellations()
 	checkDraw()
+	if (isDragging) {
+    line(x1, y1, x2, y2);
+  }
 }
 //#endregion
 
@@ -80,6 +85,20 @@ function drawingConstellations(){
 			{x: 300, y: 500},
 			{x: 700, y: 200}
 		]
+}
+
+function mouseDragged() {
+  if (!isDragging) {
+    x1 = pmouseX;
+    y1 = pmouseY;
+    isDragging = true;
+  }
+  x2 = mouseX;
+  y2 = mouseY;
+}
+
+function mouseReleased() {
+  isDragging = false;
 }
 
 /*	Am trying to think of how I can program in the constellation function

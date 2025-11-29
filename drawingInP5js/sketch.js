@@ -26,13 +26,6 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 
 	draw() {
 		strokeWeight(2);
-		if (this.completed == 1){
-			stroke("red");
-		}
-
-		else if (this.completed == 0){
-			stroke("white");
-		}
 		
 		beginShape(POINTS);
 
@@ -75,32 +68,32 @@ function setupConstellations(){
 							3112, 617, 3307, 684, 3316, 620);
 							
 	constellations.push(
-		{v1: aries.v1, v2: aries.v2,	v3: aries.v3, v4: aries.v4,
-		line: [0, 0, 0], completed: 0, aries,
+		{name: aries, v1: aries.v1, v2: aries.v2,	v3: aries.v3, v4: aries.v4,
+		line: [0, 0, 0], completed: 0,
 		startStars: [aries.v1[0], aries.v1[1], aries.v1[2]]
 		},
 
-		{v1: taurus.v1, v2: taurus.v2,	v3: taurus.v3, v4: taurus.v4,
+		{name: "taurus", v1: taurus.v1, v2: taurus.v2,	v3: taurus.v3, v4: taurus.v4,
 		v5: taurus.v5, v6: taurus.v6,	v7: taurus.v7, v8: taurus.v8,
 		v9: taurus.v9, v10: taurus.v10,	v11: taurus.v11, v12: taurus.v12,
-		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0, taurus,
+		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [taurus.v1[0], taurus.v1[1], taurus.v1[2]]},
 	
-		{v1: gemini.v1, v2: gemini.v2,	v3: gemini.v3, v4: gemini.v4,
+		{name: "gemini", v1: gemini.v1, v2: gemini.v2,	v3: gemini.v3, v4: gemini.v4,
 		v5: gemini.v5, v6: gemini.v6,	v7: gemini.v7, v8: gemini.v8,
 		v9: gemini.v9, v10: gemini.v10,	v11: gemini.v11, v12: gemini.v12,
 		v13: gemini.v13, v14: gemini.v41, v15: gemini.v15, v16: gemini.v16, 
-		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0, gemini,
+		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [gemini.v1[0], gemini.v1[1], gemini.v1[2]]},
 
-		{v1: cancer.v1, v2: cancer.v2,	v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
-		line: [0, 0, 0, 0, 0], completed: 0, cancer,
+		{name: "cancer", v1: cancer.v1, v2: cancer.v2,	v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
+		line: [0, 0, 0, 0, 0], completed: 0,
 		startStars: [cancer.v1[0], cancer.v1[1], cancer.v1[2]]
 		},
 		
-		{v1: leo.v1, v2: leo.v2,	v3: leo.v3, v4: leo.v4,
+		{name: "leo", v1: leo.v1, v2: leo.v2,	v3: leo.v3, v4: leo.v4,
 		v5: leo.v5, v6: leo.v6,	v7: leo.v7, v8: leo.v8,
-		line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0, leo,
+		line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [leo.v1[0], leo.v1[1], leo.v1[2]]},
 
 	);
@@ -109,7 +102,6 @@ function setupConstellations(){
 function draw() {
 	cursor(ARROW);
 	background("#0E1346");
-	
 	aries.draw();
 	taurus.draw();
 	gemini.draw();
@@ -122,7 +114,7 @@ function draw() {
 		constellationCheck();
 	}
 
-	if (isDrawing) {
+	if (isDrawinsg) {
 		line(x1, y1, x2, y2);
 		checkNextStars(currentConstellation)
 	}

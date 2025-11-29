@@ -1,10 +1,19 @@
-let aries;
+let aries, taurus, gemini, cancer, leo
+let ariesStars = [];
 let ariesLine = [0, 0, 0, 0];
 let lines = [];		// this is where lines will be stored
 let constellations = [];
 let distance = 10;
 let mouseDragging = false;
 let panningCamera = false;
+
+// Stars
+let stars = [];
+let bigStars = [];
+let button, libButton, quizButton, helpButton
+let testStars = [];
+let constStarDiameter = 30;
+let constStars = [aries, taurus, gemini, cancer, leo]
 
 // some constellations are very. very big
 class Constellation {
@@ -25,7 +34,7 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 	}
 
 	draw() {
-		strokeWeight(2);
+		strokeWeight(5);
 		if (this.completed == 1){
 			stroke("red");
 		}
@@ -36,10 +45,20 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 		
 		beginShape(POINTS);
 
-		for (let i = 1; i < 35; i++){
-			let vx = ("v" + i)
-			vertex(this[vx][0], this[vx][1]);
+		///--- for each constellation, draw each star in its array
+		for (let i = 0; i < constellations.length; i++){
+			
+			for (let j = 1; j < 35; j++){
+				let vx = ("v" + j)
+				//vertex(this[vx][0], this[vx][1]);
+
+				// I think this will only ever print the last constellation in the constellations
+				// array. So I have to ensure they don't overwrite each other.
+				let currentConst = constellation[i];
+				constStars[currentConst][j] = new constellationStar(this[vx][0], this[vx][1], 15);
+			}
 		}
+
 		endShape();
 	}
 
@@ -51,6 +70,16 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 function setup() {
 	createCanvas(4885, 1506);
 	stroke("white");
+
+	// Stars
+	for (var i = 0; i < 2000; i++) {
+		stars[i] = new Star();
+	}
+
+	for (var i = 0; i < 500 / 4; i++) {
+		bigStars[i] = new bigStar();
+	}
+
 	// empty default const (0th)
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
@@ -59,7 +88,7 @@ function setup() {
 function setupConstellations(){
 	// Aries
 	aries = new Constellation(4579, 223, 4707, 199, 4758, 207, 4770, 221);
-	// pushes all of aries's values into the 1st index of the constellations array
+	
 
 	// Taurus
 	taurus = new Constellation(4599, 470, 4480, 483, 4409, 471, 4383, 479, 4359, 481, 4149, 489,
@@ -73,34 +102,35 @@ function setupConstellations(){
 
 	leo = new Constellation(3388, 533, 3368, 501, 3293, 532, 3280, 580, 3120, 552, 3004, 613,
 							3112, 617, 3307, 684, 3316, 620);
-							
+	
+	// pushes all of the constellation's values into the constellations array						
 	constellations.push(
-		{v1: aries.v1, v2: aries.v2,	v3: aries.v3, v4: aries.v4,
-		line: [0, 0, 0], completed: 0, aries,
+		{name: "aries", v1: aries.v1, v2: aries.v2,	v3: aries.v3, v4: aries.v4,
+		line: [0, 0, 0], completed: 0,
 		startStars: [aries.v1[0], aries.v1[1], aries.v1[2]]
 		},
 
-		{v1: taurus.v1, v2: taurus.v2,	v3: taurus.v3, v4: taurus.v4,
+		{name: "taurus", v1: taurus.v1, v2: taurus.v2,	v3: taurus.v3, v4: taurus.v4,
 		v5: taurus.v5, v6: taurus.v6,	v7: taurus.v7, v8: taurus.v8,
 		v9: taurus.v9, v10: taurus.v10,	v11: taurus.v11, v12: taurus.v12,
-		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0, taurus,
+		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [taurus.v1[0], taurus.v1[1], taurus.v1[2]]},
 	
-		{v1: gemini.v1, v2: gemini.v2,	v3: gemini.v3, v4: gemini.v4,
+		{name: "gemini", v1: gemini.v1, v2: gemini.v2,	v3: gemini.v3, v4: gemini.v4,
 		v5: gemini.v5, v6: gemini.v6,	v7: gemini.v7, v8: gemini.v8,
 		v9: gemini.v9, v10: gemini.v10,	v11: gemini.v11, v12: gemini.v12,
 		v13: gemini.v13, v14: gemini.v41, v15: gemini.v15, v16: gemini.v16, 
-		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0, gemini,
+		line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [gemini.v1[0], gemini.v1[1], gemini.v1[2]]},
 
-		{v1: cancer.v1, v2: cancer.v2,	v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
-		line: [0, 0, 0, 0, 0], completed: 0, cancer,
+		{name: "cancer", v1: cancer.v1, v2: cancer.v2,	v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
+		line: [0, 0, 0, 0, 0], completed: 0,
 		startStars: [cancer.v1[0], cancer.v1[1], cancer.v1[2]]
 		},
 		
-		{v1: leo.v1, v2: leo.v2,	v3: leo.v3, v4: leo.v4,
+		{name: "leo", v1: leo.v1, v2: leo.v2,	v3: leo.v3, v4: leo.v4,
 		v5: leo.v5, v6: leo.v6,	v7: leo.v7, v8: leo.v8,
-		line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0, leo,
+		line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
 		startStars: [leo.v1[0], leo.v1[1], leo.v1[2]]},
 
 	);
@@ -110,6 +140,26 @@ function draw() {
 	cursor(ARROW);
 	background("#0E1346");
 	
+	// Stars
+	/*for (var i = 0; i < stars.length; i++) {
+		stars[i].draw();
+	}
+
+	for (var i = 0; i < bigStars.length; i++) {
+		bigStars[i].draw();
+	}*/
+
+	///--- for each const
+		// check each star and draw it.
+	for (let i = 0; i < constellations.length; i++){
+			for (let j = 1; j < 35; j++){
+				let currentConst = constellations[i]
+				constStars[currentConst][j].draw()
+			}
+		}
+
+	fill("white")
+	stroke("white")
 	aries.draw();
 	taurus.draw();
 	gemini.draw();
@@ -133,6 +183,7 @@ function draw() {
 	
 	// Doesn't do anything yet (just turns pointer into grabby hand when you hold space)
 	cameraPanning();
+	print(currentConstellation)
 }
 //#endregion
 
@@ -449,3 +500,64 @@ function mouseReleased() {
 }
 
 //#endregion
+
+//#region Stars (Background)
+class Star {
+	constructor() {
+		this.x = random(width);
+		this.y = random(height);
+		this.size = random(0.6, 2);
+		this.t = random(0, TAU);
+	}
+
+	draw() {
+		this.t += 0.05;
+		var scale = this.size + sin(this.t) * 2;
+		let opacity = this.size * 5;
+		noStroke();
+
+		// Highlight
+		fill(200, 195, 255, opacity);
+		ellipse(this.x, this.y, scale * 3, scale * 3);
+
+		// Star
+		fill(200, 195, 255, opacity * 10);
+		ellipse(this.x, this.y, scale, scale);
+	}
+}
+
+class bigStar {
+	constructor() {
+		this.x = random(width);
+		this.y = random(height);
+		this.size = random(1, 2.49);
+		this.t = random(TAU);
+	}
+
+	draw() {
+		this.t += 0.03;
+		var scale = this.size + sin(this.t) / 4;
+		let opacity = this.size * 12;
+		noStroke();
+
+		// Highlight
+		fill(200, 195, 255, opacity);
+		ellipse(this.x, this.y, scale * 3, scale * 3);
+
+		// Star
+		fill(200, 195, 255, opacity * 10);
+		ellipse(this.x, this.y, scale, scale);
+	}
+}
+
+class constellationStar {
+	constructor(x, y, d){
+		this.x = x;
+		this.y = y;
+		this.d = d
+	}
+
+	draw(){
+		circle(this.x, this.y, this.d)
+	}
+}

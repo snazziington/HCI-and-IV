@@ -60,10 +60,11 @@ this.v33 = [x33, y33, 33, random(TAU), 1]; this.v34 = [x34, y34, 34, random(TAU)
 
 				// Glow
 				//fill(200, 195, 255, opacity);
-				fill(255, 150, 150, opacity);
+				fill(255, 0, 0, opacity);
 				circle(this[vx][0], this[vx][1], scale * 3);
 
 				// Star
+				//fill(200, 195, 255, opacity * 10);
 				fill(255, 0, 0, opacity * 10);
 				circle(this[vx][0], this[vx][1], scale);
 				
@@ -158,7 +159,6 @@ function setupConstellations(){
 }
 //#region Draw
 function draw() {
-	print(currentStar)
 	cursor(ARROW);
 	background("#0E1346");
 

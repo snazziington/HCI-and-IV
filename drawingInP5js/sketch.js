@@ -12,7 +12,7 @@ let stars = [];
 let bigStars = [];
 let button, libButton, quizButton, helpButton
 let testStars = [];
-let constStarDiameter = 30;
+let constStarDiameter = 20;
 let constStars = [aries, taurus, gemini, cancer, leo]
 
 // some constellations are very. very big
@@ -22,15 +22,15 @@ class Constellation {
 				x19, y19, x20, y20, x21, y21, x22, y22, x23, y23, x24, y24, x25, y25, x26, y26,
 				x27, y27, x28, y28, x29, y29, x30, y30, x31, y31, x32, y32, x33, y33, x34, y34,
 				x35, y35) {
-this.v1 = [x1, y1, 1]; this.v2 = [x2, y2, 2]; this.v3 = [x3, y3, 3]; this.v4 = [x4, y4, 4];
-this.v5 = [x5, y5, 5]; this.v6 = [x6, y6, 6]; this.v7 = [x7, y7, 7]; this.v8 = [x8, y8, 8];
-this.v9 = [x9, y9, 9]; this.v10 = [x10, y10, 10]; this.v11 = [x11, y11, 11]; this.v12 = [x12, y12, 12];
-this.v13 = [x13, y13, 13]; this.v14 = [x14, y14, 14]; this.v15 = [x15, y15, 15]; this.v16 = [x16, y16, 16];
-this.v17 = [x17, y17, 17]; this.v18 = [x18, y18, 18]; this.v19 = [x19, y19, 19]; this.v20 = [x20, y20, 20];
-this.v21 = [x21, y21, 21]; this.v22 = [x22, y22, 22]; this.v23 = [x23, y23, 23]; this.v24 = [x24, y24, 24];
-this.v25 = [x25, y25, 25]; this.v26 = [x26, y26, 26]; this.v27 = [x27, y27, 27]; this.v28 = [x28, y28, 28];
-this.v29 = [x29, y29, 29]; this.v30 = [x30, y30, 30]; this.v31 = [x31, y31, 31]; this.v32 = [x32, y32, 32];
-this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35]; 
+this.v1 = [x1, y1, 1, random(TAU), 1]; this.v2 = [x2, y2, 2, random(TAU), 1]; this.v3 = [x3, y3, 3, random(TAU), 1]; this.v4 = [x4, y4, 4, random(TAU), 1];
+this.v5 = [x5, y5, 5, random(TAU), 1]; this.v6 = [x6, y6, 6, random(TAU), 1]; this.v7 = [x7, y7, 7, random(TAU), 1]; this.v8 = [x8, y8, 8, random(TAU), 1];
+this.v9 = [x9, y9, 9, random(TAU), 1]; this.v10 = [x10, y10, 10, random(TAU), 1]; this.v11 = [x11, y11, 11, random(TAU), 1]; this.v12 = [x12, y12, 12, random(TAU), 1];
+this.v13 = [x13, y13, 13, random(TAU), 1]; this.v14 = [x14, y14, 14, random(TAU), 1]; this.v15 = [x15, y15, 15, random(TAU), 1]; this.v16 = [x16, y16, 16, random(TAU), 1];
+this.v17 = [x17, y17, 17, random(TAU), 1]; this.v18 = [x18, y18, 18, random(TAU), 1]; this.v19 = [x19, y19, 19, random(TAU), 1]; this.v20 = [x20, y20, 20, random(TAU), 1];
+this.v21 = [x21, y21, 21, random(TAU), 1]; this.v22 = [x22, y22, 22, random(TAU), 1]; this.v23 = [x23, y23, 23, random(TAU), 1]; this.v24 = [x24, y24, 24, random(TAU), 1];
+this.v25 = [x25, y25, 25, random(TAU), 1]; this.v26 = [x26, y26, 26, random(TAU), 1]; this.v27 = [x27, y27, 27, random(TAU), 1]; this.v28 = [x28, y28, 28, random(TAU), 1];
+this.v29 = [x29, y29, 29, random(TAU), 1]; this.v30 = [x30, y30, 30, random(TAU), 1]; this.v31 = [x31, y31, 31, random(TAU), 1]; this.v32 = [x32, y32, 32, random(TAU), 1];
+this.v33 = [x33, y33, 33, random(TAU), 1]; this.v34 = [x34, y34, 34, random(TAU), 1]; this.v35 = [x35, y35, 35, random(TAU), 1]; 
 	}
 
 	draw() {
@@ -49,13 +49,25 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 		for (let i = 0; i < constellations.length; i++){
 			
 			for (let j = 1; j < 35; j++){
-				let vx = ("v" + j)
-				//vertex(this[vx][0], this[vx][1]);
+				let vx = ("v" + j)	
 
-				// I think this will only ever print the last constellation in the constellations
-				// array. So I have to ensure they don't overwrite each other.
-				let currentConst = constellation[i];
-				constStars[currentConst][j] = new constellationStar(this[vx][0], this[vx][1], 15);
+				// ranges from 4 to 6
+				this.size = 4 + ((j % 21) / 10); 
+				this[vx][3] += random(0.007);
+				var scale = this.size + sin(this[vx][3]) * 3 * this[vx][4];
+				let opacity = this.size * 1;
+				noStroke();
+
+				// Glow
+				//fill(200, 195, 255, opacity);
+				fill(255, 150, 150, opacity);
+				circle(this[vx][0], this[vx][1], scale * 3);
+
+				// Star
+				fill(255, 0, 0, opacity * 10);
+				circle(this[vx][0], this[vx][1], scale);
+				
+
 			}
 		}
 
@@ -67,12 +79,22 @@ this.v33 = [x33, y33, 33]; this.v34 = [x34, y34, 34]; this.v35 = [x35, y35, 35];
 	}
 }
 
+function isStartingStar(star, list){
+	for (let i = 0; i < list.length; i++){
+		if (list[i] === star){
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function setup() {
 	createCanvas(4885, 1506);
 	stroke("white");
 
 	// Stars
-	for (var i = 0; i < 2000; i++) {
+	for (var i = 0; i < 1000; i++) {
 		stars[i] = new Star();
 	}
 
@@ -88,11 +110,10 @@ function setup() {
 function setupConstellations(){
 	// Aries
 	aries = new Constellation(4579, 223, 4707, 199, 4758, 207, 4770, 221);
-	
 
 	// Taurus
 	taurus = new Constellation(4599, 470, 4480, 483, 4409, 471, 4383, 479, 4359, 481, 4149, 489,
-							   4366, 440, 4308, 409, 4154, 379, 4452, 331, 4380, 452, 4390, 453)
+							   4366, 440, 4308, 409, 4154, 379, 4452, 331, 4380, 452, 4400, 453)
 
 	gemini = new Constellation(4046, 483, 4017, 501, 3996, 505, 3930, 485, 3984, 536, 3846, 434,
 							   3887,381, 3779, 421, 3810, 468, 3784, 485, 3756, 473, 3761, 516,
@@ -137,26 +158,18 @@ function setupConstellations(){
 }
 //#region Draw
 function draw() {
+	print(currentStar)
 	cursor(ARROW);
 	background("#0E1346");
-	
+
 	// Stars
-	/*for (var i = 0; i < stars.length; i++) {
+	for (var i = 0; i < stars.length; i++) {
 		stars[i].draw();
 	}
 
 	for (var i = 0; i < bigStars.length; i++) {
 		bigStars[i].draw();
-	}*/
-
-	///--- for each const
-		// check each star and draw it.
-	for (let i = 0; i < constellations.length; i++){
-			for (let j = 1; j < 35; j++){
-				let currentConst = constellations[i]
-				constStars[currentConst][j].draw()
-			}
-		}
+	}
 
 	fill("white")
 	stroke("white")
@@ -169,10 +182,14 @@ function draw() {
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
 	if (!isDrawing){
+		stroke("white");
+		strokeWeight(3);
 		constellationCheck();
 	}
 
 	if (isDrawing) {
+		stroke("white");
+		strokeWeight(3);
 		line(x1, y1, x2, y2);
 		checkNextStars(currentConstellation)
 	}
@@ -183,7 +200,6 @@ function draw() {
 	
 	// Doesn't do anything yet (just turns pointer into grabby hand when you hold space)
 	cameraPanning();
-	print(currentConstellation)
 }
 //#endregion
 
@@ -205,6 +221,7 @@ function mousePressed() {
 	// and the constellation isn't completed
 
 	if (!isDrawing && canDraw == 1 && constellations[currentConstellation].completed == 0) {
+		constellations[currentConstellation].v1[4] = 1;
 		x1 = nearestStar[0];
 		y1 = nearestStar[1];
 		isDrawing = true;
@@ -212,7 +229,7 @@ function mousePressed() {
 		// if no lines have been drawn yet, the currentStar much be equal to 1 (the starting Star)
 		if ((constellations[currentConstellation].line.every(noLinesDrawn))){
 			currentStar = 1;
-		}		
+		}
 	}
 
 	else if (isDrawing) { // if user is drawing
@@ -242,7 +259,7 @@ function mousePressed() {
 			}
 			
 			// if you click center button on mouse
-			else if (mouseButton === CENTER) {
+			else if (mouseButton === RIGHT) {
 				// if you did not finish drawing the constellation and you have drawn at least
 				// one line
 				if (constellations[currentConstellation].completed == 0
@@ -252,9 +269,12 @@ function mousePressed() {
 				) {
 					
 					// prevents duplicates
-					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][0]) === -1) constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][0]));
-					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][1]) === -1) constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][1]));
-					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][2]) === -1) constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][2]));
+					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][0]) === -1)
+						constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][0]));
+					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][1]) === -1)
+						constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][1]));
+					if (constellations[currentConstellation].startStars.indexOf(constellations[currentConstellation][currentStarV][2]) === -1)
+						constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][2]));
 					
 					//constellations[currentConstellation].startStars.push(
 					//	constellations[currentConstellation][currentStarV][0],
@@ -271,6 +291,11 @@ function mousePressed() {
 	}
 }
 
+function keyPressed(){
+	lastKey = key;
+}
+let startingStarScale = 1;
+
 function constellationCheck() {
 
 	// for each constellation
@@ -279,11 +304,24 @@ function constellationCheck() {
 		// check if hovering near any of the constellation's starting Stars
 		for (let j = 0; j < constellations[i].startStars.length - 1; j = j + 3) {
 			
+			// if mouse within dist * 15, starting star starts to glow
+			if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
+				mouseX, mouseY) < distance * 15) {
+				currentConstellation = i;
+				
+				startingStarScale = ((dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
+				mouseX, mouseY)) - distance * 15) * - 0.1 + 1
+				constellations[i].v1[4] = startingStarScale		
+				if (constellations[i].completed == 1){
+					constellations[i].v1[4] = 1;
+				}
+			}
+		
 			// if yes, set that star's constellation value to currentConstellation
 			if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
 				mouseX, mouseY) < distance) {
 				currentConstellation = i;
-				
+
 				// this is the star value you are hovering over (integer)
 				currentStar = (constellations[i].startStars[j + 2])
 
@@ -295,7 +333,7 @@ function constellationCheck() {
 				
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;
-
+				
 				if (canDraw == 1) { break; }
 			}
 			
@@ -507,7 +545,7 @@ class Star {
 		this.x = random(width);
 		this.y = random(height);
 		this.size = random(0.6, 2);
-		this.t = random(0, TAU);
+		this.t = random(TAU);
 	}
 
 	draw() {
@@ -516,8 +554,8 @@ class Star {
 		let opacity = this.size * 5;
 		noStroke();
 
-		// Highlight
-		fill(200, 195, 255, opacity);
+		// Glow
+		fill(200, 195, 255, opacity * 5);
 		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
@@ -530,17 +568,17 @@ class bigStar {
 	constructor() {
 		this.x = random(width);
 		this.y = random(height);
-		this.size = random(1, 2.49);
+		this.size = random(3, 5);
 		this.t = random(TAU);
 	}
 
 	draw() {
-		this.t += 0.03;
-		var scale = this.size + sin(this.t) / 4;
-		let opacity = this.size * 12;
+		this.t += 0.05;
+		var scale = this.size + sin(this.t) * 3;
+		let opacity = this.size * 5;
 		noStroke();
 
-		// Highlight
+		// Glow
 		fill(200, 195, 255, opacity);
 		ellipse(this.x, this.y, scale * 3, scale * 3);
 

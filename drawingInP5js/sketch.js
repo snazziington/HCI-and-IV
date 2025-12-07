@@ -1,3 +1,5 @@
+//#region Initialise Variables
+
 let aries, taurus, gemini, cancer, leo
 let ariesStars = [];
 let ariesLine = [0, 0, 0, 0];
@@ -22,6 +24,9 @@ let testStars = [];
 let constStarDiameter = 20;
 let constStars = [aries, taurus, gemini, cancer, leo]
 
+//#endregion
+
+//#region Constellation Class
 // some constellations are very. very big
 class Constellation {
 	constructor(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10,
@@ -87,16 +92,7 @@ class Constellation {
 		strokeWeight(dilatingStroke / 3);
 	}
 }
-
-function isStartingStar(star, list) {
-	for (let i = 0; i < list.length; i++) {
-		if (list[i] === star) {
-			return true;
-		}
-	}
-
-	return false;
-}
+//#endregion
 
 function setup() {
 	createCanvas(4885, 1506);
@@ -114,18 +110,15 @@ function setup() {
 		bigStars[i] = new bigStar();
 	}
 
-	// empty default const (0th)
+	// Empty default const (0th)
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
 
-	//#region Sidebar Buttons
 	libButton = createButton ('🕮')
 
 	quizButton = createButton ('Q')
 
 	helpButton = createButton ('⚙')
-	
-	//#endregion
 }
 
 function buttonPlacement() {
@@ -142,64 +135,7 @@ function buttonPlacement() {
 	}
 }
 
-function setupConstellations() {
-	// Aries
-	aries = new Constellation(4579, 223, 4707, 199, 4758, 207, 4770, 221);
-
-	// Taurus
-	taurus = new Constellation(4599, 470, 4480, 483, 4409, 471, 4383, 479, 4359, 481, 4149, 489,
-		4366, 440, 4308, 409, 4154, 379, 4452, 331, 4380, 452, 4400, 453)
-
-	gemini = new Constellation(4046, 483, 4017, 501, 3996, 505, 3930, 485, 3984, 536, 3846, 434,
-		3887, 381, 3779, 421, 3810, 468, 3784, 485, 3756, 473, 3761, 516,
-		3834, 539, 3882, 550, 3968, 588, 3849, 607, 3953, 636);
-
-	cancer = new Constellation(3682, 719, 3587, 606, 3544, 694, 3589, 563, 3580, 467, 3656, 488);
-
-	leo = new Constellation(3388, 533, 3368, 501, 3293, 532, 3280, 580, 3120, 552, 3004, 613,
-		3112, 617, 3307, 684, 3316, 620);
-
-	// pushes all of the constellation's values into the constellations array						
-	constellations.push(
-		{
-			name: "aries", v1: aries.v1, v2: aries.v2, v3: aries.v3, v4: aries.v4,
-			line: [0, 0, 0], completed: 0,
-			startStars: [aries.v1[0], aries.v1[1], aries.v1[2]]
-		},
-
-		{
-			name: "taurus", v1: taurus.v1, v2: taurus.v2, v3: taurus.v3, v4: taurus.v4,
-			v5: taurus.v5, v6: taurus.v6, v7: taurus.v7, v8: taurus.v8,
-			v9: taurus.v9, v10: taurus.v10, v11: taurus.v11, v12: taurus.v12,
-			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
-			startStars: [taurus.v1[0], taurus.v1[1], taurus.v1[2]]
-		},
-
-		{
-			name: "gemini", v1: gemini.v1, v2: gemini.v2, v3: gemini.v3, v4: gemini.v4,
-			v5: gemini.v5, v6: gemini.v6, v7: gemini.v7, v8: gemini.v8,
-			v9: gemini.v9, v10: gemini.v10, v11: gemini.v11, v12: gemini.v12,
-			v13: gemini.v13, v14: gemini.v41, v15: gemini.v15, v16: gemini.v16,
-			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
-			startStars: [gemini.v1[0], gemini.v1[1], gemini.v1[2]]
-		},
-
-		{
-			name: "cancer", v1: cancer.v1, v2: cancer.v2, v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
-			line: [0, 0, 0, 0, 0], completed: 0,
-			startStars: [cancer.v1[0], cancer.v1[1], cancer.v1[2]]
-		},
-
-		{
-			name: "leo", v1: leo.v1, v2: leo.v2, v3: leo.v3, v4: leo.v4,
-			v5: leo.v5, v6: leo.v6, v7: leo.v7, v8: leo.v8,
-			line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
-			startStars: [leo.v1[0], leo.v1[1], leo.v1[2]]
-		},
-
-	);
-}
-//#region Draw
+//#region Draw Function
 function draw() {
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 	
@@ -260,6 +196,7 @@ function draw() {
 	// Ensures that the finished constellations still pulse
 	strokeWeight(((sin(frameCount * 0.015) + 3.5)));
 	lines.forEach((l) => line(l.x1, l.y1, l.x2, l.y2));
+	checkIfStarsAreConnected(); 
 }
 //#endregion
 
@@ -274,6 +211,7 @@ let currentStar;
 let currentStarV;
 let previousStar;
 
+//#region Draw Line/Stars Stuff
 const noLinesDrawn = (value) => value == 0;
 
 function mousePressed() {
@@ -355,6 +293,75 @@ function keyPressed() {
 }
 let startingStarScale = 1;
 
+//#region Constellation Functions
+function isStartingStar(star, list) {
+	for (let i = 0; i < list.length; i++) {
+		if (list[i] === star) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function setupConstellations() {
+	// Aries
+	aries = new Constellation(4579, 223, 4707, 199, 4758, 207, 4770, 221);
+
+	// Taurus
+	taurus = new Constellation(4599, 470, 4480, 483, 4409, 471, 4383, 479, 4359, 481, 4149, 489,
+		4366, 440, 4308, 409, 4154, 379, 4452, 331, 4380, 452, 4400, 453)
+
+	gemini = new Constellation(4046, 483, 4017, 501, 3996, 505, 3930, 485, 3984, 536, 3846, 434,
+		3887, 381, 3779, 421, 3810, 468, 3784, 485, 3756, 473, 3761, 516,
+		3834, 539, 3882, 550, 3968, 588, 3849, 607, 3953, 636);
+
+	cancer = new Constellation(3682, 719, 3587, 606, 3544, 694, 3589, 563, 3580, 467, 3656, 488);
+
+	leo = new Constellation(3388, 533, 3368, 501, 3293, 532, 3280, 580, 3120, 552, 3004, 613,
+		3112, 617, 3307, 684, 3316, 620);
+
+	// pushes all of the constellation's values into the constellations array						
+	constellations.push(
+		{
+			name: "aries", v1: aries.v1, v2: aries.v2, v3: aries.v3, v4: aries.v4,
+			line: [0, 0, 0], completed: 0,
+			startStars: [aries.v1[0], aries.v1[1], aries.v1[2]]
+		},
+
+		{
+			name: "taurus", v1: taurus.v1, v2: taurus.v2, v3: taurus.v3, v4: taurus.v4,
+			v5: taurus.v5, v6: taurus.v6, v7: taurus.v7, v8: taurus.v8,
+			v9: taurus.v9, v10: taurus.v10, v11: taurus.v11, v12: taurus.v12,
+			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
+			startStars: [taurus.v1[0], taurus.v1[1], taurus.v1[2]]
+		},
+
+		{
+			name: "gemini", v1: gemini.v1, v2: gemini.v2, v3: gemini.v3, v4: gemini.v4,
+			v5: gemini.v5, v6: gemini.v6, v7: gemini.v7, v8: gemini.v8,
+			v9: gemini.v9, v10: gemini.v10, v11: gemini.v11, v12: gemini.v12,
+			v13: gemini.v13, v14: gemini.v41, v15: gemini.v15, v16: gemini.v16,
+			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
+			startStars: [gemini.v1[0], gemini.v1[1], gemini.v1[2]]
+		},
+
+		{
+			name: "cancer", v1: cancer.v1, v2: cancer.v2, v3: cancer.v3, v4: cancer.v4, v5: cancer.v5,
+			line: [0, 0, 0, 0, 0], completed: 0,
+			startStars: [cancer.v1[0], cancer.v1[1], cancer.v1[2]]
+		},
+
+		{
+			name: "leo", v1: leo.v1, v2: leo.v2, v3: leo.v3, v4: leo.v4,
+			v5: leo.v5, v6: leo.v6, v7: leo.v7, v8: leo.v8,
+			line: [0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
+			startStars: [leo.v1[0], leo.v1[1], leo.v1[2]]
+		},
+
+	);
+}
+
 function constellationCheck() {
 
 	// for each constellation
@@ -397,35 +404,155 @@ function constellationCheck() {
 			}
 
 			else {
-				//if (canDraw)
 				canDraw = 0;
 			}
 		}
-		if (canDraw == 1) { break; }
+		if (canDraw == 1) {break;}
 	}
 }
 
-const withinDrawingRange = (distance) => distance < dist(constellations[i].v1[0],
-	constellations[i].v1[1], newMouseX, newMouseY);
+// Add and remove startingStars whenever user finishes drawing
+function manageStartingStars() {
+	// Remove 
+	for (let i = 1; i < constellations.length; i++) {
+		for (let j = 0; j < constellations[i].line.length; j++) {
+			if (constellations[i].line[j] == 0) {
+				//push current star into startingStars
+				
+				constellations[currentConstellation].startStars.push((constellations[currentConstellation][currentStarV][0]))
+
+			}
+
+			else if (constellations[i].line[j] == 1) {
+				//remove current star from starting constellations
+
+			}
+		}
+	}
+}
+
+function checkIfStarsAreConnected() {
+
+	//#region Aries
+
+	///--- Code should add a star to the startingStars array
+	// if it is unfinished (at least 1 line drawn, not all)
+	// Stars should be removed if they are finished (all lines drawn)
+	if (constellations[1].line[0] == 0) {
+		if (aries.v1.done != 0){
+			print("push 1");
+			if (constellations[1].startStars.indexOf(constellations[1].v1[0]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1][v1][0]));
+			if (constellations[1].startStars.indexOf(constellations[1].v1[1]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1][v1][1]));
+			print(constellations[1].startStars);
+			aries.v1.done = 0;
+			return;
+		}
+	}
+
+	else if (constellations[1].line[0] == 1) {
+		if (aries.v1.done == 0) {
+			print("remove 1");
+			let index = constellations[1].startStars.indexOf((constellations[1].v2[0]));
+			constellations[1].startStars.splice(index, 2);
+			print(constellations[1].startStars);
+			aries.v1.done = 1;
+		}		
+	}
+
+	if (constellations[1].line[0] == 0 && constellations[1].line[1] == 0) {
+		if (aries.v2.done != 0){
+			print("push 2");
+			if (constellations[1].startStars.indexOf(constellations[1].v2[0]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v2[0]));
+			if (constellations[1].startStars.indexOf(constellations[1].v2[1]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v2[1]));
+			print(constellations[1].startStars);
+			aries.v2.done = 0;
+			return;
+		}
+	}
+
+	else if (constellations[1].line[0] == 1 && constellations[1].line[1] == 1) {
+		if (aries.v2.done == 0) {
+			print("remove 2");
+			let index = constellations[1].startStars.indexOf((constellations[1].v2[0]));
+			constellations[1].startStars.splice(index, 2);
+			print(constellations[1].startStars);
+			aries.v2.done = 1;
+		}		
+	}
+
+	if (constellations[1].line[1] == 0 && constellations[1].line[2] == 0) {
+		if (aries.v3.done != 0){
+			print("push 3");
+			if (constellations[1].startStars.indexOf(constellations[1].v3[0]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v3[0]));
+			if (constellations[1].startStars.indexOf(constellations[1].v3[1]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v3[1]));
+			print(constellations[1].startStars);
+			aries.v3.done = 0;
+			return;
+		}
+	}
+
+	else if (constellations[1].line[1] == 1 && constellations[1].line[2] == 1) {
+		if (aries.v3.done == 0) {
+			print("remove 3");
+			let index = constellations[1].startStars.indexOf((constellations[1].v3[0]));
+			constellations[1].startStars.splice(index, 2);
+			print(constellations[1].startStars);
+			aries.v3.done = 1;
+		}		
+	}
+
+	if (constellations[1].line[3] == 0) {
+		if (aries.v4.done != 0){
+			print("push 4");
+			if (constellations[1].startStars.indexOf(constellations[1].v4[0]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v4[0]));
+			if (constellations[1].startStars.indexOf(constellations[1].v4[1]) === -1)
+				constellations[currentConstellation].startStars.push((constellations[1].v4[1]));
+			print(constellations[1].startStars);
+			aries.v4.done = 0;
+			return;
+		}
+	}
+
+	else if (constellations[1].line[3] == 1) {
+		if (aries.v4.done == 0) {
+			print("remove 4");
+			let index = constellations[1].startStars.indexOf((constellations[1].v4[0]));
+			constellations[1].startStars.splice(index, 2);
+			print(constellations[1].startStars);
+			aries.v4.done = 1;
+		}		
+	}
+	//#endregion
+}
 
 // Will probably have to do nested switch statements for the constellations here I think
 function checkNextStars(currentConstellation) {
 	switch (currentConstellation) { // Check which constellation we are currently drawing
 
 		case 1: // 0 = aries
+			// Checks if each star has been connected to all of their neighbours.
+
 			switch (currentStar) { // Check which star we are on, and
+				
 				// determines neighbouring stars based on currentStar
 				case 1:
-					neighbouringStars = [aries.v2]
+					neighbouringStars = [aries.v2];
 					break;
 				case 2:
-					neighbouringStars = [aries.v1, aries.v3]
+					neighbouringStars = [aries.v1, aries.v3];
 					break;
 				case 3:
-					neighbouringStars = [aries.v2, aries.v4]
+					neighbouringStars = [aries.v2, aries.v4];
 					break;
 				case 4:
-					neighbouringStars = [aries.v3]
+					neighbouringStars = [aries.v3];
 					break;
 			}
 
@@ -570,15 +697,21 @@ function checkNextStars(currentConstellation) {
 	}
 }
 
+//#endregion
+
+//#region idk what this is
+const withinDrawingRange = (distance) => distance < dist(constellations[i].v1[0],
+	constellations[i].v1[1], newMouseX, newMouseY);
 let mouseStartX, mouseStartY;
 let prevTranslationX = 0, prevTranslationY = 0;
+//#endregion
 
 //#region Navigation
 function cameraPanning() {
 	if (keyIsDown(32)) {
 		cursor('grab')
 
-		if (mouseDragging == false){
+		if (mouseDragging == false) {
 			prevTranslationX = translationX;
 			prevTranslationY = translationY;
 			mouseStartX = mouseX;
@@ -616,7 +749,7 @@ function mouseReleased() {
 
 //#endregion
 
-//#region Stars (Background)
+//#region Stars (background)
 class Star {
 	constructor() {
 		this.x = random(width);
@@ -665,14 +798,4 @@ class bigStar {
 	}
 }
 
-class constellationStar {
-	constructor(x, y, d) {
-		this.x = x;
-		this.y = y;
-		this.d = d
-	}
-
-	draw() {
-		circle(this.x, this.y, this.d)
-	}
-}
+//#endregion

@@ -1,10 +1,8 @@
 //#region Initialising variables
 let aries, taurus, gemini, cancer, leo
-let ariesStars = [];
-let ariesLine = [0, 0, 0, 0];
-let lines = [];		// this is where lines will be stored
+let lines = [];		// This is where the drawn lines will be stored
 let constellations = [];
-let distance = 20;		// Ho close you have to click on a constellation to be able to draw it (in pixels)
+let distance = 20;		// How close you have to click on a constellation to be able to draw it (in pixels)
 let mouseDragging = false;
 let panningCamera = false;
 
@@ -18,7 +16,7 @@ let translationY = 0;
 // Stars
 let stars = [];
 let bigStars = [];
-let button, libButton, quizButton, helpButton
+let button, libButton, quizButton, helpButton;
 let testStars = [];
 let constStarDiameter = 20;
 let constStars = [aries, taurus, gemini, cancer, leo]
@@ -67,14 +65,14 @@ class Constellation {
 				noStroke();
 
 				// Glow
-				fill(200, 195, 255, opacity);
+				//fill(200, 195, 255, opacity);
+				fill(255, 0, 0, opacity);
 				circle(this[vx][0], this[vx][1], scale * 3);
 
 				// Star
-				fill(200, 195, 255, opacity * 10);
+				//fill(200, 195, 255, opacity * 10);
+				fill(255, 0, 0, opacity * 10);
 				circle(this[vx][0], this[vx][1], scale);
-
-
 			}
 		}
 
@@ -153,12 +151,12 @@ function buttonPlacement() {
 
 //#region Set Up Constellations
 function setupConstellations() {
-	// Aries
-	aries = new Constellation(4579, 223, 4707, 199, 4758, 207, 4770, 221);
+	// Lower 200
+	aries = new Constellation(4579, 423, 4707, 399, 4758, 407, 4770, 421);
 
-	// Taurus
-	taurus = new Constellation(4599, 470, 4480, 483, 4409, 471, 4383, 479, 4359, 481, 4149, 489,
-		4366, 440, 4308, 409, 4154, 379, 4452, 331, 4380, 452, 4400, 453)
+	// Lower 200
+	taurus = new Constellation(4599, 570, 4480, 583, 4409, 571, 4383, 579, 4359, 581, 4149, 589,
+		4366, 540, 4308, 509, 4154, 479, 4452, 431, 4380, 552, 4400, 553)
 
 	gemini = new Constellation(
     4045,482, 4017,500, 3994,505, 3927,484, 3982,535, 3843,434, 3885,378,
@@ -192,16 +190,18 @@ function setupConstellations() {
 	capricornus = new Constellation(
     1343,943, 1342,974, 1316,1119, 1226,1047, 1308,1144, 1194,1127,
     1178,1060, 1128,1080, 1106,1082);
-
+	
+	// Higher 200
 	aquarius = new Constellation(
-    1244,936, 1226,936, 1098,939, 970,915, 975,1023, 1042,1082, 951,1076,
-    913,1139, 913,1175, 911,1264, 925,949, 896,944, 875,954, 865,1072,
-    803,1128, 864,1276);
-
+    1244,836, 1226,836, 1098,839, 970,815, 975,923, 1042,982, 951,976,
+    913,1039, 913,1075, 911,1164, 925,849, 896,844, 875,854, 865,972,
+    803,1028, 864,1176);
+	
+	// Higher 200
 	pisces = new Constellation(
-    741,980, 727,1016, 680,1033, 666,986, 695,962, 604,996, 538,1007, 
-    460,1049, 414,1063, 338,1119, 306,1142, 278,1186, 252,1205, 273,1102, 
-    291,999, 306,867, 278,836, 310,764);
+    741,780, 727,816, 680,833, 666,786, 695,762, 604,796, 538,807, 
+    460,849, 414,863, 338,919, 306,942, 278,986, 252,1005, 273,902, 
+    291,799, 306,667, 278,636, 310,564);
 
 	// pushes all of the constellation's values into the constellations array						
 	constellations.push(
@@ -331,18 +331,21 @@ function setupConstellations() {
 
 
 
-//#region Draw
+//#region Draw 
 function draw() {
+	print(mouseX, mouseY);
+	translate(0, -200); 
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 	
 	background("#0E1346");
-	buttonPlacement();
-
+	buttonPlacement(); 
 	// Navigation
 	cameraPanning();
 	translate(translationX, translationY);
 	newMouseX = mouseX - translationX;
-	newMouseY = mouseY - translationY;
+	newMouseY = mouseY - translationY + 200 ; 
+	stroke("red");
+	circle(newMouseX, newMouseY, 30)
 	
 	// Stars
 	for (var i = 0; i < stars.length; i++) {
@@ -495,10 +498,6 @@ function mousePressed() {
 	}
 }
 
-/*function keyPressed() {
-	lastKey = key;
-}*/
-
 let startingStarScale = 1;
 
 function constellationCheck() {
@@ -514,14 +513,13 @@ function constellationCheck() {
 				if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
 					newMouseX, newMouseY) < 1000) {
 					currentConstellation = i;
-
+					
 					// and no lines have been drawn!!!!
 					if (constellations[currentConstellation].completed == 0 && constellations[currentConstellation].line.every(noLinesDrawn)) {
-						startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 1000, 10, 5)
-						print(startingStarScale);
+						startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 1000, 7, 4)
 						constellations[i].v1[4] = startingStarScale
 					}
-
+					
 					else if (constellations[i].completed == 1) {
 						constellations[i].v1[4] = 1;
 					}
@@ -573,11 +571,11 @@ function neighbouringStarsGlow(){
 			// If mouse is within range of a neighbouring star, that neighbouring star should glow
 			if (constellations[currentConstellation].completed == 0) {
 				noStroke();
-				let newAlpha = 255 - constrain(map(dist(newMouseX, newMouseY, neighbouringStars[i][0], neighbouringStars[i][1]), 0, 500, 0, 80), 0, 145);
+				let newAlpha = 255 - constrain(map(dist(newMouseX, newMouseY, neighbouringStars[i][0],
+														neighbouringStars[i][1]), 0, 500, 0, 80), 0, 145);
 				alpha += (newAlpha - alpha) * 0.2;
-				print(alpha);
-				fill(200, 195, 255, alpha)
-				let diameter = ((sin(frameCount * 0.08) + 1) * 10) + 8;
+				fill(13, 0, 255, alpha)
+				let diameter = ((sin(frameCount * 0.08) + 2) * 10) + 6;
 				blendMode(OVERLAY);
 				circle(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
 				blendMode(BLEND);
@@ -1891,8 +1889,6 @@ function checkNextStars(currentConstellation) {
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		stroke("red");
 		constellations[currentConstellation].completed = 1;
-		//---let completedConstellation = constellations[currentConstellation];
-		//completedConstellation['completed']();
 	}
 
 	else if (constellations[currentConstellation].line.every(allLinesDrawn) == false) {
@@ -1912,8 +1908,9 @@ let mouseStartX, mouseStartY;
 let prevTranslationX = 0, prevTranslationY = 0;
 
 function cameraPanning() {
-	if (keyIsDown(32)) {
-		cursor('grab')
+	if (keyIsDown(32) || mouseButton == CENTER) {
+		cursor('grab');
+		print(mouseDragging);
 
 		if (mouseDragging == false){
 			prevTranslationX = translationX;
@@ -1922,7 +1919,7 @@ function cameraPanning() {
 			mouseStartY = mouseY;
 		}
 
-		if (mouseDragging == true && mouseButton === LEFT) {
+		if ((mouseDragging == true) && (mouseButton === LEFT || mouseButton === CENTER)) {
 			panningCamera = true;
 			translationX = constrain((prevTranslationX - mouseStartX + mouseX), -4885 + windowWidth - 20, 0);
 			translationY = constrain((prevTranslationY - mouseStartY + mouseY), -1506 + windowHeight - 20, 0);
@@ -1954,7 +1951,7 @@ function mouseReleased() {
 class Star {
 	constructor() {
 		this.x = random(width);
-		this.y = random(height);
+		this.y = random(height + 200);
 		this.size = random(0.6, 2);
 		this.t = random(TAU);
 	}
@@ -1978,7 +1975,7 @@ class Star {
 class bigStar {
 	constructor() {
 		this.x = random(width);
-		this.y = random(height);
+		this.y = random(height + 200);
 		this.size = random(3, 5);
 		this.t = random(TAU);
 	}
@@ -1996,18 +1993,6 @@ class bigStar {
 		// Star
 		fill(200, 195, 255, opacity * 10);
 		ellipse(this.x, this.y, scale, scale);
-	}
-}
-
-class constellationStar {
-	constructor(x, y, d) {
-		this.x = x;
-		this.y = y;
-		this.d = d
-	}
-
-	draw() {
-		circle(this.x, this.y, this.d)
 	}
 }
 //#endregion

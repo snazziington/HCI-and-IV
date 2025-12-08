@@ -30,7 +30,7 @@ button {
 
 sidebar {
   width: 150px;
-  background-color: #212852;
+  /*background-color: rgba(44, 47, 105, 0.418);*/
   position: absolute;
   top: 0%;
   height: 395px;

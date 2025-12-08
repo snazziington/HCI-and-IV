@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   display: flex;
   /*Hide scrollbars*/
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 canvas {

@@ -101,7 +101,7 @@ function isStartingStar(star, list) {
 
 //#region Setup
 function setup() {
-	createCanvas(4885, 1506);
+	createCanvas(6000, 2000);
 	for (let element of document.getElementsByClassName("p5Canvas")) {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
@@ -125,8 +125,6 @@ function setup() {
 	quizButton = createButton('Q')
 
 	helpButton = createButton('⚙')
-
-	polySynth = new p5.PolySynth();
 }
 //#endregion
 
@@ -425,12 +423,18 @@ let currentStarV;
 let previousStar;
 
 const noLinesDrawn = (value) => value == 0;
+let polySynth;
+let soundEffectsOn = 0;
 
 function mousePressed() {
+	if (soundEffectsOn == 0) {
+		polySynth = new p5.PolySynth();
+		soundEffectsOn = 1;
+	}
 	// if not drawing, and mouse is near a starting star
 	// and the constellation isn't completed
 
-	if (!isDrawing && canDraw == 1 && constellations[currentConstellation].completed == 0 && mouseButton === LEFT) {
+	if (!isDrawing && canDraw == 1 && constellations[currentConstellation].completed == 0 && mouseButton === LEFT && keyIsDown(32) == false) {
 		soundEffects(1); // "start drawing" sound
 		constellations[currentConstellation].v1[4] = 1;
 		x1 = nearestStar[0];
@@ -491,14 +495,10 @@ function mousePressed() {
 				isDrawing = false;
 				break;
 			}
-
-			else {
-				//soundEffects(0); // "cannot start drawing here" sound
-			}
 		}
 	}
 
-	else if (!isDrawing && mouseButton === LEFT) {
+	else if (!isDrawing && mouseButton === LEFT && !keyIsDown(32)) {
 		soundEffects(0); // "cannot start drawing here" sound
 	}
 }
@@ -640,40 +640,40 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) { // Check which star we are on, and
 				// determines neighbouring stars based on currentStar
 				case 1:
-					neighbouringStars = [taurus.v2]
+					neighbouringStars = [taurus.v2];
 					break;
 				case 2:
-					neighbouringStars = [taurus.v1, taurus.v3]
+					neighbouringStars = [taurus.v1, taurus.v3];
 					break;
 				case 3:
-					neighbouringStars = [taurus.v2, taurus.v4, taurus.v12]
+					neighbouringStars = [taurus.v2, taurus.v4, taurus.v12];
 					break;
 				case 4:
-					neighbouringStars = [taurus.v3, taurus.v5]
+					neighbouringStars = [taurus.v3, taurus.v5];
 					break;
 				case 5:
-					neighbouringStars = [taurus.v4, taurus.v6, taurus.v7]
+					neighbouringStars = [taurus.v4, taurus.v6, taurus.v7];
 					break;
 				case 6:
-					neighbouringStars = [taurus.v5]
+					neighbouringStars = [taurus.v5];
 					break;
 				case 7:
-					neighbouringStars = [taurus.v5, taurus.v8, taurus.v11,]
+					neighbouringStars = [taurus.v5, taurus.v8, taurus.v11,];
 					break;
 				case 8:
-					neighbouringStars = [taurus.v7, taurus.v9]
+					neighbouringStars = [taurus.v7, taurus.v9];
 					break;
 				case 9:
-					neighbouringStars = [taurus.v8]
+					neighbouringStars = [taurus.v8];
 					break;
 				case 10:
-					neighbouringStars = [taurus.v12]
+					neighbouringStars = [taurus.v12];
 					break;
 				case 11:
-					neighbouringStars = [taurus.v7, taurus.v12]
+					neighbouringStars = [taurus.v7, taurus.v12];
 					break;
 				case 12:
-					neighbouringStars = [taurus.v11, taurus.v3, taurus.v10]
+					neighbouringStars = [taurus.v11, taurus.v3, taurus.v10];
 					break;
 			}
 
@@ -1886,10 +1886,7 @@ function checkNextStars(currentConstellation) {
 			else if ((previousStar == 17 && currentStar == 18) ||
 				(previousStar == 18 && currentStar == 17))
 				constellations[currentConstellation].line[18] = 1;
-
 			break;
-
-
 	}
 
 	// allLinesDrawn = method which returns true if all lines have been drawn
@@ -1912,30 +1909,32 @@ function checkNextStars(currentConstellation) {
 let mouseStartX, mouseStartY;
 let prevTranslationX = 0, prevTranslationY = 0;
 
-function cameraPanning() {
-	if (keyIsDown(32) || mouseButton == CENTER) {
-		cursor('grab');
+// (mouseIsPressed == true && mouseButton == CENTER)
 
-		if (mouseDragging == false) {
-			prevTranslationX = translationX;
-			prevTranslationY = translationY;
+function cameraPanning() { 
+	if (keyIsDown(32)) {
+		cursor('grab');
+	}
+
+	if ((keyIsDown(32) && (mouseDragging == true) && (mouseButton === LEFT)) ||
+		 (mouseIsPressed == true && mouseButton == CENTER)) {
+		if (panningCamera == false){
 			mouseStartX = mouseX;
 			mouseStartY = mouseY;
 		}
-
-		if ((mouseDragging == true) && (mouseButton === LEFT || mouseButton === CENTER)) {
-			panningCamera = true;
-			translationX = constrain((prevTranslationX - mouseStartX + mouseX), -4885 + windowWidth - 20, 0);
-			translationY = constrain((prevTranslationY - mouseStartY + mouseY), -1506 + windowHeight - 20, 0);
-		}
-
-		else {
-			panningCamera = false;
-		}
+		cursor('grab');
+		panningCamera = true;
+		
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), -6000 + windowWidth - 20, 500);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), -1500 + windowHeight - 20, 300);
 	}
 
-	else {
-		cursor(ARROW);
+	else if (mouseDragging == false) {
+		prevTranslationX = translationX;
+		prevTranslationY = translationY;
+		mouseStartX = mouseX;
+		mouseStartY = mouseY;
+		panningCamera = false;
 	}
 }
 
@@ -1945,6 +1944,12 @@ function mouseDragged() {
 
 function mouseReleased() {
 	mouseDragging = false;
+ 	cursor(ARROW);
+}
+
+function keyReleased() {
+	mouseDragging = false;
+	cursor(ARROW);
 }
 
 //#endregion
@@ -1978,8 +1983,8 @@ class Star {
 
 class bigStar {
 	constructor() {
-		this.x = random(width);
-		this.y = random(height + 200);
+		this.x = random(width + 500) - 500;
+		this.y = random(height + 300) - 300;
 		this.size = random(3, 5);
 		this.t = random(TAU);
 	}
@@ -2003,8 +2008,10 @@ class bigStar {
 
 let notes4 = [];
 let notesInt = 0;
+let oldestNote;
 
-function soundEffects(n) {
+//#region Sound Effects
+function soundEffects(n) {	
 	/*0. cannotStartHere
 	1. startDrawing
 	2. continuedToNextStar
@@ -2012,84 +2019,51 @@ function soundEffects(n) {
 	4. completedConstellation*/
 
 	let velocity = 0.1;
-	let dur = 1/3;
+	let dur = 1 / 3;
+	notesInt = (notesInt + round(random(1, 3))) % 4;
 
-	switch (n) {
-		case 0:
-			print("cannotStartHere");
-			polySynth.play('F5', velocity / 10, 0, 0.3);
-			polySynth.play('F4', velocity, 0, 0.3);
-			polySynth.play('F3', velocity / 2, 0, 0.3);
+	if (constellations[currentConstellation].completed == 1 && n == 4) {
+		// Would love it if the chord that plays corresponds to the next
+		// note in the notesInt sequence
+		notes4 = ['F4', 'A5', 'C5', 'F5'];
+		polySynth.play(notes4[0], velocity, 0, dur);
+		polySynth.play(notes4[1], velocity, 0.1, dur);
+		polySynth.play(notes4[2], velocity, 0.2, dur);
+		polySynth.play(notes4[3], velocity, 0.2, dur);
+	}
 
-			polySynth.play('F5', velocity / 10, 0.2, 0.15);
-			polySynth.play('F4', velocity, 0.2, 0.15);
-			polySynth.play('F3', velocity / 2, 0.2, 0.15);
+	else {
+		switch (n) {
+			case 0:
+				//cannotStartHere
+				polySynth.play('F5', velocity / 10, 0, 0.3);
+				polySynth.play('F4', velocity, 0, 0.3);
+				polySynth.play('F3', velocity / 2, 0, 0.3);
 
-			break;
-		case 1:
-			print("startDrawing");
-			polySynth.play('F4', velocity, 0, dur);
-			polySynth.play('C5', velocity, 0.1, dur);
-			polySynth.play('F5', velocity, 0.2, dur);
+				polySynth.play('F5', velocity / 10, 0.2, 0.15);
+				polySynth.play('F4', velocity, 0.2, 0.15);
+				polySynth.play('F3', velocity / 2, 0.2, 0.15);
+				break;
+			case 1:
+				//startDrawing
+				polySynth.play('F4', velocity, 0, dur);
+				polySynth.play('C5', velocity, 0.1, dur);
 
-			polySynth.play('F3', velocity / 5, 0, dur);
-			polySynth.play('C4', velocity / 5, 0.1, dur);
-			polySynth.play('F4', velocity / 5, 0.2, dur);
-
-			break;
-		case 2: 
-			print("continuedToNextStar");
-			let notes2 = ['F4', 'G4', 'A5'];
-			//notesInt = round((random(notes2.length)), 0);
-			notesInt = (notesInt + round(random(1, 2))) % 4;
-			print(notesInt);
-			polySynth.play(notes2[notesInt], velocity, 0, dur);
-			break;
-		case 3:
-			print("stoppedDrawing");
-			polySynth.play('F5', velocity / 10, 0, 0.3);
-			polySynth.play('F4', velocity, 0, 0.3);
-			polySynth.play('F3', velocity / 2, 0, 0.3);
-
-			break;
-		case 4:
-			print("completedConstellation");
-			// Would love it if the chord that plays corresponds to the next
-			// note in the notesInt sequence
-			print(notesInt);
-			notesInt = 0;
-			switch (notesInt) {
-				case 0:
-					notes4 = ['F4', 'A5', 'C5', 'F5'];
-					break;
-				case 1:
-					notes4 = ['G4', 'Bb5', 'D5', 'G5'];
-					break;
-				case 2:
-					notes4 = ['A5', 'C5', 'E5', 'A5'];
-					break;
-				case 3:
-					notes4 = ['Bb5', 'D5', 'F5', 'Bb5'];
-					break;
-				case 4:
-					notes4 = ['C5', 'E5', 'G5', 'C6'];
-					break;
-				case 5:
-					notes4 = ['D5', 'F5', 'G5', 'D6'];
-					break;
-				case 6:
-					notes4 = ['E5', 'G5', 'Bb6', 'E6'];
-					break;
-				case 7:
-					notes4 = ['F5', 'A6', 'C6', 'F6'];
-					break;
-			}
-
-			polySynth.play(notes4[0], velocity, 0, dur);
-			polySynth.play(notes4[1], velocity, 0.1, dur);
-			polySynth.play(notes4[2], velocity, 0.2, dur);
-			polySynth.play(notes4[3], velocity, 0.2, dur);
-			notesInt = (notesInt + 1) % 8
-			break;
+				polySynth.play('F3', velocity / 5, 0, dur);
+				polySynth.play('C4', velocity / 5, 0.1, dur);
+				break;
+			case 2:
+				//continuedToNextStar
+				let notes2 = ['C4', 'E4', 'F4', 'A5', 'C5', 'E5', 'F5'];
+				polySynth.play(notes2[notesInt], velocity, 0, dur);
+				break;
+			case 3:
+				//stoppedDrawing
+				polySynth.play('F5', velocity / 10, 0, 0.3);
+				polySynth.play('F4', velocity, 0, 0.3);
+				polySynth.play('F3', velocity / 2, 0, 0.3);
+				break;
+		}
 	}
 }
+//#endregion

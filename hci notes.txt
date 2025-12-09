@@ -1,10 +1,29 @@
 Things I Need to do Next:
-1. Ensure that neighbouring stars also grow when the constellation is selected.
-   a. Refer to startingStars code for that
-2. Ensure startingStars do not grow larger when at least one line has been drawn in the constellation.
-   a. Use "if ((constellations[currentConstellation].line.every(noLinesDrawn)) == false)"
-3. Should honestly clean up the code and add more headings + regions. I should allocate 30 mins to this. I could technically watch smt while doing this bcs it is quite a low-effort task.
-4. Limit how much 
+Priorities:
+1. Add a visual cue when the constellation is finished (particles/confetti/don't be overdramatic about it) (confetti)
+2. Add auditory cues
+	a. startDrawing
+	b. cannotStartHere
+	c. continuedToNextStar
+	d. stoppedDrawing
+	e. completedConstellation
+3. Should fix that "favicon" error that (sometimes?) pops up in console
+
+3. If you are hovering a completed constellation, it should play a lil thing and text should pop up saying "You have finished drawing this constellation (Pisces).
+---
+Extensions:
+1. Telegraph which stars still need to be connected
+2. Save and reset feature?
+3. Sound slider (in settings?)
+---
+Done To-Dos:
+1. Drag w/ middle mouse button ✓✓
+2. Add all drawn stars to the startingStars array. ✓✓
+3. It's make more sense if constellations are on screen when you start. ✓✓
+4. Ensure startingStars do not grow larger when at least one line has been drawn in the constellation. ✓✓
+5. Ensure that neighbouring stars also grow when the constellation is selected. ✓✓
+6. Should honestly clean up the code and add more headings + regions. I should allocate 30 mins to this. I could technically watch smt while doing this bcs it is quite a low-effort task. ✓✓
+7. Sometimes overlay constellations disappears behind the actuar star. Ensure minimum size is bigger.
 ---
 constructor() {
 		this.x = random(width);

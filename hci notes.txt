@@ -1,15 +1,10 @@
 Things I Need to do Next:
 Priorities:
 1. Add a visual cue when the constellation is finished (particles/confetti/don't be overdramatic about it) (confetti)
-2. Add auditory cues
-	a. startDrawing
-	b. cannotStartHere
-	c. continuedToNextStar
-	d. stoppedDrawing
-	e. completedConstellation
-3. Should fix that "favicon" error that (sometimes?) pops up in console
-
-3. If you are hovering a completed constellation, it should play a lil thing and text should pop up saying "You have finished drawing this constellation (Pisces).
+2. If you are hovering a completed constellation, it should play a different sound to the "nothing is here" sound and text should pop up saying "You have finished drawing this constellation (Pisces).
+3. Should add the ball ache that is going to be "stars with left over connections should glow."
+	a. If a stars has no connections. Then the star should only glow if it is a neighbouring star.
+	b. If a star has at least ONE connections, but not all of them. Then the star should keep glowing until all its connections are made.
 ---
 Extensions:
 1. Telegraph which stars still need to be connected
@@ -23,7 +18,14 @@ Done To-Dos:
 4. Ensure startingStars do not grow larger when at least one line has been drawn in the constellation. ✓✓
 5. Ensure that neighbouring stars also grow when the constellation is selected. ✓✓
 6. Should honestly clean up the code and add more headings + regions. I should allocate 30 mins to this. I could technically watch smt while doing this bcs it is quite a low-effort task. ✓✓
-7. Sometimes overlay constellations disappears behind the actuar star. Ensure minimum size is bigger.
+7. Sometimes overlay constellations disappears behind the actuar star. Ensure minimum size is bigger. ✓✓
+8. Add auditory cues
+	a. startDrawing
+	b. cannotStartHere
+	c. continuedToNextStar
+	d. stoppedDrawing
+	e. completedConstellation
+9. Need to figure out why no sound is playing when I press nothing.
 ---
 constructor() {
 		this.x = random(width);

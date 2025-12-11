@@ -10,8 +10,8 @@ let panningCamera = false;
 let dilatingStroke;
 
 // Navigation
-let translationX = 0;
-let translationY = 0;
+let translationX = -50;
+let translationY = -200;
 
 // Stars
 let stars = [];
@@ -41,38 +41,32 @@ class Constellation {
 
 	draw() {
 		strokeWeight(dilatingStroke / 3);
-		if (this.completed == 1) {
-			stroke("red");
-		}
-
-		else if (this.completed == 0) {
-			stroke("white");
-		}
-
 		beginShape(POINTS);
 
 		// for each constellation, draw each star in its array
 		for (let i = 0; i < constellations.length; i++) {
-
-			for (let j = 1; j < 35; j++) {
+			for (let j = 1; j < constellations[i].size; j++) {
 				let vx = ("v" + j)
+				
+				// but only draw them if they're visible!
+				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound){
+					// Size ranges from 3 to 5
+					this.size = 3 + ((j % 21) / 10);
+					this[vx][3] += random(0.007);
+					var scale = this.size + sin(this[vx][3]) * 3 * this[vx][4];
+					let opacity = this.size * 1;
+					noStroke();
 
-				// Size ranges from 3 to 5
-				this.size = 3 + ((j % 21) / 10);
-				this[vx][3] += random(0.007);
-				var scale = this.size + sin(this[vx][3]) * 3 * this[vx][4];
-				let opacity = this.size * 1;
-				noStroke();
+					// Glow
+					fill(200, 195, 255, opacity);
+					//fill(255, 0, 0, opacity);
+					circle(this[vx][0], this[vx][1], scale * 3);
 
-				// Glow
-				fill(200, 195, 255, opacity);
-				//fill(255, 0, 0, opacity);
-				circle(this[vx][0], this[vx][1], scale * 3);
-
-				// Star
-				fill(200, 195, 255, opacity * 10);
-				//fill(255, 0, 0, opacity * 10);
-				circle(this[vx][0], this[vx][1], scale);
+					// Star
+					fill(200, 195, 255, opacity * 10);
+					//fill(255, 0, 0, opacity * 10);
+					circle(this[vx][0], this[vx][1], scale);
+				}
 			}
 		}
 
@@ -84,35 +78,26 @@ class Constellation {
 		strokeWeight(dilatingStroke / 3);
 	}
 }
-
-function isStartingStar(star, list) {
-	for (let i = 0; i < list.length; i++) {
-		if (list[i] === star) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 //#endregion
 
 
 
 //#region Setup
 function setup() {
-	createCanvas(6000, 2000);
+	createCanvas(5000, 2000);
+
+	// Prevents right-click from putting up the context menu
 	for (let element of document.getElementsByClassName("p5Canvas")) {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
 	stroke("white");
 
-	// Stars
-	for (var i = 0; i < 1000; i++) {
-		stars[i] = new Star();
+	// Initialises Stars
+	for (var i = 0; i < 600; i++) {
+		stars[i] = new Star(); 
 	}
 
-	for (var i = 0; i < 750; i++) {
+	for (var i = 0; i < 600; i++) {
 		bigStars[i] = new bigStar();
 	}
 
@@ -206,13 +191,13 @@ function setupConstellations() {
 	// pushes all of the constellation's values into the constellations array						
 	constellations.push(
 		{
-			name: "aries", v1: aries.v1, v2: aries.v2, v3: aries.v3, v4: aries.v4,
+			name: "aries", size: 4, v1: aries.v1, v2: aries.v2, v3: aries.v3, v4: aries.v4,
 			line: [0, 0, 0], completed: 0,
-			startStars: [aries.v1[0], aries.v1[1], aries.v1[2]]
+			startStars: [aries.v1[0], aries.v1[1], aries.v1[2]],
 		},
 
 		{
-			name: "taurus", v1: taurus.v1, v2: taurus.v2, v3: taurus.v3, v4: taurus.v4,
+			name: "taurus", size: 12, v1: taurus.v1, v2: taurus.v2, v3: taurus.v3, v4: taurus.v4,
 			v5: taurus.v5, v6: taurus.v6, v7: taurus.v7, v8: taurus.v8,
 			v9: taurus.v9, v10: taurus.v10, v11: taurus.v11, v12: taurus.v12,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
@@ -220,7 +205,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "gemini",
+			name: "gemini", size: 17,
 			v1: gemini.v1, v2: gemini.v2, v3: gemini.v3, v4: gemini.v4,
 			v5: gemini.v5, v6: gemini.v6, v7: gemini.v7, v8: gemini.v8,
 			v9: gemini.v9, v10: gemini.v10, v11: gemini.v11, v12: gemini.v12,
@@ -232,7 +217,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "cancer",
+			name: "cancer", size: 6,
 			v1: cancer.v1, v2: cancer.v2, v3: cancer.v3, v4: cancer.v4,
 			v5: cancer.v5, v6: cancer.v6,
 			line: [0, 0, 0, 0, 0],
@@ -241,7 +226,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "leo",
+			name: "leo", size: 9,
 			v1: leo.v1, v2: leo.v2, v3: leo.v3, v4: leo.v4,
 			v5: leo.v5, v6: leo.v6, v7: leo.v7, v8: leo.v8, v9: leo.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -250,7 +235,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "virgo",
+			name: "virgo", size: 12,
 			v1: virgo.v1, v2: virgo.v2, v3: virgo.v3, v4: virgo.v4,
 			v5: virgo.v5, v6: virgo.v6, v7: virgo.v7, v8: virgo.v8,
 			v9: virgo.v9, v10: virgo.v10, v11: virgo.v11, v12: virgo.v12,
@@ -329,32 +314,28 @@ function setupConstellations() {
 
 //#endregion
 
+let maxFrameRate = 0;
+let maxStars = 100;
+let maxBigStars = 100;
+let starsCount = 0;
+let bigStarsCount = 0;
 
+let leftBound, rightBound, topBound, bottomBound;
 
 //#region Draw 
 function draw() {
-	translate(0, -200);
+	
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 
 	background("#0E1346");
 	buttonPlacement();
+
 	// Navigation
 	cameraPanning();
-	translate(translationX, translationY);
-	newMouseX = mouseX - translationX;
-	newMouseY = mouseY - translationY + 200;
+	
+	// Draws background stars when they're visible
+	drawBackgroundStars();
 
-	// Stars
-	for (var i = 0; i < stars.length; i++) {
-		stars[i].draw();
-	}
-
-	for (var i = 0; i < bigStars.length; i++) {
-		bigStars[i].draw();
-	}
-
-	fill("white")
-	stroke("white")
 	aries.draw();
 	taurus.draw();
 	gemini.draw();
@@ -378,20 +359,22 @@ function draw() {
 
 	if (isDrawing) {
 
+		// Ensures starting stars stop glowing larger when you start drawing
+		// by resetting the starting star scale value to 1;
 		for (let i = 1; i < constellations.length; i++) {
 			constellations[i].v1[4] = 1;
 		}
 
 		stroke("white");
-		strokeWeight(2);
+		strokeWeight(((sin(frameCount * 0.015) + 3.5)));
 		line(x1, y1, x2, y2);
 
-		stroke(255, 255, 255, 30)
-		strokeWeight(dilatingStroke / 2);
-		line(x1, y1, x2, y2);
-
-		stroke(255, 255, 255, 15)
+		stroke(200, 195, 255, 30)
 		strokeWeight(dilatingStroke);
+		line(x1, y1, x2, y2);
+
+		stroke(200, 195, 255, 15)
+		strokeWeight(dilatingStroke * 1.5);
 		line(x1, y1, x2, y2);
 
 		checkNextStars(currentConstellation);
@@ -402,9 +385,23 @@ function draw() {
 	y2 = newMouseY;
 	stroke("#adaedfff")
 
-	// Ensures that the finished constellations still pulse
+	// Ensures that the drawn lines pulse
 	strokeWeight(((sin(frameCount * 0.015) + 3.5)));
-	lines.forEach((l) => line(l.x1, l.y1, l.x2, l.y2));
+
+	// Draws the lines constellations if they're visible
+	lines.forEach(drawLineIfVisible);
+
+	// Display Framerate
+	textSize(40);
+	fill("#adaedfff");
+	if (frameCount % 20 == 0){
+		maxFrameRate = frameRate();
+	}
+	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
+	maxFrameRate = max(frameRate(), maxFrameRate);
+
+	strokeWeight(2);
+	fill("white");
 }
 //#endregion
 
@@ -425,6 +422,13 @@ let previousStar;
 const noLinesDrawn = (value) => value == 0;
 let polySynth;
 let soundEffectsOn = 0;
+
+function drawLineIfVisible(l){
+	if (((leftBound < l.x1 && l.x1 < rightBound) || (topBound < l.y1 && l.y1 < bottomBound)) ||
+		((leftBound < l.x2 && l.x2 < rightBound) || (topBound < l.y2 && l.y2 < bottomBound))){
+		line(l.x1, l.y1, l.x2, l.y2)
+	}
+}
 
 function mousePressed() {
 	if (soundEffectsOn == 0) {
@@ -512,8 +516,10 @@ function constellationCheck() {
 		// check if hovering near any of the constellation's starting Stars
 		for (let j = 0; j < constellations[i].startStars.length - 1; j = j + 3) {
 
+			// if not drawing
 			if (isDrawing != 1) {
-				// if mouse within dist * 15, starting star starts to glow
+
+				// if mouse within dist 500px, starting star starts to glow
 				if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
 					newMouseX, newMouseY) < 500) {
 
@@ -1919,14 +1925,14 @@ function cameraPanning() {
 	if ((keyIsDown(32) && (mouseDragging == true) && (mouseButton === LEFT)) ||
 		 (mouseIsPressed == true && mouseButton == CENTER)) {
 		if (panningCamera == false){
-			mouseStartX = mouseX;
+			mouseStartX = mouseX; 
 			mouseStartY = mouseY;
 		}
 		cursor('grab');
 		panningCamera = true;
 		
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), -6000 + windowWidth - 20, 500);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), -1500 + windowHeight - 20, 300);
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 0);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 +  windowHeight, -1500), 0);
 	}
 
 	else if (mouseDragging == false) {
@@ -1935,7 +1941,18 @@ function cameraPanning() {
 		mouseStartX = mouseX;
 		mouseStartY = mouseY;
 		panningCamera = false;
+		
 	}
+
+	// Canvas boundaries
+	leftBound = translationX;
+	rightBound = windowWidth - translationX;
+	topBound = translationY;
+	bottomBound = windowHeight - translationY;
+
+	translate(translationX, translationY); 
+	newMouseX = mouseX - translationX;
+	newMouseY = mouseY - translationY;
 }
 
 function mouseDragged() {
@@ -1957,12 +1974,16 @@ function keyReleased() {
 
 
 //#region Stars (Background)
+let randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
+let randomSize1 = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+let randomSize2 = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
+
 class Star {
 	constructor() {
 		this.x = random(width);
-		this.y = random(height + 200);
-		this.size = random(0.6, 2);
-		this.t = random(TAU);
+		this.y = random(height);
+		this.size = random(randomSize1);
+		this.t = random(randomTAU);
 	}
 
 	draw() {
@@ -1973,20 +1994,20 @@ class Star {
 
 		// Glow
 		fill(200, 195, 255, opacity * 5);
-		ellipse(this.x, this.y, scale * 3, scale * 3);
+		circle(this.x, this.y, scale * 3);
 
 		// Star
 		fill(200, 195, 255, opacity * 10);
-		ellipse(this.x, this.y, scale, scale);
+		circle(this.x, this.y, scale);
 	}
 }
 
 class bigStar {
 	constructor() {
-		this.x = random(width + 500) - 500;
-		this.y = random(height + 300) - 300;
-		this.size = random(3, 5);
-		this.t = random(TAU);
+		this.x = random(width);
+		this.y = random(height);
+		this.size = random(randomSize2);
+		this.t = random(randomTAU);
 	}
 
 	draw() {
@@ -1997,13 +2018,29 @@ class bigStar {
 
 		// Glow
 		fill(200, 195, 255, opacity);
-		ellipse(this.x, this.y, scale * 3, scale * 3);
+		circle(this.x, this.y, scale * 3);
 
 		// Star
 		fill(200, 195, 255, opacity * 10);
-		ellipse(this.x, this.y, scale, scale);
+		circle(this.x, this.y, scale);
 	}
 }
+
+function drawBackgroundStars(){
+	// Stars (only drawn if visible within the window
+	for (var i = 0; i < stars.length; i++) {
+		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
+			stars[i].draw();
+		}
+	}
+
+	for (var i = 0; i < bigStars.length; i++) {
+		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound){
+			bigStars[i].draw();
+		}
+	}
+}
+
 //#endregion
 
 let notes4 = [];

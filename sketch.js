@@ -392,16 +392,13 @@ function draw() {
 	lines.forEach(drawLineIfVisible);
 
 	// Display Framerate
-	textSize(40);
+	/*textSize(40);
 	fill("#adaedfff");
 	if (frameCount % 20 == 0){
 		maxFrameRate = frameRate();
 	}
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = max(frameRate(), maxFrameRate);
-
-	strokeWeight(2);
-	fill("white");
+	maxFrameRate = max(frameRate(), maxFrameRate);*/
 }
 //#endregion
 

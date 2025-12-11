@@ -93,11 +93,11 @@ function setup() {
 	stroke("white");
 
 	// Initialises Stars
-	for (var i = 0; i < 600; i++) {
+	for (var i = 0; i < 400; i++) {
 		stars[i] = new Star(); 
 	}
 
-	for (var i = 0; i < 600; i++) {
+	for (var i = 0; i < 400; i++) {
 		bigStars[i] = new bigStar();
 	}
 

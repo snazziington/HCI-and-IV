@@ -28,15 +28,15 @@ class Constellation {
 		x19, y19, x20, y20, x21, y21, x22, y22, x23, y23, x24, y24, x25, y25, x26, y26,
 		x27, y27, x28, y28, x29, y29, x30, y30, x31, y31, x32, y32, x33, y33, x34, y34,
 		x35, y35) {
-		this.v1 = [x1, y1, 1, random(TAU), 1]; this.v2 = [x2, y2, 2, random(TAU), 1]; this.v3 = [x3, y3, 3, random(TAU), 1]; this.v4 = [x4, y4, 4, random(TAU), 1];
-		this.v5 = [x5, y5, 5, random(TAU), 1]; this.v6 = [x6, y6, 6, random(TAU), 1]; this.v7 = [x7, y7, 7, random(TAU), 1]; this.v8 = [x8, y8, 8, random(TAU), 1];
-		this.v9 = [x9, y9, 9, random(TAU), 1]; this.v10 = [x10, y10, 10, random(TAU), 1]; this.v11 = [x11, y11, 11, random(TAU), 1]; this.v12 = [x12, y12, 12, random(TAU), 1];
-		this.v13 = [x13, y13, 13, random(TAU), 1]; this.v14 = [x14, y14, 14, random(TAU), 1]; this.v15 = [x15, y15, 15, random(TAU), 1]; this.v16 = [x16, y16, 16, random(TAU), 1];
-		this.v17 = [x17, y17, 17, random(TAU), 1]; this.v18 = [x18, y18, 18, random(TAU), 1]; this.v19 = [x19, y19, 19, random(TAU), 1]; this.v20 = [x20, y20, 20, random(TAU), 1];
-		this.v21 = [x21, y21, 21, random(TAU), 1]; this.v22 = [x22, y22, 22, random(TAU), 1]; this.v23 = [x23, y23, 23, random(TAU), 1]; this.v24 = [x24, y24, 24, random(TAU), 1];
-		this.v25 = [x25, y25, 25, random(TAU), 1]; this.v26 = [x26, y26, 26, random(TAU), 1]; this.v27 = [x27, y27, 27, random(TAU), 1]; this.v28 = [x28, y28, 28, random(TAU), 1];
-		this.v29 = [x29, y29, 29, random(TAU), 1]; this.v30 = [x30, y30, 30, random(TAU), 1]; this.v31 = [x31, y31, 31, random(TAU), 1]; this.v32 = [x32, y32, 32, random(TAU), 1];
-		this.v33 = [x33, y33, 33, random(TAU), 1]; this.v34 = [x34, y34, 34, random(TAU), 1]; this.v35 = [x35, y35, 35, random(TAU), 1];
+		this.v1 = [x1, y1, 1, random(randomTAU), 1]; this.v2 = [x2, y2, 2, random(randomTAU), 1]; this.v3 = [x3, y3, 3, random(randomTAU), 1]; this.v4 = [x4, y4, 4, random(randomTAU), 1];
+		this.v5 = [x5, y5, 5, random(randomTAU), 1]; this.v6 = [x6, y6, 6, random(randomTAU), 1]; this.v7 = [x7, y7, 7, random(randomTAU), 1]; this.v8 = [x8, y8, 8, random(randomTAU), 1];
+		this.v9 = [x9, y9, 9, random(randomTAU), 1]; this.v10 = [x10, y10, 10, random(randomTAU), 1]; this.v11 = [x11, y11, 11, random(randomTAU), 1]; this.v12 = [x12, y12, 12, random(randomTAU), 1];
+		this.v13 = [x13, y13, 13, random(randomTAU), 1]; this.v14 = [x14, y14, 14, random(randomTAU), 1]; this.v15 = [x15, y15, 15, random(randomTAU), 1]; this.v16 = [x16, y16, 16, random(randomTAU), 1];
+		this.v17 = [x17, y17, 17, random(randomTAU), 1]; this.v18 = [x18, y18, 18, random(randomTAU), 1]; this.v19 = [x19, y19, 19, random(randomTAU), 1]; this.v20 = [x20, y20, 20, random(randomTAU), 1];
+		this.v21 = [x21, y21, 21, random(randomTAU), 1]; this.v22 = [x22, y22, 22, random(randomTAU), 1]; this.v23 = [x23, y23, 23, random(randomTAU), 1]; this.v24 = [x24, y24, 24, random(randomTAU), 1];
+		this.v25 = [x25, y25, 25, random(randomTAU), 1]; this.v26 = [x26, y26, 26, random(randomTAU), 1]; this.v27 = [x27, y27, 27, random(randomTAU), 1]; this.v28 = [x28, y28, 28, random(randomTAU), 1];
+		this.v29 = [x29, y29, 29, random(randomTAU), 1]; this.v30 = [x30, y30, 30, random(randomTAU), 1]; this.v31 = [x31, y31, 31, random(randomTAU), 1]; this.v32 = [x32, y32, 32, random(randomTAU), 1];
+		this.v33 = [x33, y33, 33, random(randomTAU), 1]; this.v34 = [x34, y34, 34, random(randomTAU), 1]; this.v35 = [x35, y35, 35, random(randomTAU), 1];
 	}
 
 	draw() {

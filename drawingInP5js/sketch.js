@@ -10,8 +10,8 @@ let panningCamera = false;
 let dilatingStroke;
 
 // Navigation
-let translationX = -50;
-let translationY = -200;
+let translationX = -1500;
+let translationY = -300;
 
 // Stars
 let stars = [];
@@ -47,9 +47,9 @@ class Constellation {
 		for (let i = 0; i < constellations.length; i++) {
 			for (let j = 1; j < constellations[i].size; j++) {
 				let vx = ("v" + j)
-				
+
 				// but only draw them if they're visible!
-				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound){
+				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound) {
 					// Size ranges from 3 to 5
 					this.size = 3 + ((j % 21) / 10);
 					this[vx][3] += random(0.007);
@@ -93,11 +93,11 @@ function setup() {
 	stroke("white");
 
 	// Initialises Stars
-	for (var i = 0; i < 600; i++) {
-		stars[i] = new Star(); 
+	for (var i = 0; i < 400; i++) {
+		stars[i] = new Star();
 	}
 
-	for (var i = 0; i < 600; i++) {
+	for (var i = 0; i < 400; i++) {
 		bigStars[i] = new bigStar();
 	}
 
@@ -106,10 +106,11 @@ function setup() {
 	setupConstellations();
 
 	libButton = createButton('🕮')
-
 	quizButton = createButton('Q')
-
 	helpButton = createButton('⚙')
+	libButton.mousePressed(libButtonPress)
+	quizButton.mousePressed(quizButtonPress)
+	helpButton.mousePressed(helpButtonPress)
 }
 //#endregion
 
@@ -172,7 +173,7 @@ function setupConstellations() {
 		1624, 1108, 1665, 1058, 1636, 1054, 1613, 985, 1594, 997, 1543, 968, 1526, 954,
 		1605, 1082, 1503, 1065, 1427, 1133, 1480, 1238, 1533, 1328, 1610, 1276, 1634, 1335);
 
-	capricornus = new Constellation(
+	capricorn = new Constellation(
 		1343, 943, 1342, 974, 1316, 1119, 1226, 1047, 1308, 1144, 1194, 1127,
 		1178, 1060, 1128, 1080, 1106, 1082);
 
@@ -277,13 +278,13 @@ function setupConstellations() {
 		},
 
 		{
-			name: "capricornus",
-			v1: capricornus.v1, v2: capricornus.v2, v3: capricornus.v3, v4: capricornus.v4,
-			v5: capricornus.v5, v6: capricornus.v6, v7: capricornus.v7, v8: capricornus.v8,
-			v9: capricornus.v9,
+			name: "capricorn",
+			v1: capricorn.v1, v2: capricorn.v2, v3: capricorn.v3, v4: capricorn.v4,
+			v5: capricorn.v5, v6: capricorn.v6, v7: capricorn.v7, v8: capricorn.v8,
+			v9: capricorn.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [capricornus.v1[0], capricornus.v1[1], capricornus.v1[2]]
+			startStars: [capricorn.v1[0], capricorn.v1[1], capricorn.v1[2]]
 		},
 
 		{
@@ -324,7 +325,7 @@ let leftBound, rightBound, topBound, bottomBound;
 
 //#region Draw 
 function draw() {
-	
+
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 
 	background("#0E1346");
@@ -332,7 +333,7 @@ function draw() {
 
 	// Navigation
 	cameraPanning();
-	
+
 	// Draws background stars when they're visible
 	drawBackgroundStars();
 
@@ -345,7 +346,7 @@ function draw() {
 	libra.draw();
 	scorpius.draw();
 	sagittarius.draw();
-	capricornus.draw();
+	capricorn.draw();
 	aquarius.draw();
 	pisces.draw();
 
@@ -394,14 +395,12 @@ function draw() {
 	// Display Framerate
 	textSize(40);
 	fill("#adaedfff");
-	if (frameCount % 20 == 0){
+	if (frameCount % 20 == 0) {
 		maxFrameRate = frameRate();
 	}
+
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
 	maxFrameRate = max(frameRate(), maxFrameRate);
-
-	strokeWeight(2);
-	fill("white");
 }
 //#endregion
 
@@ -423,9 +422,9 @@ const noLinesDrawn = (value) => value == 0;
 let polySynth;
 let soundEffectsOn = 0;
 
-function drawLineIfVisible(l){
+function drawLineIfVisible(l) {
 	if (((leftBound < l.x1 && l.x1 < rightBound) || (topBound < l.y1 && l.y1 < bottomBound)) ||
-		((leftBound < l.x2 && l.x2 < rightBound) || (topBound < l.y2 && l.y2 < bottomBound))){
+		((leftBound < l.x2 && l.x2 < rightBound) || (topBound < l.y2 && l.y2 < bottomBound))) {
 		line(l.x1, l.y1, l.x2, l.y2)
 	}
 }
@@ -1533,43 +1532,43 @@ function checkNextStars(currentConstellation) {
 
 			break;
 
-		case 10: // Capricornus
+		case 10: // capricorn
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [capricorn.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
+					neighbouringStars = [capricorn.v1, capricorn.v3, capricorn.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [capricorn.v2];
 					break;
 
 				case 4:
-					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
+					neighbouringStars = [capricorn.v2, capricorn.v5, capricorn.v6, capricorn.v7];
 					break;
 
 				case 5:
-					neighbouringStars = [capricornus.v4];
+					neighbouringStars = [capricorn.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [capricornus.v4, capricornus.v7];
+					neighbouringStars = [capricorn.v4, capricorn.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
+					neighbouringStars = [capricorn.v4, capricorn.v6, capricorn.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [capricornus.v7, capricornus.v9];
+					neighbouringStars = [capricorn.v7, capricorn.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [capricornus.v8];
+					neighbouringStars = [capricorn.v8];
 					break;
 			}
 
@@ -1900,6 +1899,7 @@ function checkNextStars(currentConstellation) {
 
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		constellations[currentConstellation].completed = 1;
+		addConstellationToLibrary(currentConstellation);
 		soundEffects(4); // "completed constellation" sound
 	}
 
@@ -1909,7 +1909,11 @@ function checkNextStars(currentConstellation) {
 }
 //#endregion
 
-
+function addConstellationToLibrary(c){
+	print("Adding constellation to library");
+	var currentConst = document.getElementById(constellations[c].name + "Item");
+	currentConst.style.display = "block";
+} 
 
 //#region Navigation
 let mouseStartX, mouseStartY;
@@ -1917,22 +1921,22 @@ let prevTranslationX = 0, prevTranslationY = 0;
 
 // (mouseIsPressed == true && mouseButton == CENTER)
 
-function cameraPanning() { 
+function cameraPanning() {
 	if (keyIsDown(32)) {
 		cursor('grab');
 	}
 
 	if ((keyIsDown(32) && (mouseDragging == true) && (mouseButton === LEFT)) ||
-		 (mouseIsPressed == true && mouseButton == CENTER)) {
-		if (panningCamera == false){
-			mouseStartX = mouseX; 
+		(mouseIsPressed == true && mouseButton == CENTER)) {
+		if (panningCamera == false) {
+			mouseStartX = mouseX;
 			mouseStartY = mouseY;
 		}
 		cursor('grab');
 		panningCamera = true;
-		
+
 		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 0);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 +  windowHeight, -1500), 0);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 + windowHeight, -1500), 0);
 	}
 
 	else if (mouseDragging == false) {
@@ -1941,16 +1945,15 @@ function cameraPanning() {
 		mouseStartX = mouseX;
 		mouseStartY = mouseY;
 		panningCamera = false;
-		
 	}
 
 	// Canvas boundaries
-	leftBound = translationX;
-	rightBound = windowWidth - translationX;
-	topBound = translationY;
+	leftBound = -translationX;
+	rightBound = -translationX + windowWidth;
+	topBound = -translationY;
 	bottomBound = windowHeight - translationY;
 
-	translate(translationX, translationY); 
+	translate(translationX, translationY);
 	newMouseX = mouseX - translationX;
 	newMouseY = mouseY - translationY;
 }
@@ -1961,14 +1964,13 @@ function mouseDragged() {
 
 function mouseReleased() {
 	mouseDragging = false;
- 	cursor(ARROW);
+	cursor(ARROW);
 }
 
 function keyReleased() {
 	mouseDragging = false;
 	cursor(ARROW);
 }
-
 //#endregion
 
 
@@ -2026,16 +2028,16 @@ class bigStar {
 	}
 }
 
-function drawBackgroundStars(){
+function drawBackgroundStars() {
 	// Stars (only drawn if visible within the window
 	for (var i = 0; i < stars.length; i++) {
-		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
+		if (leftBound< stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
 			stars[i].draw();
 		}
-	}
+	} 
 
 	for (var i = 0; i < bigStars.length; i++) {
-		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound){
+		if (leftBound< bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
 			bigStars[i].draw();
 		}
 	}
@@ -2048,7 +2050,7 @@ let notesInt = 0;
 let oldestNote;
 
 //#region Sound Effects
-function soundEffects(n) {	
+function soundEffects(n) {
 	/*0. cannotStartHere
 	1. startDrawing
 	2. continuedToNextStar
@@ -2101,6 +2103,57 @@ function soundEffects(n) {
 				polySynth.play('F3', velocity / 2, 0, 0.3);
 				break;
 		}
+	}
+}
+//#endregion
+
+
+
+//#region Button Functions
+function libButtonPress() {
+	print("lib button press")
+	var lib = document.getElementById("library");
+	if (lib.style.display === "none") {
+		lib.style.display = "block";
+	} else {
+		lib.style.display = "none";
+	}
+}
+
+function quizButtonPress() {
+	print("quiz button press")
+}
+
+function helpButtonPress() {
+	print("help button press")
+}
+
+function keyPressed() {
+	switch (key) {
+		case 'q':
+			q.true = 1;
+			background("pink")
+			break;
+
+		case 'w':
+			w.true = 1;
+			background("coral")
+			break;
+
+		case 'e':
+			e.true = 1;
+			background("yellow")
+			break;
+
+		case 'r':
+			r.true = 1;
+			background("lime")
+			break;
+
+		case 't':
+			t.true = 1;
+			background("cyan")
+			break;
 	}
 }
 //#endregion

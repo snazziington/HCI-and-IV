@@ -60,3 +60,72 @@ sidebar {
     font-size: 48px;
   }
 }
+
+library {
+  width: 30%;
+  background-color: rgba(44, 47, 105, 0.418);
+  position: absolute;
+  top: 0%;
+  height: 100%;
+  display: block;
+  color: white;
+}
+
+libraryItems{
+  margin: 25px 100px;
+  display: block;
+}
+
+ariesItem {
+  display: none;
+}
+
+taurusItem {
+  display: none;
+}
+
+geminiItem {
+  display: none;
+}
+
+cancerItem {
+  display: none;
+}
+
+leoItem {
+  display: none;
+}
+
+virgoItem {
+  display: none;
+}
+
+libraItem {
+  display: none;
+}
+
+scorpioItem {
+  display: none;
+}
+
+sagittariusItem {
+  display: none;
+}
+
+capricornItem {
+  display: none;
+}
+
+aquariusItem {
+  display: none;
+}
+
+piscesItem {
+  display: none;
+}
+
+@media screen and (max-width: 1500px){
+  library {
+    width: 450px;
+  }
+}

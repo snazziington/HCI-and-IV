@@ -8,18 +8,16 @@ let panningCamera = false;
 
 // Drawing
 let dilatingStroke;
+let buttons = [];
 
 // Navigation
-let translationX = -50;
-let translationY = -200;
+let translationX = -1500;
+let translationY = -300;
 
 // Stars
 let stars = [];
 let bigStars = [];
 let button, libButton, quizButton, helpButton;
-let testStars = [];
-let constStarDiameter = 20;
-let constStars = [aries, taurus, gemini, cancer, leo]
 
 //#region Constellation Info
 class Constellation {
@@ -28,15 +26,15 @@ class Constellation {
 		x19, y19, x20, y20, x21, y21, x22, y22, x23, y23, x24, y24, x25, y25, x26, y26,
 		x27, y27, x28, y28, x29, y29, x30, y30, x31, y31, x32, y32, x33, y33, x34, y34,
 		x35, y35) {
-		this.v1 = [x1, y1, 1, random(TAU), 1]; this.v2 = [x2, y2, 2, random(TAU), 1]; this.v3 = [x3, y3, 3, random(TAU), 1]; this.v4 = [x4, y4, 4, random(TAU), 1];
-		this.v5 = [x5, y5, 5, random(TAU), 1]; this.v6 = [x6, y6, 6, random(TAU), 1]; this.v7 = [x7, y7, 7, random(TAU), 1]; this.v8 = [x8, y8, 8, random(TAU), 1];
-		this.v9 = [x9, y9, 9, random(TAU), 1]; this.v10 = [x10, y10, 10, random(TAU), 1]; this.v11 = [x11, y11, 11, random(TAU), 1]; this.v12 = [x12, y12, 12, random(TAU), 1];
-		this.v13 = [x13, y13, 13, random(TAU), 1]; this.v14 = [x14, y14, 14, random(TAU), 1]; this.v15 = [x15, y15, 15, random(TAU), 1]; this.v16 = [x16, y16, 16, random(TAU), 1];
-		this.v17 = [x17, y17, 17, random(TAU), 1]; this.v18 = [x18, y18, 18, random(TAU), 1]; this.v19 = [x19, y19, 19, random(TAU), 1]; this.v20 = [x20, y20, 20, random(TAU), 1];
-		this.v21 = [x21, y21, 21, random(TAU), 1]; this.v22 = [x22, y22, 22, random(TAU), 1]; this.v23 = [x23, y23, 23, random(TAU), 1]; this.v24 = [x24, y24, 24, random(TAU), 1];
-		this.v25 = [x25, y25, 25, random(TAU), 1]; this.v26 = [x26, y26, 26, random(TAU), 1]; this.v27 = [x27, y27, 27, random(TAU), 1]; this.v28 = [x28, y28, 28, random(TAU), 1];
-		this.v29 = [x29, y29, 29, random(TAU), 1]; this.v30 = [x30, y30, 30, random(TAU), 1]; this.v31 = [x31, y31, 31, random(TAU), 1]; this.v32 = [x32, y32, 32, random(TAU), 1];
-		this.v33 = [x33, y33, 33, random(TAU), 1]; this.v34 = [x34, y34, 34, random(TAU), 1]; this.v35 = [x35, y35, 35, random(TAU), 1];
+		this.v1 = [x1, y1, 1, random(randomTAU), 1]; this.v2 = [x2, y2, 2, random(randomTAU), 1]; this.v3 = [x3, y3, 3, random(randomTAU), 1]; this.v4 = [x4, y4, 4, random(randomTAU), 1];
+		this.v5 = [x5, y5, 5, random(randomTAU), 1]; this.v6 = [x6, y6, 6, random(randomTAU), 1]; this.v7 = [x7, y7, 7, random(randomTAU), 1]; this.v8 = [x8, y8, 8, random(randomTAU), 1];
+		this.v9 = [x9, y9, 9, random(randomTAU), 1]; this.v10 = [x10, y10, 10, random(randomTAU), 1]; this.v11 = [x11, y11, 11, random(randomTAU), 1]; this.v12 = [x12, y12, 12, random(randomTAU), 1];
+		this.v13 = [x13, y13, 13, random(randomTAU), 1]; this.v14 = [x14, y14, 14, random(randomTAU), 1]; this.v15 = [x15, y15, 15, random(randomTAU), 1]; this.v16 = [x16, y16, 16, random(randomTAU), 1];
+		this.v17 = [x17, y17, 17, random(randomTAU), 1]; this.v18 = [x18, y18, 18, random(randomTAU), 1]; this.v19 = [x19, y19, 19, random(randomTAU), 1]; this.v20 = [x20, y20, 20, random(randomTAU), 1];
+		this.v21 = [x21, y21, 21, random(randomTAU), 1]; this.v22 = [x22, y22, 22, random(randomTAU), 1]; this.v23 = [x23, y23, 23, random(randomTAU), 1]; this.v24 = [x24, y24, 24, random(randomTAU), 1];
+		this.v25 = [x25, y25, 25, random(randomTAU), 1]; this.v26 = [x26, y26, 26, random(randomTAU), 1]; this.v27 = [x27, y27, 27, random(randomTAU), 1]; this.v28 = [x28, y28, 28, random(randomTAU), 1];
+		this.v29 = [x29, y29, 29, random(randomTAU), 1]; this.v30 = [x30, y30, 30, random(randomTAU), 1]; this.v31 = [x31, y31, 31, random(randomTAU), 1]; this.v32 = [x32, y32, 32, random(randomTAU), 1];
+		this.v33 = [x33, y33, 33, random(randomTAU), 1]; this.v34 = [x34, y34, 34, random(randomTAU), 1]; this.v35 = [x35, y35, 35, random(randomTAU), 1];
 	}
 
 	draw() {
@@ -47,9 +45,9 @@ class Constellation {
 		for (let i = 0; i < constellations.length; i++) {
 			for (let j = 1; j < constellations[i].size; j++) {
 				let vx = ("v" + j)
-				
+
 				// but only draw them if they're visible!
-				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound){
+				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound) {
 					// Size ranges from 3 to 5
 					this.size = 3 + ((j % 21) / 10);
 					this[vx][3] += random(0.007);
@@ -94,7 +92,7 @@ function setup() {
 
 	// Initialises Stars
 	for (var i = 0; i < 400; i++) {
-		stars[i] = new Star(); 
+		stars[i] = new Star();
 	}
 
 	for (var i = 0; i < 400; i++) {
@@ -106,10 +104,15 @@ function setup() {
 	setupConstellations();
 
 	libButton = createButton('🕮')
-
 	quizButton = createButton('Q')
-
 	helpButton = createButton('⚙')
+
+	buttons.push(libButton);
+	buttons.push(quizButton);
+	buttons.push(helpButton);
+	libButton.mousePressed(libButtonPress)
+	quizButton.mousePressed(quizButtonPress)
+	helpButton.mousePressed(helpButtonPress)
 }
 //#endregion
 
@@ -172,7 +175,7 @@ function setupConstellations() {
 		1624, 1108, 1665, 1058, 1636, 1054, 1613, 985, 1594, 997, 1543, 968, 1526, 954,
 		1605, 1082, 1503, 1065, 1427, 1133, 1480, 1238, 1533, 1328, 1610, 1276, 1634, 1335);
 
-	capricornus = new Constellation(
+	capricorn = new Constellation(
 		1343, 943, 1342, 974, 1316, 1119, 1226, 1047, 1308, 1144, 1194, 1127,
 		1178, 1060, 1128, 1080, 1106, 1082);
 
@@ -253,7 +256,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "scorpius",
+			name: "scorpio",
 			v1: scorpius.v1, v2: scorpius.v2, v3: scorpius.v3, v4: scorpius.v4,
 			v5: scorpius.v5, v6: scorpius.v6, v7: scorpius.v7, v8: scorpius.v8,
 			v9: scorpius.v9, v10: scorpius.v10, v11: scorpius.v11, v12: scorpius.v12,
@@ -277,13 +280,13 @@ function setupConstellations() {
 		},
 
 		{
-			name: "capricornus",
-			v1: capricornus.v1, v2: capricornus.v2, v3: capricornus.v3, v4: capricornus.v4,
-			v5: capricornus.v5, v6: capricornus.v6, v7: capricornus.v7, v8: capricornus.v8,
-			v9: capricornus.v9,
+			name: "capricorn",
+			v1: capricorn.v1, v2: capricorn.v2, v3: capricorn.v3, v4: capricorn.v4,
+			v5: capricorn.v5, v6: capricorn.v6, v7: capricorn.v7, v8: capricorn.v8,
+			v9: capricorn.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [capricornus.v1[0], capricornus.v1[1], capricornus.v1[2]]
+			startStars: [capricorn.v1[0], capricorn.v1[1], capricorn.v1[2]]
 		},
 
 		{
@@ -324,7 +327,7 @@ let leftBound, rightBound, topBound, bottomBound;
 
 //#region Draw 
 function draw() {
-	
+
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 
 	background("#0E1346");
@@ -332,7 +335,7 @@ function draw() {
 
 	// Navigation
 	cameraPanning();
-	
+
 	// Draws background stars when they're visible
 	drawBackgroundStars();
 
@@ -345,7 +348,7 @@ function draw() {
 	libra.draw();
 	scorpius.draw();
 	sagittarius.draw();
-	capricornus.draw();
+	capricorn.draw();
 	aquarius.draw();
 	pisces.draw();
 
@@ -392,13 +395,14 @@ function draw() {
 	lines.forEach(drawLineIfVisible);
 
 	// Display Framerate
-	/*textSize(40);
+	textSize(40);
 	fill("#adaedfff");
-	if (frameCount % 20 == 0){
+	if (frameCount % 20 == 0) {
 		maxFrameRate = frameRate();
 	}
+
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = max(frameRate(), maxFrameRate);*/
+	maxFrameRate = max(frameRate(), maxFrameRate);
 }
 //#endregion
 
@@ -420,9 +424,9 @@ const noLinesDrawn = (value) => value == 0;
 let polySynth;
 let soundEffectsOn = 0;
 
-function drawLineIfVisible(l){
+function drawLineIfVisible(l) {
 	if (((leftBound < l.x1 && l.x1 < rightBound) || (topBound < l.y1 && l.y1 < bottomBound)) ||
-		((leftBound < l.x2 && l.x2 < rightBound) || (topBound < l.y2 && l.y2 < bottomBound))){
+		((leftBound < l.x2 && l.x2 < rightBound) || (topBound < l.y2 && l.y2 < bottomBound))) {
 		line(l.x1, l.y1, l.x2, l.y2)
 	}
 }
@@ -1530,43 +1534,43 @@ function checkNextStars(currentConstellation) {
 
 			break;
 
-		case 10: // Capricornus
+		case 10: // capricorn
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [capricorn.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
+					neighbouringStars = [capricorn.v1, capricorn.v3, capricorn.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [capricorn.v2];
 					break;
 
 				case 4:
-					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
+					neighbouringStars = [capricorn.v2, capricorn.v5, capricorn.v6, capricorn.v7];
 					break;
 
 				case 5:
-					neighbouringStars = [capricornus.v4];
+					neighbouringStars = [capricorn.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [capricornus.v4, capricornus.v7];
+					neighbouringStars = [capricorn.v4, capricorn.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
+					neighbouringStars = [capricorn.v4, capricorn.v6, capricorn.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [capricornus.v7, capricornus.v9];
+					neighbouringStars = [capricorn.v7, capricorn.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [capricornus.v8];
+					neighbouringStars = [capricorn.v8];
 					break;
 			}
 
@@ -1897,6 +1901,7 @@ function checkNextStars(currentConstellation) {
 
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		constellations[currentConstellation].completed = 1;
+		addConstellationToLibrary(currentConstellation);
 		soundEffects(4); // "completed constellation" sound
 	}
 
@@ -1906,7 +1911,11 @@ function checkNextStars(currentConstellation) {
 }
 //#endregion
 
-
+function addConstellationToLibrary(c){
+	print("Adding constellation to library");
+	var currentConst = document.getElementById(constellations[c].name + "Item");
+	currentConst.style.display = "block";
+} 
 
 //#region Navigation
 let mouseStartX, mouseStartY;
@@ -1914,22 +1923,23 @@ let prevTranslationX = 0, prevTranslationY = 0;
 
 // (mouseIsPressed == true && mouseButton == CENTER)
 
-function cameraPanning() { 
+function cameraPanning() {
 	if (keyIsDown(32)) {
 		cursor('grab');
 	}
 
 	if ((keyIsDown(32) && (mouseDragging == true) && (mouseButton === LEFT)) ||
-		 (mouseIsPressed == true && mouseButton == CENTER)) {
-		if (panningCamera == false){
-			mouseStartX = mouseX; 
+		(mouseIsPressed == true && mouseButton == CENTER)) {
+		if (panningCamera == false) {
+			mouseStartX = mouseX;
 			mouseStartY = mouseY;
 		}
+
 		cursor('grab');
 		panningCamera = true;
-		
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 0);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 +  windowHeight, -1500), 0);
+
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 500);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 + windowHeight, -1500), 0);
 	}
 
 	else if (mouseDragging == false) {
@@ -1938,16 +1948,15 @@ function cameraPanning() {
 		mouseStartX = mouseX;
 		mouseStartY = mouseY;
 		panningCamera = false;
-		
 	}
 
 	// Canvas boundaries
-	leftBound = translationX;
-	rightBound = windowWidth - translationX;
-	topBound = translationY;
+	leftBound = -translationX;
+	rightBound = -translationX + windowWidth;
+	topBound = -translationY;
 	bottomBound = windowHeight - translationY;
 
-	translate(translationX, translationY); 
+	translate(translationX, translationY);
 	newMouseX = mouseX - translationX;
 	newMouseY = mouseY - translationY;
 }
@@ -1958,14 +1967,13 @@ function mouseDragged() {
 
 function mouseReleased() {
 	mouseDragging = false;
- 	cursor(ARROW);
+	cursor(ARROW);
 }
 
 function keyReleased() {
 	mouseDragging = false;
 	cursor(ARROW);
 }
-
 //#endregion
 
 
@@ -2023,16 +2031,16 @@ class bigStar {
 	}
 }
 
-function drawBackgroundStars(){
+function drawBackgroundStars() {
 	// Stars (only drawn if visible within the window
 	for (var i = 0; i < stars.length; i++) {
-		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
+		if (leftBound< stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
 			stars[i].draw();
 		}
-	}
+	} 
 
 	for (var i = 0; i < bigStars.length; i++) {
-		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound){
+		if (leftBound< bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
 			bigStars[i].draw();
 		}
 	}
@@ -2045,7 +2053,7 @@ let notesInt = 0;
 let oldestNote;
 
 //#region Sound Effects
-function soundEffects(n) {	
+function soundEffects(n) {
 	/*0. cannotStartHere
 	1. startDrawing
 	2. continuedToNextStar
@@ -2098,6 +2106,57 @@ function soundEffects(n) {
 				polySynth.play('F3', velocity / 2, 0, 0.3);
 				break;
 		}
+	}
+}
+//#endregion
+
+
+
+//#region Button Functions
+function libButtonPress() {
+	print("lib button press")
+	var lib = document.getElementById("library");
+	if (lib.style.display === "none") {
+		lib.style.display = "block";
+	} else {
+		lib.style.display = "none";
+	}
+}
+
+function quizButtonPress() {
+	print("quiz button press")
+}
+
+function helpButtonPress() {
+	print("help button press")
+}
+
+function keyPressed() {
+	switch (key) {
+		case 'q':
+			q.true = 1;
+			background("pink")
+			break;
+
+		case 'w':
+			w.true = 1;
+			background("coral")
+			break;
+
+		case 'e':
+			e.true = 1;
+			background("yellow")
+			break;
+
+		case 'r':
+			r.true = 1;
+			background("lime")
+			break;
+
+		case 't':
+			t.true = 1;
+			background("cyan")
+			break;
 	}
 }
 //#endregion

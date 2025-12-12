@@ -1,13 +1,38 @@
 Things I Need to do Next:
-Priorities:
-1. Optimise the code
-	a. In bigStars and Stars draw(), if the star is not within 1000px of the mouse, don't draw it
-	b. 
-2. Add a visual cue when the constellation is finished (particles/confetti/don't be overdramatic about it) (confetti)
-3. If you are hovering a completed constellation, it should play a different sound to the "nothing is here" sound and text should pop up saying "You have finished drawing this constellation (Pisces).
-4. Should add the ball ache that is going to be "stars with left over connections should glow."
+---
+UI
+1. Each star needs a short description in the pop-up window.
+2. There should be a close button when the constellation window appears (top right ofc)
+	a. If the user left clicks off the pop-up window, that should also close it
+	b. The user should not be able to draw while the popup window is there.
+	c. Maybe they also cannot pan when the popup window is there.
+3. You should be able to click on the star in the library to get the pop-up window to appear
+4. You should be able to click on the finished constellation in the canvas to get a pop-up window to appear
+	a. Or maybe as you're hovering a finished constellation it showed a checkmark next to your mouse? So you know it is finished?
+	b. Or if you click a finished constellation there's a pop up that says "This is [constellation name]. Click here for more details." And if you click on that window, /then/ the pop-up window appears
+5. When you finish drawing a constellation, a little temporary window should pop up saying "You just finished drawing [constellation name]! Click here for more info."
+6. There should be an image of the constellation next to the name in the library.
+7. Change background colour of both windows to darkish purple (semi-transparent).
+8. Choose a nice font for the constellation names, and increase the font size of the name.
+9. 
+
+---
+Priorities
+1. Should add the ball ache that is going to be "stars with left over connections should glow."
 	a. If a stars has no connections. Then the star should only glow if it is a neighbouring star.
 	b. If a star has at least ONE connections, but not all of them. Then the star should keep glowing until all its connections are made.
+---
+Feedback:
+1. Add a visual cue when the constellation is finished (particles/confetti/don't be overdramatic about it) (confetti)
+Priorities:
+2. If you are hovering a completed constellation, it should play a different sound to the "nothing is here" sound and text should pop up saying "You have finished drawing this constellation (Pisces).
+---
+5. If a neighbouringStar is off screen it show glow much larger.
+---
+Optimisations:
+1. Optimise the code
+	a. In bigStars and Stars draw(), if the star is not visible, don't draw it
+	b. Could reduce number of stars and bigStars to like 100 each. And when you scroll right and it is no longer visible, add windowWidth/windowHeight to it (so the star teleports to the edge of the window so it is technically "always" there.
 ---
 Extensions:
 1. Telegraph which stars still need to be connected

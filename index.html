@@ -6,12 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Sketch</title>
+  <link rel="icon" type="/x-icon" href="/favicon.ico">
 
   <link rel="stylesheet" type="text/css" href="style.css">
 
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+
+  
+</head>
+
+<body>
+  <script src="sketch.js"> </script>
+  
   <!-- Sidebar -->
-  <sidebar>
-  </sidebar>
+  
+
   <!-- Library -->
   <library id="library">
     <libraryItems id="libraryItems">
@@ -30,14 +40,33 @@
         <piscesItem id="piscesItem"> Pisces </piscesItem>
       </ul>
     </libraryItems>
+    
   </library>
 
-  <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script>
-</head>
+  <constellationPopups id="constellationPopups">
+      <ariesPopup id="ariesPopup"> Aries P </ariesPopup>
+        <taurusPopup id="taurusPopup"> Taurus P </taurusPopup>
+        <geminiPopup id="geminiPopup"> Gemini P </geminiPopup>
+        <cancerPopup id="cancerPopup"> Cancer P </cancerPopup>
+        <leoPopup id="leoPopup"> Leo P </leoPopup>
+        <virgoPopup id="virgoPopup"> Virgo P </virgoPopup>
+        <libraPopup id="libraPopup"> Libra P </libraPopup>
+        <scorpioPopup id="scorpioPopup"> Scorpio P </scorpioPopup>
+        <sagittariusPopup id="sagittariusPopup"> Sagittarius P </sagittariusPopup>
+        <capricornPopup id="capricornPopup"> Capricorn P </capricornPopup>
+        <aquariusPopup id="aquariusPopup"> Aquarius P </aquariusPopup>
+        <piscesPopup id="piscesPopup"> Pisces P </piscesPopup>
+  </constellationPopups>
+  
+  <finishedConstellationPopup id="finishedConstellationPopup">
 
-<body>
-  <script src="sketch.js"> </script>
+  </finishedConstellationPopup>
+
+  <script>
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
 </body>
 
 

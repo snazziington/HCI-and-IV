@@ -23,18 +23,13 @@ let button, libButton, quizButton, helpButton;
 class Constellation {
 	constructor(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10,
 		x11, y11, x12, y12, x13, y13, x14, y14, x15, y15, x16, y16, x17, y17, x18, y18,
-		x19, y19, x20, y20, x21, y21, x22, y22, x23, y23, x24, y24, x25, y25, x26, y26,
-		x27, y27, x28, y28, x29, y29, x30, y30, x31, y31, x32, y32, x33, y33, x34, y34,
-		x35, y35) {
+		x19, y19, x20, y20, x21, y21, x22, y22) {
 		this.v1 = [x1, y1, 1, random(randomTAU), 1]; this.v2 = [x2, y2, 2, random(randomTAU), 1]; this.v3 = [x3, y3, 3, random(randomTAU), 1]; this.v4 = [x4, y4, 4, random(randomTAU), 1];
 		this.v5 = [x5, y5, 5, random(randomTAU), 1]; this.v6 = [x6, y6, 6, random(randomTAU), 1]; this.v7 = [x7, y7, 7, random(randomTAU), 1]; this.v8 = [x8, y8, 8, random(randomTAU), 1];
 		this.v9 = [x9, y9, 9, random(randomTAU), 1]; this.v10 = [x10, y10, 10, random(randomTAU), 1]; this.v11 = [x11, y11, 11, random(randomTAU), 1]; this.v12 = [x12, y12, 12, random(randomTAU), 1];
 		this.v13 = [x13, y13, 13, random(randomTAU), 1]; this.v14 = [x14, y14, 14, random(randomTAU), 1]; this.v15 = [x15, y15, 15, random(randomTAU), 1]; this.v16 = [x16, y16, 16, random(randomTAU), 1];
 		this.v17 = [x17, y17, 17, random(randomTAU), 1]; this.v18 = [x18, y18, 18, random(randomTAU), 1]; this.v19 = [x19, y19, 19, random(randomTAU), 1]; this.v20 = [x20, y20, 20, random(randomTAU), 1];
-		this.v21 = [x21, y21, 21, random(randomTAU), 1]; this.v22 = [x22, y22, 22, random(randomTAU), 1]; this.v23 = [x23, y23, 23, random(randomTAU), 1]; this.v24 = [x24, y24, 24, random(randomTAU), 1];
-		this.v25 = [x25, y25, 25, random(randomTAU), 1]; this.v26 = [x26, y26, 26, random(randomTAU), 1]; this.v27 = [x27, y27, 27, random(randomTAU), 1]; this.v28 = [x28, y28, 28, random(randomTAU), 1];
-		this.v29 = [x29, y29, 29, random(randomTAU), 1]; this.v30 = [x30, y30, 30, random(randomTAU), 1]; this.v31 = [x31, y31, 31, random(randomTAU), 1]; this.v32 = [x32, y32, 32, random(randomTAU), 1];
-		this.v33 = [x33, y33, 33, random(randomTAU), 1]; this.v34 = [x34, y34, 34, random(randomTAU), 1]; this.v35 = [x35, y35, 35, random(randomTAU), 1];
+		this.v21 = [x21, y21, 21, random(randomTAU), 1]; this.v22 = [x22, y22, 22, random(randomTAU), 1];
 	}
 
 	draw() {
@@ -88,14 +83,15 @@ function setup() {
 	for (let element of document.getElementsByClassName("p5Canvas")) {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
+	
 	stroke("white");
 
 	// Initialises Stars
-	for (var i = 0; i < 400; i++) {
+	for (var i = 0; i < 200; i++) {
 		stars[i] = new Star();
 	}
 
-	for (var i = 0; i < 400; i++) {
+	for (var i = 0; i < 200; i++) {
 		bigStars[i] = new bigStar();
 	}
 
@@ -103,7 +99,7 @@ function setup() {
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
 
-	libButton = createButton('🕮')
+	libButton = createButton('🕮 ')
 	quizButton = createButton('Q')
 	helpButton = createButton('⚙')
 
@@ -120,17 +116,9 @@ function setup() {
 
 //#region Button Placement
 function buttonPlacement() {
-	if (windowWidth > 700) {
-		libButton.position(0, 0);
-		quizButton.position(0, 122);
-		helpButton.position(0, 244);
-	}
-
-	else {
-		libButton.position(windowWidth / 2.15 + 125, windowHeight * 0.89);
-		quizButton.position(windowWidth / 2.15, windowHeight * 0.89);
-		helpButton.position(windowWidth / 2.15 - 125, windowHeight * 0.89);
-	}
+	libButton.position(0, 0);
+	quizButton.position(0, 122);
+	helpButton.position(0, 244);
 }
 
 //#endregion
@@ -397,7 +385,7 @@ function draw() {
 	// Display Framerate
 	textSize(40);
 	fill("#adaedfff");
-	if (frameCount % 20 == 0) {
+	if (frameCount % 5 == 0) {
 		maxFrameRate = frameRate();
 	}
 
@@ -421,7 +409,7 @@ let currentStarV;
 let previousStar;
 
 const noLinesDrawn = (value) => value == 0;
-let polySynth;
+let soundByte;
 let soundEffectsOn = 0;
 
 function drawLineIfVisible(l) {
@@ -433,12 +421,12 @@ function drawLineIfVisible(l) {
 
 function mousePressed() {
 	if (soundEffectsOn == 0) {
-		polySynth = new p5.PolySynth();
+		soundByte = new p5.PolySynth();
 		soundEffectsOn = 1;
 	}
+
 	// if not drawing, and mouse is near a starting star
 	// and the constellation isn't completed
-
 	if (!isDrawing && canDraw == 1 && constellations[currentConstellation].completed == 0 && mouseButton === LEFT && keyIsDown(32) == false) {
 		soundEffects(1); // "start drawing" sound
 		constellations[currentConstellation].v1[4] = 1;
@@ -1911,11 +1899,14 @@ function checkNextStars(currentConstellation) {
 }
 //#endregion
 
-function addConstellationToLibrary(c){
-	print("Adding constellation to library");
-	var currentConst = document.getElementById(constellations[c].name + "Item");
-	currentConst.style.display = "block";
-} 
+function addConstellationToLibrary(c) {
+	var currentConstItem = document.getElementById(constellations[c].name + "Item");
+	currentConstItem.style.display = "block";
+	var popupWindow = document.getElementById("constellationPopups");
+	popupWindow.style.display = "block";
+	var currentConstPopup = document.getElementById(constellations[c].name + "Popup");
+	currentConstPopup.style.display = "block";
+}
 
 //#region Navigation
 let mouseStartX, mouseStartY;
@@ -1985,7 +1976,7 @@ let randomSize2 = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
 
 class Star {
 	constructor() {
-		this.x = random(width);
+		this.x = random(width + 450) - 450;
 		this.y = random(height);
 		this.size = random(randomSize1);
 		this.t = random(randomTAU);
@@ -2009,7 +2000,7 @@ class Star {
 
 class bigStar {
 	constructor() {
-		this.x = random(width);
+		this.x = random(width + 450) - 450;
 		this.y = random(height);
 		this.size = random(randomSize2);
 		this.t = random(randomTAU);
@@ -2034,13 +2025,13 @@ class bigStar {
 function drawBackgroundStars() {
 	// Stars (only drawn if visible within the window
 	for (var i = 0; i < stars.length; i++) {
-		if (leftBound< stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
+		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
 			stars[i].draw();
 		}
-	} 
+	}
 
 	for (var i = 0; i < bigStars.length; i++) {
-		if (leftBound< bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
+		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
 			bigStars[i].draw();
 		}
 	}
@@ -2059,52 +2050,54 @@ function soundEffects(n) {
 	2. continuedToNextStar
 	3. stoppedDrawing
 	4. completedConstellation*/
+	
+	if (soundEffectsOn == 1) {
+		let velocity = 0.1;
+		let dur = 1 / 3;
+		notesInt = (notesInt + round(random(1, 3))) % 4;
 
-	let velocity = 0.1;
-	let dur = 1 / 3;
-	notesInt = (notesInt + round(random(1, 3))) % 4;
+		if (constellations[currentConstellation].completed == 1 && n == 4) {
+			// Would love it if the chord that plays corresponds to the next
+			// note in the notesInt sequence
+			notes4 = ['F4', 'A5', 'C5', 'F5'];
+			soundByte.play(notes4[0], velocity, 0, dur);
+			soundByte.play(notes4[1], velocity, 0.1, dur);
+			soundByte.play(notes4[2], velocity, 0.2, dur);
+			soundByte.play(notes4[3], velocity, 0.2, dur);
+		}
 
-	if (constellations[currentConstellation].completed == 1 && n == 4) {
-		// Would love it if the chord that plays corresponds to the next
-		// note in the notesInt sequence
-		notes4 = ['F4', 'A5', 'C5', 'F5'];
-		polySynth.play(notes4[0], velocity, 0, dur);
-		polySynth.play(notes4[1], velocity, 0.1, dur);
-		polySynth.play(notes4[2], velocity, 0.2, dur);
-		polySynth.play(notes4[3], velocity, 0.2, dur);
-	}
+		else {
+			switch (n) {
+				case 0:
+					//cannotStartHere
+					soundByte.play('F5', velocity / 10, 0, 0.3);
+					soundByte.play('F4', velocity, 0, 0.3);
+					soundByte.play('F3', velocity / 2, 0, 0.3);
 
-	else {
-		switch (n) {
-			case 0:
-				//cannotStartHere
-				polySynth.play('F5', velocity / 10, 0, 0.3);
-				polySynth.play('F4', velocity, 0, 0.3);
-				polySynth.play('F3', velocity / 2, 0, 0.3);
+					soundByte.play('F5', velocity / 10, 0.2, 0.15);
+					soundByte.play('F4', velocity, 0.2, 0.15);
+					soundByte.play('F3', velocity / 2, 0.2, 0.15);
+					break;
+				case 1:
+					//startDrawing
+					soundByte.play('F4', velocity, 0, dur);
+					soundByte.play('C5', velocity, 0.1, dur);
 
-				polySynth.play('F5', velocity / 10, 0.2, 0.15);
-				polySynth.play('F4', velocity, 0.2, 0.15);
-				polySynth.play('F3', velocity / 2, 0.2, 0.15);
-				break;
-			case 1:
-				//startDrawing
-				polySynth.play('F4', velocity, 0, dur);
-				polySynth.play('C5', velocity, 0.1, dur);
-
-				polySynth.play('F3', velocity / 5, 0, dur);
-				polySynth.play('C4', velocity / 5, 0.1, dur);
-				break;
-			case 2:
-				//continuedToNextStar
-				let notes2 = ['C4', 'E4', 'F4', 'A5', 'C5', 'E5', 'F5'];
-				polySynth.play(notes2[notesInt], velocity, 0, dur);
-				break;
-			case 3:
-				//stoppedDrawing
-				polySynth.play('F5', velocity / 10, 0, 0.3);
-				polySynth.play('F4', velocity, 0, 0.3);
-				polySynth.play('F3', velocity / 2, 0, 0.3);
-				break;
+					soundByte.play('F3', velocity / 5, 0, dur);
+					soundByte.play('C4', velocity / 5, 0.1, dur);
+					break;
+				case 2:
+					//continuedToNextStar
+					let notes2 = ['C4', 'E4', 'F4', 'A5', 'C5', 'E5', 'F5'];
+					soundByte.play(notes2[notesInt], velocity, 0, dur);
+					break;
+				case 3:
+					//stoppedDrawing
+					soundByte.play('F5', velocity / 10, 0, 0.3);
+					soundByte.play('F4', velocity, 0, 0.3);
+					soundByte.play('F3', velocity / 2, 0, 0.3);
+					break;
+			}
 		}
 	}
 }
@@ -2114,21 +2107,20 @@ function soundEffects(n) {
 
 //#region Button Functions
 function libButtonPress() {
-	print("lib button press")
 	var lib = document.getElementById("library");
-	if (lib.style.display === "none") {
+	if (lib.style.display === "none" && mouseButton === LEFT) {
 		lib.style.display = "block";
-	} else {
+	} else if (mouseButton === LEFT) {
 		lib.style.display = "none";
 	}
 }
 
 function quizButtonPress() {
-	print("quiz button press")
+
 }
 
 function helpButtonPress() {
-	print("help button press")
+
 }
 
 function keyPressed() {

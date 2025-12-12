@@ -8,6 +8,7 @@ let panningCamera = false;
 
 // Drawing
 let dilatingStroke;
+let buttons = [];
 
 // Navigation
 let translationX = -1500;
@@ -17,9 +18,6 @@ let translationY = -300;
 let stars = [];
 let bigStars = [];
 let button, libButton, quizButton, helpButton;
-let testStars = [];
-let constStarDiameter = 20;
-let constStars = [aries, taurus, gemini, cancer, leo]
 
 //#region Constellation Info
 class Constellation {
@@ -108,6 +106,10 @@ function setup() {
 	libButton = createButton('🕮')
 	quizButton = createButton('Q')
 	helpButton = createButton('⚙')
+
+	buttons.push(libButton);
+	buttons.push(quizButton);
+	buttons.push(helpButton);
 	libButton.mousePressed(libButtonPress)
 	quizButton.mousePressed(quizButtonPress)
 	helpButton.mousePressed(helpButtonPress)
@@ -254,7 +256,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "scorpius",
+			name: "scorpio",
 			v1: scorpius.v1, v2: scorpius.v2, v3: scorpius.v3, v4: scorpius.v4,
 			v5: scorpius.v5, v6: scorpius.v6, v7: scorpius.v7, v8: scorpius.v8,
 			v9: scorpius.v9, v10: scorpius.v10, v11: scorpius.v11, v12: scorpius.v12,
@@ -1932,10 +1934,11 @@ function cameraPanning() {
 			mouseStartX = mouseX;
 			mouseStartY = mouseY;
 		}
+
 		cursor('grab');
 		panningCamera = true;
 
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 0);
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 500);
 		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 + windowHeight, -1500), 0);
 	}
 

@@ -120,7 +120,6 @@ function buttonPlacement() {
 	quizButton.position(0, 122);
 	helpButton.position(0, 244);
 }
-
 //#endregion
 
 

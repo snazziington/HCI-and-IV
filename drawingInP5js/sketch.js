@@ -12,7 +12,7 @@ let buttons = [];
 
 // Navigation
 let translationX = -1500;
-let translationY = -300;
+let translationY = -500;
 
 // Stars
 let stars = [];
@@ -314,17 +314,17 @@ let leftBound, rightBound, topBound, bottomBound;
 
 //#region Draw 
 function draw() {
-
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
-
 	background("#0E1346");
+	drawBackgroundStars();
 	buttonPlacement();
-
+	
+	
 	// Navigation
 	cameraPanning();
-
+	startDrawingConst() 
 	// Draws background stars when they're visible
-	drawBackgroundStars();
+	
 
 	aries.draw();
 	taurus.draw();
@@ -347,30 +347,6 @@ function draw() {
 		constellationCheck();
 	}
 
-	if (isDrawing) {
-
-		// Ensures starting stars stop glowing larger when you start drawing
-		// by resetting the starting star scale value to 1;
-		for (let i = 1; i < constellations.length; i++) {
-			constellations[i].v1[4] = 1;
-		}
-
-		stroke("white");
-		strokeWeight(((sin(frameCount * 0.015) + 3.5)));
-		line(x1, y1, x2, y2);
-
-		stroke(200, 195, 255, 30)
-		strokeWeight(dilatingStroke);
-		line(x1, y1, x2, y2);
-
-		stroke(200, 195, 255, 15)
-		strokeWeight(dilatingStroke * 1.5);
-		line(x1, y1, x2, y2);
-
-		checkNextStars(currentConstellation);
-		neighbouringStarsGlow();
-	}
-
 	x2 = newMouseX;
 	y2 = newMouseY;
 	stroke("#adaedfff")
@@ -389,11 +365,36 @@ function draw() {
 	}
 
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = max(frameRate(), maxFrameRate);
+	maxFrameRate = min(frameRate(), maxFrameRate);
 }
 //#endregion
 
+function startDrawingConst() {
+		if (isDrawing) {
 
+		// Ensures starting stars stop glowing larger when you start drawing
+		// by resetting the starting star scale value to 1;
+		for (let i = 1; i < constellations.length; i++) {
+			constellations[i].v1[4] = 1;
+		}
+
+		//error here
+		stroke(25, 29, 81);
+		strokeWeight(40);
+		line(x1, y1, x2, y2);		
+
+		stroke(45, 49, 102);
+		strokeWeight(15);
+		line(x1, y1, x2, y2);
+
+		stroke("white");
+		strokeWeight(1);
+		line(x1, y1, x2, y2);
+
+		checkNextStars(currentConstellation); 
+		neighbouringStarsGlow();
+	}
+}
 
 //#region Drawing Constellations
 let isDrawing = false;
@@ -422,7 +423,8 @@ function mousePressed() {
 	//#region Start Playing Sound
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
-		//soundEffectsOn = 1;
+		soundEffectsOn = 1;
+		print("1")
 	}
 	//#endregion
 
@@ -444,10 +446,8 @@ function mousePressed() {
 	}
 
 	else if (isDrawing) { // if user is drawing
-
 		// check for all neighbouring stars
 		for (let i = 0; i < neighbouringStars.length; i++) {
-
 			// if mouse is near a neighbouring star which is part of a constellation that hasn't
 			// been drawn yet, start drawing from that star
 
@@ -455,7 +455,6 @@ function mousePressed() {
 				neighbouringStars[i][1])) < distance &&
 				constellations[currentConstellation].completed == 0) {
 				soundEffects(2); // "continue drawing next star" sound
-
 				// Draws line, and ensures it is centered on stars
 				lines.push({
 					x1, y1, x2: neighbouringStars[i][0], y2: neighbouringStars[i][1]
@@ -502,7 +501,6 @@ function mousePressed() {
 	//#region Right-Click Closing Menu
 
 	if (mouseButton === RIGHT){
-		
 	}
 }
 
@@ -1999,11 +1997,11 @@ class Star {
 		noStroke();
 
 		// Glow
-		fill(200, 195, 255, opacity * 5);
+		fill('#1d2155');
 		circle(this.x, this.y, scale * 3);
 
 		// Star
-		fill(200, 195, 255, opacity * 10);
+		fill('#aba8e2');
 		circle(this.x, this.y, scale);
 	}
 }
@@ -2023,11 +2021,13 @@ class bigStar {
 		noStroke();
 
 		// Glow
-		fill(200, 195, 255, opacity);
+		//fill(200, 195, 255, opacity);
+		fill('#1d2155');
 		circle(this.x, this.y, scale * 3);
 
 		// Star
-		fill(200, 195, 255, opacity * 10);
+		//fill(200, 195, 255, opacity * 10);
+		fill('#aba8e2');
 		circle(this.x, this.y, scale);
 	}
 }

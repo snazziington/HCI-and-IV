@@ -419,11 +419,15 @@ function drawLineIfVisible(l) {
 }
 
 function mousePressed() {
+	//#region Start Playing Sound
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
-		soundEffectsOn = 1;
+		//soundEffectsOn = 1;
 	}
+	//#endregion
 
+
+	//#region Drawing Clicks
 	// if not drawing, and mouse is near a starting star
 	// and the constellation isn't completed
 	if (!isDrawing && canDraw == 1 && constellations[currentConstellation].completed == 0 && mouseButton === LEFT && keyIsDown(32) == false) {
@@ -492,6 +496,13 @@ function mousePressed() {
 
 	else if (!isDrawing && mouseButton === LEFT && !keyIsDown(32)) {
 		soundEffects(0); // "cannot start drawing here" sound
+	}
+	//#endregion
+
+	//#region Right-Click Closing Menu
+
+	if (mouseButton === RIGHT){
+		
 	}
 }
 

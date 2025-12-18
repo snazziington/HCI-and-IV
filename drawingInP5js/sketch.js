@@ -11,7 +11,7 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-let translationX = -1500;
+let translationX = -1800;
 let translationY = -500;
 
 // Stars
@@ -53,12 +53,12 @@ class Constellation {
 					// Glow
 					fill(200, 195, 255, opacity);
 					//fill(255, 0, 0, opacity);
-					circle(this[vx][0], this[vx][1], scale * 3);
+					ellipse(this[vx][0], this[vx][1], scale * 3, scale * 3);
 
 					// Star
 					fill(200, 195, 255, opacity * 10);
 					//fill(255, 0, 0, opacity * 10);
-					circle(this[vx][0], this[vx][1], scale);
+					ellipse(this[vx][0], this[vx][1], scale, scale);
 				}
 			}
 		}
@@ -311,17 +311,19 @@ let starsCount = 0;
 let bigStarsCount = 0;
 
 let leftBound, rightBound, topBound, bottomBound;
+let currentMillis;
 
 //#region Draw 
 function draw() {
+	currentMillis = millis();
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 	background("#0E1346");
-	drawBackgroundStars();
+	
 	buttonPlacement();
-	
-	
+		
 	// Navigation
 	cameraPanning();
+	drawBackgroundStars();
 	startDrawingConst() 
 	// Draws background stars when they're visible
 	
@@ -356,6 +358,23 @@ function draw() {
 
 	// Draws the lines constellations if they're visible
 	lines.forEach(drawLineIfVisible);
+
+	// "Completed constellation" window things
+	if (currentMillis - prevMillis < popupInterval && oneConstDone == 1) {
+		var popupWindow = document.getElementById("finishedConstellationPopup");
+		var constName = document.getElementById(latestConstellation);
+		popupWindow.style.display = "block";
+		
+		for (let i = 1; i < 13; i++) {
+			var constellation = document.getElementById(constellations[i].name);
+			constellation.style.display = "none";
+		}
+		constName.style.display = "inline";
+		
+	} else {
+		var popupWindow = document.getElementById("finishedConstellationPopup");
+		popupWindow.style.display = "none";
+	}
 
 	// Display Framerate
 	textSize(40);
@@ -424,7 +443,6 @@ function mousePressed() {
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
 		soundEffectsOn = 1;
-		print("1")
 	}
 	//#endregion
 
@@ -551,7 +569,7 @@ function constellationCheck() {
 				nearestStar = [constellations[i].startStars[j], constellations[i].startStars[j + 1]];
 
 				// draws a circle so I know I am hovering over a startingStar
-				circle(newMouseX, newMouseY, 10);
+				ellipse(newMouseX, newMouseY, 10, 10);
 
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;
@@ -589,10 +607,10 @@ function neighbouringStarsGlow() {
 			fill(13, 0, 255, alpha)
 			let diameter = ((sin(frameCount * 0.08) + 2) * 10) + 6;
 			blendMode(OVERLAY);
-			circle(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
+			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
 			blendMode(BLEND);
 			fill(255, 40)
-			circle(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
+			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
 		}
 	}
 }
@@ -1897,6 +1915,7 @@ function checkNextStars(currentConstellation) {
 
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		constellations[currentConstellation].completed = 1;
+		oneConstDone = 1;
 		addConstellationToLibrary(currentConstellation);
 		soundEffects(4); // "completed constellation" sound
 	}
@@ -1907,11 +1926,24 @@ function checkNextStars(currentConstellation) {
 }
 //#endregion
 
+let oneConstDone = 0;
+let prevMillis = 0;
+let popupInterval = 5000;
+
 function addConstellationToLibrary(c) {
+	// Adds constellation to library
 	var currentConstItem = document.getElementById(constellations[c].name + "Item");
 	currentConstItem.style.display = "block";
-	var popupWindow = document.getElementById("constellationPopups");
+	latestConstellation = constellations[c].name
+
+	// Finished const. popup appears
+	var popupWindow = document.getElementById("finishedConstellationPopup");
 	popupWindow.style.display = "block";
+	
+	// Popup timer
+	prevMillis = millis();
+	
+	// Popup appears
 	var currentConstPopup = document.getElementById(constellations[c].name + "Popup");
 	currentConstPopup.style.display = "block";
 }
@@ -1998,11 +2030,11 @@ class Star {
 
 		// Glow
 		fill('#1d2155');
-		circle(this.x, this.y, scale * 3);
+		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
 		fill('#aba8e2');
-		circle(this.x, this.y, scale);
+		ellipse(this.x, this.y, scale);
 	}
 }
 
@@ -2023,12 +2055,12 @@ class bigStar {
 		// Glow
 		//fill(200, 195, 255, opacity);
 		fill('#1d2155');
-		circle(this.x, this.y, scale * 3);
+		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
 		//fill(200, 195, 255, opacity * 10);
 		fill('#aba8e2');
-		circle(this.x, this.y, scale);
+		ellipse(this.x, this.y, scale, scale);
 	}
 }
 

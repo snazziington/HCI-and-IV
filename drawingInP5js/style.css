@@ -71,11 +71,12 @@ finishedConstellationPopup {
   left: 35%;
   margin-left: auto;
   margin: auto;
-  width: 30%;
-  height: 10%;
-  background-color: rgba(255, 0, 0, 0.6);
+  width: 40%;
+  height: 15%;
+  font-size: 24px;
+  background-color: rgba(15, 18, 70, 0.877);
   color: white;
-  display: block;
+  display: none;
 }
 
 ariesItem {
@@ -126,54 +127,55 @@ piscesItem {
   display: none;
 }
 
-
-ariesPopup {
+aries {
   display: none;
 }
 
-taurusPopup {
+taurus {
   display: none;
 }
 
-geminiPopup {
+gemini {
   display: none;
 }
 
-cancerPopup {
+cancer {
   display: none;
 }
 
-leoPopup {
+leo {
   display: none;
 }
 
-virgoPopup {
+virgo {
   display: none;
 }
 
-libraPopup {
+libra {
   display: none;
 }
 
-scorpioPopup {
+scorpio {
   display: none;
 }
 
-sagittariusPopup {
+sagittarius {
   display: none;
 }
 
-capricornPopup {
+capricorn {
   display: none;
 }
 
-aquariusPopup {
+aquarius {
   display: none;
 }
 
-piscesPopup {
+pisces {
   display: none;
 }
+
+
 
 @media screen and (max-width: 1500px){
   library {

@@ -53,17 +53,41 @@ libraryItems{
 }
 
 constellationPopups {
+  background-color: #0e153bb9;
   position: absolute;
   display: none;
   margin: auto;
+
   width: 500px;
-  height: 500px;
+  height: 475px;
   top: 10%;
   bottom: 20%;
-  left: 20%;
+  left: 40%;
   right: 20%;
-  background-color: rgba(255, 0, 0, 0.6);
+  padding-top: 25px;
+
+  font-size: 32px;
   color: white;
+
+  margin: 0px;
+  text-align: center;
+
+  border: solid white 1px;
+  border-radius: 2%;
+}
+
+finishedConstellationPopup {
+  position: absolute;
+  top: 80%;
+  left: 35%;
+  margin-left: auto;
+  margin: auto;
+  width: 40%;
+  height: 15%;
+  font-size: 24px;
+  background-color: rgba(15, 18, 70, 0.877);
+  color: white;
+  display: none;
 }
 
 ariesItem {
@@ -114,17 +138,51 @@ piscesItem {
   display: none;
 }
 
-finishedConstellationPopup {
-  position: absolute;
-  top: 80%;
-  left: 35%;
-  margin-left: auto;
-  margin: auto;
-  width: 40%;
-  height: 15%;
-  font-size: 24px;
-  background-color: rgba(15, 18, 70, 0.877);
-  color: white;
+ariesPopup {
+  display: none;
+}
+
+taurusPopup {
+  display: none;
+}
+
+geminiPopup {
+  display: none;
+}
+
+cancerPopup {
+  display: none;
+}
+
+leoPopup {
+  display: none;
+}
+
+virgoPopup {
+  display: none;
+}
+
+libraPopup {
+  display: none;
+}
+
+scorpioPopup {
+  display: none;
+}
+
+sagittariusPopup {
+  display: none;
+}
+
+capricornPopup {
+  display: none;
+}
+
+aquariusPopup {
+  display: none;
+}
+
+piscesPopup {
   display: none;
 }
 
@@ -153,7 +211,7 @@ virgo {
 }
 
 libra {
-  display: block;
+  display: none;
 }
 
 scorpio {
@@ -175,8 +233,6 @@ aquarius {
 pisces {
   display: none;
 }
-
-
 
 @media screen and (max-width: 1500px){
   library {

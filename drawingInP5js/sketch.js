@@ -83,7 +83,7 @@ function setup() {
 	for (let element of document.getElementsByClassName("p5Canvas")) {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
-	
+
 	stroke("white");
 
 	// Initialises Stars
@@ -318,15 +318,15 @@ function draw() {
 	currentMillis = millis();
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
 	background("#0E1346");
-	
+
 	buttonPlacement();
-		
+
 	// Navigation
 	cameraPanning();
 	drawBackgroundStars();
-	startDrawingConst() 
+	startDrawingConst()
 	// Draws background stars when they're visible
-	
+
 
 	aries.draw();
 	taurus.draw();
@@ -356,7 +356,7 @@ function draw() {
 	// Ensures that the drawn lines pulse
 	strokeWeight(((sin(frameCount * 0.015) + 3.5)));
 
-	// Draws the lines constellations if they're visible
+	// Draws the lines of the constellations if they're visible
 	lines.forEach(drawLineIfVisible);
 
 	// "Completed constellation" window things
@@ -364,13 +364,13 @@ function draw() {
 		var popupWindow = document.getElementById("finishedConstellationPopup");
 		var constName = document.getElementById(latestConstellation);
 		popupWindow.style.display = "block";
-		
+
 		for (let i = 1; i < 13; i++) {
 			var constellation = document.getElementById(constellations[i].name);
 			constellation.style.display = "none";
 		}
 		constName.style.display = "inline";
-		
+
 	} else {
 		var popupWindow = document.getElementById("finishedConstellationPopup");
 		popupWindow.style.display = "none";
@@ -389,7 +389,7 @@ function draw() {
 //#endregion
 
 function startDrawingConst() {
-		if (isDrawing) {
+	if (isDrawing) {
 
 		// Ensures starting stars stop glowing larger when you start drawing
 		// by resetting the starting star scale value to 1;
@@ -400,7 +400,7 @@ function startDrawingConst() {
 		//error here
 		stroke(25, 29, 81);
 		strokeWeight(40);
-		line(x1, y1, x2, y2);		
+		line(x1, y1, x2, y2);
 
 		stroke(45, 49, 102);
 		strokeWeight(15);
@@ -410,7 +410,7 @@ function startDrawingConst() {
 		strokeWeight(1);
 		line(x1, y1, x2, y2);
 
-		checkNextStars(currentConstellation); 
+		checkNextStars(currentConstellation);
 		neighbouringStarsGlow();
 	}
 }
@@ -517,7 +517,7 @@ function mousePressed() {
 	//#endregion
 
 	//#region Right-Click Closing Menu
-	if (mouseButton === RIGHT){
+	if (mouseButton === RIGHT) {
 	}
 
 }
@@ -1942,7 +1942,7 @@ function addConstellationToLibrary(c) {
 
 	// Popup timer
 	prevMillis = millis();
-	
+
 	// Popup appears
 	var currentConstPopup = document.getElementById(constellations[c].name + "Popup");
 	currentConstPopup.style.display = "block";
@@ -2092,7 +2092,7 @@ function soundEffects(n) {
 	2. continuedToNextStar
 	3. stoppedDrawing
 	4. completedConstellation*/
-	
+
 	if (soundEffectsOn == 1) {
 		let velocity = 0.1;
 		let dur = 1 / 3;

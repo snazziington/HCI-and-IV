@@ -2157,10 +2157,10 @@ function soundEffects(n) {
 //#region Button Functions
 function libButtonPress() {
 	var lib = document.getElementById("library");
-	if (lib.style.display === "none" && mouseButton === LEFT) {
-		lib.style.display = "block";
-	} else if (mouseButton === LEFT) {
+	if (lib.style.display === "block" && mouseButton === LEFT) {
 		lib.style.display = "none";
+	} else if (mouseButton === LEFT) {
+		lib.style.display = "block";
 	}
 }
 

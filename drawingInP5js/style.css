@@ -52,6 +52,12 @@ libraryItems{
   cursor: pointer; 
 }
 
+thumbnail{
+  width: 50px;
+  height: 5px;
+  border-radius: 40%;
+}
+
 constellationPopups {
   background-color: #0e153bb9;
   position: absolute;

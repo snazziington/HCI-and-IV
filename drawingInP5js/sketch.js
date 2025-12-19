@@ -517,9 +517,9 @@ function mousePressed() {
 	//#endregion
 
 	//#region Right-Click Closing Menu
-
 	if (mouseButton === RIGHT){
 	}
+
 }
 
 let startingStarScale = 1;
@@ -1939,7 +1939,7 @@ function addConstellationToLibrary(c) {
 	// Finished const. popup appears
 	var popupWindow = document.getElementById("finishedConstellationPopup");
 	popupWindow.style.display = "block";
-	
+
 	// Popup timer
 	prevMillis = millis();
 	

@@ -49,6 +49,7 @@ library {
 libraryItems{
   margin: 25px 100px;
   display: block;
+  cursor: pointer; 
 }
 
 constellationPopups {
@@ -63,20 +64,6 @@ constellationPopups {
   right: 20%;
   background-color: rgba(255, 0, 0, 0.6);
   color: white;
-}
-
-finishedConstellationPopup {
-  position: absolute;
-  top: 80%;
-  left: 35%;
-  margin-left: auto;
-  margin: auto;
-  width: 40%;
-  height: 15%;
-  font-size: 24px;
-  background-color: rgba(15, 18, 70, 0.877);
-  color: white;
-  display: none;
 }
 
 ariesItem {
@@ -104,7 +91,7 @@ virgoItem {
 }
 
 libraItem {
-  display: none;
+  display: block;
 }
 
 scorpioItem {
@@ -124,6 +111,20 @@ aquariusItem {
 }
 
 piscesItem {
+  display: none;
+}
+
+finishedConstellationPopup {
+  position: absolute;
+  top: 80%;
+  left: 35%;
+  margin-left: auto;
+  margin: auto;
+  width: 40%;
+  height: 15%;
+  font-size: 24px;
+  background-color: rgba(15, 18, 70, 0.877);
+  color: white;
   display: none;
 }
 
@@ -152,7 +153,7 @@ virgo {
 }
 
 libra {
-  display: none;
+  display: block;
 }
 
 scorpio {

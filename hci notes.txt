@@ -1,4 +1,12 @@
 Things I Need to do Next:
+Library:
+1. Figure out how to have constellation window popup after clicking it in library
+2. Ensure user cannot draw while clicking things in either library or the constellation window
+3. Add a "close window" button top right of the constellationWindows and constellationCompletion window
+4. Add text descriptions from Britannica for each constellation
+5. Make things look pretty
+6. Maybe if the library is open and the user is not drawing and they right-click, it closes the library? Ez shortcut.
+7. I should make a list of user interactions for the user evaluations
 ---
 UI
 1. Each star needs a short description in the pop-up window.

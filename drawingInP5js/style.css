@@ -44,18 +44,21 @@ library {
   height: 100%;
   display: block;
   color: white;
+  font-size: 24px;
 }
 
-libraryItems{
+libraryItems {
   margin: 25px 100px;
   display: block;
   cursor: pointer; 
 }
 
-thumbnail{
-  width: 50px;
-  height: 5px;
-  border-radius: 40%;
+img {
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: auto;
+  margin-top: 10%;
 }
 
 constellationPopups {

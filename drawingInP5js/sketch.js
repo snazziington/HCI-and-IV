@@ -99,9 +99,9 @@ function setup() {
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
 
-	libButton = createButton('🕮 ')
-	quizButton = createButton('Q')
-	helpButton = createButton('⚙')
+	libButton = createButton('🕮\nLibrary')
+	quizButton = createButton('☑\nQuiz')
+	helpButton = createButton('🛈\nHelp')
 
 	buttons.push(libButton);
 	buttons.push(quizButton);
@@ -117,8 +117,8 @@ function setup() {
 //#region Button Placement
 function buttonPlacement() {
 	libButton.position(0, 0);
-	quizButton.position(0, 122);
-	helpButton.position(0, 244);
+	quizButton.position(0, 100);
+	helpButton.position(0, 200);
 }
 //#endregion
 
@@ -377,14 +377,13 @@ function draw() {
 	}
 
 	// Display Framerate
-	textSize(40);
+	/*textSize(40);
 	fill("#adaedfff");
 	if (frameCount % 5 == 0) {
 		maxFrameRate = frameRate();
 	}
-
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = min(frameRate(), maxFrameRate);
+	maxFrameRate = min(frameRate(), maxFrameRate);*/
 }
 //#endregion
 
@@ -520,6 +519,14 @@ function mousePressed() {
 	if (mouseButton === RIGHT) {
 	}
 
+	if (mouseButton === RIGHT) {
+		for (let i = 1; i < 13; i++) {
+          let closingWindow = document.getElementById(constellations[i].name + "Popup")
+          let popupWindow = document.getElementById("constellationPopups");
+		  popupWindow.style.display = "none";
+                closingWindow.style.display = "none";
+        }
+	}
 }
 
 let startingStarScale = 1;

@@ -4,6 +4,9 @@ html, body {
   display: flex;
   /*Hide scrollbars*/
   overflow: hidden;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 canvas {
@@ -11,10 +14,11 @@ canvas {
 }
 
 button {
-  margin: 25px;
-  width: 100px;
-  height: 100px;
+  margin: 20px;
+  width: 80px;
+  height: 80px;
   text-align: center;
+  padding: 0px 5px 2px 5px;
 
   background-color: #12183a;
   border: solid white 1px;
@@ -23,7 +27,7 @@ button {
   
   text-decoration: none;
   display: inline-block;
-  font-size: 48px;
+  font-size: 23px;
   
   cursor: pointer;
 }
@@ -37,7 +41,7 @@ sidebar {
 }
 
 library {
-  width: 30%;
+  width: 20%;
   background-color: rgba(44, 47, 105, 0.418);
   position: absolute;
   top: 0%;
@@ -67,6 +71,7 @@ constellationPopups {
   display: none;
   margin: auto;
 
+  line-height: 0px;
   width: 500px;
   height: 475px;
   top: 10%;
@@ -83,6 +88,14 @@ constellationPopups {
 
   border: solid white 1px;
   border-radius: 2%;
+}
+
+description {
+  font-size: 16px;
+  line-height: 150%;
+  display: block;
+  text-align: center;
+  padding: 10px 16px 0 16px
 }
 
 finishedConstellationPopup {
@@ -124,7 +137,7 @@ virgoItem {
 }
 
 libraItem {
-  display: block;
+  display: none;
 }
 
 scorpioItem {

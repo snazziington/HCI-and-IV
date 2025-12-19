@@ -4,6 +4,9 @@ html, body {
   display: flex;
   /*Hide scrollbars*/
   overflow: hidden;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 canvas {
@@ -11,10 +14,11 @@ canvas {
 }
 
 button {
-  margin: 25px;
-  width: 100px;
-  height: 100px;
+  margin: 20px;
+  width: 80px;
+  height: 80px;
   text-align: center;
+  padding: 0px 5px 2px 5px;
 
   background-color: #12183a;
   border: solid white 1px;
@@ -23,7 +27,7 @@ button {
   
   text-decoration: none;
   display: inline-block;
-  font-size: 48px;
+  font-size: 23px;
   
   cursor: pointer;
 }
@@ -37,32 +41,61 @@ sidebar {
 }
 
 library {
-  width: 30%;
+  width: 20%;
   background-color: rgba(44, 47, 105, 0.418);
   position: absolute;
   top: 0%;
   height: 100%;
   display: block;
   color: white;
+  font-size: 24px;
 }
 
-libraryItems{
+libraryItems {
   margin: 25px 100px;
   display: block;
+  cursor: pointer; 
+}
+
+img {
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: auto;
+  margin-top: 10%;
 }
 
 constellationPopups {
+  background-color: #0e153bb9;
   position: absolute;
   display: none;
   margin: auto;
+
+  line-height: 0px;
   width: 500px;
-  height: 500px;
+  height: 475px;
   top: 10%;
   bottom: 20%;
-  left: 20%;
+  left: 40%;
   right: 20%;
-  background-color: rgba(255, 0, 0, 0.6);
+  padding-top: 25px;
+
+  font-size: 32px;
   color: white;
+
+  margin: 0px;
+  text-align: center;
+
+  border: solid white 1px;
+  border-radius: 2%;
+}
+
+description {
+  font-size: 16px;
+  line-height: 150%;
+  display: block;
+  text-align: center;
+  padding: 10px 16px 0 16px
 }
 
 finishedConstellationPopup {
@@ -71,11 +104,12 @@ finishedConstellationPopup {
   left: 35%;
   margin-left: auto;
   margin: auto;
-  width: 30%;
-  height: 10%;
-  background-color: rgba(255, 0, 0, 0.6);
+  width: 40%;
+  height: 15%;
+  font-size: 24px;
+  background-color: rgba(15, 18, 70, 0.877);
   color: white;
-  display: block;
+  display: none;
 }
 
 ariesItem {
@@ -126,7 +160,6 @@ piscesItem {
   display: none;
 }
 
-
 ariesPopup {
   display: none;
 }
@@ -172,6 +205,54 @@ aquariusPopup {
 }
 
 piscesPopup {
+  display: none;
+}
+
+aries {
+  display: none;
+}
+
+taurus {
+  display: none;
+}
+
+gemini {
+  display: none;
+}
+
+cancer {
+  display: none;
+}
+
+leo {
+  display: none;
+}
+
+virgo {
+  display: none;
+}
+
+libra {
+  display: none;
+}
+
+scorpio {
+  display: none;
+}
+
+sagittarius {
+  display: none;
+}
+
+capricorn {
+  display: none;
+}
+
+aquarius {
+  display: none;
+}
+
+pisces {
   display: none;
 }
 

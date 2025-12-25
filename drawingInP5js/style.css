@@ -46,7 +46,7 @@ library {
   position: absolute;
   top: 0%;
   height: 100%;
-  display: block;
+  display: none;
   color: white;
   font-size: 24px;
 }

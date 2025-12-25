@@ -51,12 +51,13 @@ class Constellation {
 					noStroke();
 
 					// Glow
-					fill(200, 195, 255, opacity);
-					//fill(255, 0, 0, opacity);
+					//fill(200, 195, 255, opacity);
+					fill('#1d2155')
 					ellipse(this[vx][0], this[vx][1], scale * 3, scale * 3);
 
 					// Star
-					fill(200, 195, 255, opacity * 10);
+					//fill(200, 195, 255, opacity * 10);
+					fill('#aba8e2')
 					//fill(255, 0, 0, opacity * 10);
 					ellipse(this[vx][0], this[vx][1], scale, scale);
 				}
@@ -84,8 +85,6 @@ function setup() {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
 
-	stroke("white");
-
 	// Initialises Stars
 	for (var i = 0; i < 200; i++) {
 		stars[i] = new Star();
@@ -109,6 +108,8 @@ function setup() {
 	libButton.mousePressed(libButtonPress)
 	quizButton.mousePressed(quizButtonPress)
 	helpButton.mousePressed(helpButtonPress)
+
+	frameRate(30);
 }
 //#endregion
 
@@ -317,17 +318,14 @@ let currentMillis;
 function draw() {
 	currentMillis = millis();
 	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
+	clear();
 	background("#0E1346");
 
 	buttonPlacement();
 
 	// Navigation
 	cameraPanning();
-	drawBackgroundStars();
-	startDrawingConst()
-	// Draws background stars when they're visible
-
-
+	
 	aries.draw();
 	taurus.draw();
 	gemini.draw();
@@ -341,6 +339,9 @@ function draw() {
 	aquarius.draw();
 	pisces.draw();
 
+	startDrawingConst()
+	drawBackgroundStars();
+
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
 	if (!isDrawing) {
@@ -349,8 +350,6 @@ function draw() {
 		constellationCheck();
 	}
 
-	x2 = newMouseX;
-	y2 = newMouseY;
 	stroke("#adaedfff")
 
 	// Ensures that the drawn lines pulse
@@ -377,13 +376,13 @@ function draw() {
 	}
 
 	// Display Framerate
-	/*textSize(40);
+	textSize(40);
 	fill("#adaedfff");
 	if (frameCount % 5 == 0) {
 		maxFrameRate = frameRate();
 	}
 	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = min(frameRate(), maxFrameRate);*/
+	maxFrameRate = min(frameRate(), maxFrameRate);
 }
 //#endregion
 
@@ -396,22 +395,28 @@ function startDrawingConst() {
 			constellations[i].v1[4] = 1;
 		}
 
-		//error here
-		stroke(25, 29, 81);
-		strokeWeight(40);
-		line(x1, y1, x2, y2);
-
-		stroke(45, 49, 102);
-		strokeWeight(15);
-		line(x1, y1, x2, y2);
-
-		stroke("white");
-		strokeWeight(1);
-		line(x1, y1, x2, y2);
+		drawCurrentLines();
 
 		checkNextStars(currentConstellation);
 		neighbouringStarsGlow();
 	}
+}
+
+function drawCurrentLines() {
+	x2 = newMouseX;
+	y2 = newMouseY;
+
+	stroke(25, 29, 81);
+	strokeWeight(40);
+	line(x1, y1, x2, y2);
+
+	stroke(45, 49, 102);
+	strokeWeight(15);
+	line(x1, y1, x2, y2);
+
+	stroke("white");
+	strokeWeight(1);
+	line(x1, y1, x2, y2);
 }
 
 //#region Drawing Constellations
@@ -521,11 +526,11 @@ function mousePressed() {
 
 	if (mouseButton === RIGHT) {
 		for (let i = 1; i < 13; i++) {
-          let closingWindow = document.getElementById(constellations[i].name + "Popup")
-          let popupWindow = document.getElementById("constellationPopups");
-		  popupWindow.style.display = "none";
-                closingWindow.style.display = "none";
-        }
+			let closingWindow = document.getElementById(constellations[i].name + "Popup")
+			let popupWindow = document.getElementById("constellationPopups");
+			popupWindow.style.display = "none";
+			closingWindow.style.display = "none";
+		}
 	}
 }
 
@@ -2060,13 +2065,13 @@ class bigStar {
 		noStroke();
 
 		// Glow
-		//fill(200, 195, 255, opacity);
-		fill('#1d2155');
+		fill(200, 195, 255, opacity);
+		//fill('#1d2155');
 		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
-		//fill(200, 195, 255, opacity * 10);
-		fill('#aba8e2');
+		fill(200, 195, 255, opacity * 10);
+		//fill('#aba8e2');
 		ellipse(this.x, this.y, scale, scale);
 	}
 }
@@ -2157,10 +2162,12 @@ function soundEffects(n) {
 //#region Button Functions
 function libButtonPress() {
 	var lib = document.getElementById("library");
-	if (lib.style.display === "none" && mouseButton === LEFT) {
-		lib.style.display = "block";
-	} else if (mouseButton === LEFT) {
+	if (lib.style.display === "block" && mouseButton === LEFT) {
 		lib.style.display = "none";
+		print("hide")
+	} else if (mouseButton === LEFT) {
+		lib.style.display = "block";
+		print("show")
 	}
 }
 

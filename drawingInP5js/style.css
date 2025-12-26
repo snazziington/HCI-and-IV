@@ -32,8 +32,8 @@ button {
   cursor: pointer;
 }
 
-button.closeButton {
-  margin: 0px 0px 0px 449px;
+button.closeDetailedWindow {
+  margin: 0px 0px 0px 753px;
   width: 24px;
   height: 24px;
   text-align: center;
@@ -82,17 +82,17 @@ quiz {
   margin: auto;
 
   line-height: 0px;
-  width: 60%;
+  width: 900px;
   height: 750px;
   top: 10%;
-  bottom: 20%;
-  left: 20%;
+  bottom: 10%;
+  left: 1%;
+  right: 1%;
   padding-top: 50px;
 
   font-size: 32px;
   color: white;
 
-  margin: 0px;
   text-align: center;
 
   border: solid white 1px;
@@ -107,22 +107,22 @@ img {
   margin-top: 10%;
 }
 
-constellationPopups {
+detailedWindows {
   background-color: #0e153bb9;
   position: absolute;
   display: none;
   margin: auto;
 
   line-height: 0px;
-  width: 800px;
-  height: 675px;
+  width: 900px;
+  height: 800px;
   top: 10%;
   bottom: 20%;
   left: 23%;
   right: 1%;
   padding-top: 12px;
 
-  font-size: 32px;
+  font-size: 40px;
   color: white;
 
   text-align: center;
@@ -131,15 +131,24 @@ constellationPopups {
   border-radius: 15px;
 }
 
-description {
-  font-size: 16px;
-  line-height: 150%;
-  display: block;
-  text-align: center;
-  padding: 10px 16px 0 16px
+detailedTitle {
+  padding-top: 32px;
 }
 
-finishedConstellationPopup {
+description {
+  font-size: 24px;
+  line-height: 125%;
+  display: block;
+  text-align: left;
+  padding: 32px 16px;
+  text-indent: 50px;
+}
+
+p {
+  margin-block-start: 8px;
+  margin-block-end: 8px;
+}
+completedWindow {
   background-color: #040a30e4;
   color: white;
   position: absolute;
@@ -147,21 +156,20 @@ finishedConstellationPopup {
   margin: auto;
   
   width: 600px;
-  height: 275px;
-  top: 80%;
+  height: 54px;
+  top: 87%;
   bottom: 20%;
-  left: 23%;
+  left: 1%;
   right: 1%;
 
-  padding: 0px 40px 30px;
+  padding: 40px 40px;
   border-radius: 15px;
   border: solid white 1px;
   text-align: center;
-  height: 10%;
   font-size: 24px;
 }
 
-button.closeButton2 {
+button.closeCompletedWindow {
   margin: 12px 0px 0px 602px;
   width: 24px;
   height: 24px;
@@ -179,99 +187,14 @@ button.closeButton2 {
   cursor: pointer;
 }
 
-ariesItem {
-  display: none;
+item {
+  /*---switch to "none" when done editing text*/
+  display: block;
+  margin-block-start: 8px;
+  margin-block-end: 8px;
 }
 
-taurusItem {
-  display: none;
-}
-
-geminiItem {
-  display: none;
-}
-
-cancerItem {
-  display: none;
-}
-
-leoItem {
-  display: none;
-}
-
-virgoItem {
-  display: none;
-}
-
-libraItem {
-  display: none;
-}
-
-scorpioItem {
-  display: none;
-}
-
-sagittariusItem {
-  display: none;
-}
-
-capricornItem {
-  display: none;
-}
-
-aquariusItem {
-  display: none;
-}
-
-piscesItem {
-  display: none;
-}
-
-ariesPopup {
-  display: none;
-}
-
-taurusPopup {
-  display: none;
-}
-
-geminiPopup {
-  display: none;
-}
-
-cancerPopup {
-  display: none;
-}
-
-leoPopup {
-  display: none;
-}
-
-virgoPopup {
-  display: none;
-}
-
-libraPopup {
-  display: none;
-}
-
-scorpioPopup {
-  display: none;
-}
-
-sagittariusPopup {
-  display: none;
-}
-
-capricornPopup {
-  display: none;
-}
-
-aquariusPopup {
-  display: none;
-}
-
-piscesPopup {
+detailedWindow {
   display: none;
 }
 
@@ -303,7 +226,7 @@ libra {
   display: none;
 }
 
-scorpio {
+scorpius {
   display: none;
 }
 

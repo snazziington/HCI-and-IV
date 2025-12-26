@@ -37,7 +37,6 @@
         <aquariusItem onclick="detailedMenu('aquariusPopup')" id="aquariusItem"> Aquarius </aquariusItem>
         <piscesItem onclick="detailedMenu('piscesPopup')" id="piscesItem"> Pisces </piscesItem>
       </ul>
-
       <script>
         function detailedMenu(x) {
           for (let i = 1; i < 13; i++) {
@@ -58,126 +57,180 @@
 
   </library>
 
-  <constellationPopups id="constellationPopups">
-    <ariesPopup id="ariesPopup"> Aries P
-      <img class="thumbnail" src="assets/aries.png">
-      <description>
-        In astrology, Aries is the first sign of the zodiac, considered as governing the period from about March 21 to about April 19.
-        Its representation as a ram is identified with the Egyptian god Amon and, in Greek mythology, with the ram with the golden fleec.
-      </description>
-    </ariesPopup>
+  <quiz id="quiz">
+    <button id="submit">Submit Answer</button>
+  </quiz>
 
-    <taurusPopup id="taurusPopup"> Taurus P
-      <img class="thumbnail" src="assets/taurus.png">
-      <description>
-        Also known as "Bull", Taurus is the second sign of the zodiac, considered as governing that portion of the year from about April 20 to about May 20.
-        Its representation as a bull is related to the Greek myth of Zeus, who assumed the form of a bull to abduct Europa.
-      </description>
-    </taurusPopup>
-    
-    <geminiPopup id="geminiPopup"> Gemini P
-      <img class="thumbnail" src="assets/gemini.png">
-      <description>
-        Gemini is the third sign of the zodiac, considered as governing the period from about May 21 to about June 21.
-        It is represented by a set of twins (or in Egyptian astrology by a pair of goats and in Arabian astrology by a pair of peacocks).
-        In addition to their identification as Castor and Pollux, which are also the names of its brightest stars, the twins have also been
-        related to other celebrated pairs, such as the younger and older Horus or Romulus and Remus.
-      </description>
-    </geminiPopup>
+    <constellationPopups id="constellationPopups">
+      <button class="closeButton" id="closePopup" onclick="closeDetailedPopup()">X</button>
 
-    <cancerPopup id="cancerPopup"> Cancer P
-      <img class="thumbnail" src="assets/cancer.png">
-      <description>
-        In astrology, Cancer is the fourth sign of the zodiac, considered as governing the period from about June 22 to about July 22.
-        Its representation as a crab (or lobster or crayfish) is related to the crab in Greek mythology that pinched Heracles while he was fighting the Lernaean hydra.
-        Crushed by Heracles, the crab was rewarded by Heracles' enemy, Hera, by being placed in the heavens.
-      </description>
-    </cancerPopup>
+      <script>
+        let closeButton = document.getElementById("closeButton");
 
-    <leoPopup id="leoPopup"> Leo P
-      <img class="thumbnail" src="assets/leo.png">
-      <description>
+        function closeDetailedPopup() {
+          for (let i = 1; i < 13; i++) {
+            let closingWindow = document.getElementById(constellations[i].name + "Popup")
+            let popupWindow = document.getElementById("constellationPopups");
+            popupWindow.style.display = "none";
+            closingWindow.style.display = "none";
+          }
+        }
 
-      </description>
-    </leoPopup>
-    
-    <virgoPopup id="virgoPopup"> Virgo P
-      <img class="thumbnail" src="assets/virgo.png">
-      <description>
-        In astrology, Virgo is the sixth sign of the zodiac, considered as governing the period from about August 23 to about September 22.
-        It is represented as a young maiden carrying a sheaf of wheat. She is variously identified as a fertility goddess
-        (the Babylonian and Assyrian Ishtar, among others) or the harvest maiden (the Greek Persephone and others).
-      </description>
-    </virgoPopup>
-    <libraPopup id="libraPopup"> Libra P
-      <img class="thumbnail" src="assets/libra.png">
-      <description>
-        In astrology, Libra is the seventh sign of the zodiac, considered as governing the period from about September 22 to about October 23.
-        It is represented by a woman (sometimes identified with Astraea, the Roman goddess of justice), holding a balance scale or by the balance alone.
-      </description>
-    </libraPopup>
-    <scorpioPopup id="scorpioPopup"> Scorpio P
-      <img class="thumbnail" src="assets/scorpio.png">
-      <description>
-        In astrology, Scorpius (or Scorpio) is the eighth sign of the zodiac, considered as governing the period from about October 24 to about November 21.
-        Its representation as a scorpion is related to the Greek legend of the scorpion that stung Orion to death (said to be why Orion sets as Scorpius rises in the sky).
-      </description>
-    </scorpioPopup>
-    <sagittariusPopup id="sagittariusPopup"> Sagittarius P
-      <img class="thumbnail" src="assets/sagittarius.png">
-      <description>
-        In astrology, Sagittarius is the ninth sign of the zodiac, considered as governing the period from about November 22 to about December 21.
-        It is represented either by a centaur shooting a bow and arrow or by an arrow drawn across a bow. The identification of Sagittarius as a
-        mounted archer was made by the Babylonians as early as the 11th century bce.
-      </description>
-    </sagittariusPopup>
-    <capricornPopup id="capricornPopup"> Capricorn P
-      <img class="thumbnail" src="assets/capricorn.png">
-      <description>
-        Capricorn, in astrology, the 10th sign of the zodiac, considered as governing the period from about December 22 to about January 19.
-        One explanation of the fishtail with which the goat is often represented is found in the Greek myth of Pan, who, to avoid the monster Typhon,
-        jumped into the water just as he was changing into animal shape. The half above water assumed the shape of a goat while the lower half, the tail,
-        assumed the shape of a fish.
-      </description>
-    </capricornPopup>
-    <aquariusPopup id="aquariusPopup"> Aquarius P
-      <img class="thumbnail" src="assets/aquarius.png">
-      <description>
-        In astrology, Aquarius is the 11th sign of the zodiac, considered as governing the period from about January 20 to about February 18.
-        Its representation as a man pouring a stream of water out of a jug came about, it has been suggested, because in ancient times the rising
-        of Aquarius coincided in the Middle East with a period of floods and rain.      </description>
-      </description>
-    </aquariusPopup>
-    <piscesPopup id="piscesPopup"> Pisces P
-      <img class="thumbnail" src="assets/pisces.png">
-      <description>
-        In astrology, Pisces is the 12th sign of the zodiac, considered as governing the period from about February 19 to about March 20.
-        Its representation as two fish tied together is usually related to the Greek myth of Aphrodite and Eros, who jumped into a river to
-        escape the monster Typhon and changed into fish, or, alternatively, the two fish that carried them to safety.
-      </description>
-    </piscesPopup>
-  </constellationPopups>
+      </script>
+      <ariesPopup id="ariesPopup"> Aries
+        <img class="thumbnail" src="assets/aries.png">
+        <description>
+          In astrology, Aries is the first sign of the zodiac, considered as governing the period from about March 21 to
+          about April 19.
+          Its representation as a ram is identified with the Egyptian god Amon and, in Greek mythology, with the ram
+          with
+          the golden fleec.
+        </description>
+      </ariesPopup>
 
-  <latestConstellation id="latestConstellation">
-  </latestConstellation>
+      <taurusPopup id="taurusPopup"> Taurus
+        <img class="thumbnail" src="assets/taurus.png">
+        <description>
+          Also known as "Bull", Taurus is the second sign of the zodiac, considered as governing that portion of the
+          year
+          from about April 20 to about May 20.
+          Its representation as a bull is related to the Greek myth of Zeus, who assumed the form of a bull to abduct
+          Europa.
+        </description>
+      </taurusPopup>
 
-  <finishedConstellationPopup id="finishedConstellationPopup">
-    You just finished drawing <ariesName id="aries">Aries! </ariesName>
-    <taurusName id="taurus">Taurus!</taurusName>
-    <geminiName id="gemini">Gemini!</geminiName>
-    <cancerName id="cancer">Cancer!</cancerName>
-    <leoName id="leo">Leo!</leoName>
-    <virgoName id="virgo">Virgo!</virgoName>
-    <libraName id="libra">Libra!</libraName>  
-    <scorpioName id="scorpio">Scorpio!</scorpioName>
-    <sagittariusName id="sagittarius">Sagittarius!</sagittariusName>
-    <capricornName id="capricorn">Capricorn!</capricornName>
-    <aquariusName id="aquarius">Aquarius!</aquariusName>
-    <piscesName id="pisces">Pisces!
-    </piscesName>
-    Click its name in the library to learn more!
-  </finishedConstellationPopup>
+      <geminiPopup id="geminiPopup"> Gemini
+        <img class="thumbnail" src="assets/gemini.png">
+        <description>
+          Gemini is the third sign of the zodiac, considered as governing the period from about May 21 to about June 21.
+          It is represented by a set of twins (or in Egyptian astrology by a pair of goats and in Arabian astrology by a
+          pair of peacocks).
+          In addition to their identification as Castor and Pollux, which are also the names of its brightest stars, the
+          twins have also been
+          related to other celebrated pairs, such as the younger and older Horus or Romulus and Remus.
+        </description>
+      </geminiPopup>
 
+      <cancerPopup id="cancerPopup"> Cancer
+        <img class="thumbnail" src="assets/cancer.png">
+        <description>
+          In astrology, Cancer is the fourth sign of the zodiac, considered as governing the period from about June 22
+          to
+          about July 22.
+          Its representation as a crab (or lobster or crayfish) is related to the crab in Greek mythology that pinched
+          Heracles while he was fighting the Lernaean hydra.
+          Crushed by Heracles, the crab was rewarded by Heracles' enemy, Hera, by being placed in the heavens.
+        </description>
+      </cancerPopup>
+
+      <leoPopup id="leoPopup"> Leo
+        <img class="thumbnail" src="assets/leo.png">
+        <description>
+
+        </description>
+      </leoPopup>
+
+      <virgoPopup id="virgoPopup"> Virgo
+        <img class="thumbnail" src="assets/virgo.png">
+        <description>
+          In astrology, Virgo is the sixth sign of the zodiac, considered as governing the period from about August 23
+          to
+          about September 22.
+          It is represented as a young maiden carrying a sheaf of wheat. She is variously identified as a fertility
+          goddess
+          (the Babylonian and Assyrian Ishtar, among others) or the harvest maiden (the Greek Persephone and others).
+        </description>
+      </virgoPopup>
+      <libraPopup id="libraPopup"> Libra
+        <img class="thumbnail" src="assets/libra.png">
+        <description>
+          In astrology, Libra is the seventh sign of the zodiac, considered as governing the period from about September
+          22 to about October 23.
+          It is represented by a woman (sometimes identified with Astraea, the Roman goddess of justice), holding a
+          balance scale or by the balance alone.
+        </description>
+      </libraPopup>
+      <scorpioPopup id="scorpioPopup"> Scorpio
+        <img class="thumbnail" src="assets/scorpio.png">
+        <description>
+          In astrology, Scorpius (or Scorpio) is the eighth sign of the zodiac, considered as governing the period from
+          about October 24 to about November 21.
+          Its representation as a scorpion is related to the Greek legend of the scorpion that stung Orion to death
+          (said
+          to be why Orion sets as Scorpius rises in the sky).
+        </description>
+      </scorpioPopup>
+      <sagittariusPopup id="sagittariusPopup"> Sagittarius
+        <img class="thumbnail" src="assets/sagittarius.png">
+        <description>
+          In astrology, Sagittarius is the ninth sign of the zodiac, considered as governing the period from about
+          November 22 to about December 21.
+          It is represented either by a centaur shooting a bow and arrow or by an arrow drawn across a bow. The
+          identification of Sagittarius as a
+          mounted archer was made by the Babylonians as early as the 11th century bce.
+        </description>
+      </sagittariusPopup>
+      <capricornPopup id="capricornPopup"> Capricorn
+        <img class="thumbnail" src="assets/capricorn.png">
+        <description>
+          Capricorn, in astrology, the 10th sign of the zodiac, considered as governing the period from about December
+          22
+          to about January 19.
+          One explanation of the fishtail with which the goat is often represented is found in the Greek myth of Pan,
+          who,
+          to avoid the monster Typhon,
+          jumped into the water just as he was changing into animal shape. The half above water assumed the shape of a
+          goat while the lower half, the tail,
+          assumed the shape of a fish.
+        </description>
+      </capricornPopup>
+      <aquariusPopup id="aquariusPopup"> Aquarius
+        <img class="thumbnail" src="assets/aquarius.png">
+        <description>
+          In astrology, Aquarius is the 11th sign of the zodiac, considered as governing the period from about January
+          20
+          to about February 18.
+          Its representation as a man pouring a stream of water out of a jug came about, it has been suggested, because
+          in
+          ancient times the rising
+          of Aquarius coincided in the Middle East with a period of floods and rain. </description>
+        </description>
+      </aquariusPopup>
+      <piscesPopup id="piscesPopup"> Pisces
+        <img class="thumbnail" src="assets/pisces.png">
+        <description>
+          In astrology, Pisces is the 12th sign of the zodiac, considered as governing the period from about February 19
+          to about March 20.
+          Its representation as two fish tied together is usually related to the Greek myth of Aphrodite and Eros, who
+          jumped into a river to
+          escape the monster Typhon and changed into fish, or, alternatively, the two fish that carried them to safety.
+        </description>
+      </piscesPopup>
+    </constellationPopups>
+    <finishedConstellationPopup id="finishedConstellationPopup">
+      <button class="closeButton2" id="closePopup" onclick="closeCompletedPopup()">X</button>
+      <script>
+        let completedWindow = document.getElementById("finishedConstellationPopup");
+
+        function closeCompletedPopup() {
+          completedWindow.style.display = "none";
+        }
+      </script>
+      You just finished drawing <ariesName id="aries">Aries! </ariesName>
+      <taurusName id="taurus">Taurus!</taurusName>
+      <geminiName id="gemini">Gemini!</geminiName>
+      <cancerName id="cancer">Cancer!</cancerName>
+      <leoName id="leo">Leo!</leoName>
+      <virgoName id="virgo">Virgo!</virgoName>
+      <libraName id="libra">Libra!</libraName>
+      <scorpioName id="scorpio">Scorpio!</scorpioName>
+      <sagittariusName id="sagittarius">Sagittarius!</sagittariusName>
+      <capricornName id="capricorn">Capricorn!</capricornName>
+      <aquariusName id="aquarius">Aquarius!</aquariusName>
+      <piscesName id="pisces">Pisces!
+      </piscesName>
+      Click its name in the library to learn more!
+    </finishedConstellationPopup>
   <script>
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();

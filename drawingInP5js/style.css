@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  display: flex;
+  display: block;
   /*Hide scrollbars*/
   overflow: hidden;
   -webkit-user-select: none; /* Safari */
@@ -18,17 +18,35 @@ button {
   width: 80px;
   height: 80px;
   text-align: center;
-  padding: 0px 5px 2px 5px;
+  padding: 0px 5px 2px;
 
   background-color: #12183a;
   border: solid white 1px;
-  border-radius: 5%;
+  border-radius: 5px;
   color: white;
   
   text-decoration: none;
   display: inline-block;
   font-size: 23px;
   
+  cursor: pointer;
+}
+
+button.closeButton {
+  margin: 0px 0px 0px 449px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  padding: 0px 0px;
+
+  background-color: #090f31;
+  border: solid white 1px;
+  border-radius: 2px;
+  color: white;
+  
+  text-decoration: none;
+  font-size: 12px;
+  display: absolute;
   cursor: pointer;
 }
 
@@ -57,6 +75,30 @@ libraryItems {
   cursor: pointer; 
 }
 
+quiz {
+  background-color: #0e153bb9;
+  position: absolute;
+  display: none;
+  margin: auto;
+
+  line-height: 0px;
+  width: 60%;
+  height: 750px;
+  top: 10%;
+  bottom: 20%;
+  left: 20%;
+  padding-top: 50px;
+
+  font-size: 32px;
+  color: white;
+
+  margin: 0px;
+  text-align: center;
+
+  border: solid white 1px;
+  border-radius: 15px;
+}
+
 img {
   width: 250px;
   height: 250px;
@@ -72,22 +114,21 @@ constellationPopups {
   margin: auto;
 
   line-height: 0px;
-  width: 500px;
-  height: 475px;
+  width: 800px;
+  height: 675px;
   top: 10%;
   bottom: 20%;
-  left: 40%;
-  right: 20%;
-  padding-top: 25px;
+  left: 23%;
+  right: 1%;
+  padding-top: 12px;
 
   font-size: 32px;
   color: white;
 
-  margin: 0px;
   text-align: center;
 
   border: solid white 1px;
-  border-radius: 2%;
+  border-radius: 15px;
 }
 
 description {
@@ -99,17 +140,43 @@ description {
 }
 
 finishedConstellationPopup {
-  position: absolute;
-  top: 80%;
-  left: 35%;
-  margin-left: auto;
-  margin: auto;
-  width: 40%;
-  height: 15%;
-  font-size: 24px;
-  background-color: rgba(15, 18, 70, 0.877);
+  background-color: #040a30e4;
   color: white;
+  position: absolute;
   display: none;
+  margin: auto;
+  
+  width: 600px;
+  height: 275px;
+  top: 80%;
+  bottom: 20%;
+  left: 23%;
+  right: 1%;
+
+  padding: 0px 40px 30px;
+  border-radius: 15px;
+  border: solid white 1px;
+  text-align: center;
+  height: 10%;
+  font-size: 24px;
+}
+
+button.closeButton2 {
+  margin: 12px 0px 0px 602px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  padding: 0px 0px;
+
+  background-color: #090f31;
+  border: solid white 1px;
+  border-radius: 2px;
+  color: white;
+  
+  text-decoration: none;
+  font-size: 12px;
+  display: absolute;
+  cursor: pointer;
 }
 
 ariesItem {
@@ -258,6 +325,6 @@ pisces {
 
 @media screen and (max-width: 1500px){
   library {
-    width: 450px;
+    width: 300px;
   }
 }

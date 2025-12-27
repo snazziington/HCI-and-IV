@@ -32,8 +32,16 @@ button {
   cursor: pointer;
 }
 
+img.thumbnail {
+  display: inline;
+  width: 50px;
+  height: 50px;
+  vertical-align: bottom;
+  padding: 0px 10px 0px;
+}
+
 button.closeDetailedWindow {
-  margin: 0px 0px 0px 753px;
+  margin: 0px 0px 0px 850px;
   width: 24px;
   height: 24px;
   text-align: center;
@@ -64,13 +72,14 @@ library {
   position: absolute;
   top: 0%;
   height: 100%;
-  display: none;
+  /*---change block to none*/
+  display: block;
   color: white;
   font-size: 24px;
 }
 
 libraryItems {
-  margin: 25px 100px;
+  margin: 25px 80px;
   display: block;
   cursor: pointer; 
 }
@@ -190,8 +199,9 @@ button.closeCompletedWindow {
 item {
   /*---switch to "none" when done editing text*/
   display: block;
-  margin-block-start: 8px;
-  margin-block-end: 8px;
+  width: 200px;
+  height: 0px;
+  margin-top: 60px;
 }
 
 detailedWindow {
@@ -234,7 +244,7 @@ sagittarius {
   display: none;
 }
 
-capricorn {
+capricornus {
   display: none;
 }
 
@@ -246,8 +256,8 @@ pisces {
   display: none;
 }
 
-@media screen and (max-width: 1500px){
+@media screen and (max-width: 1750px){
   library {
-    width: 300px;
+    width: 350px;
   }
 }

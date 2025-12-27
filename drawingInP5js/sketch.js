@@ -36,7 +36,6 @@ class Constellation {
 	}
 
 	draw() {
-		strokeWeight(dilatingStroke / 3);
 		beginShape(POINTS);
 
 		// for each constellation, draw each star in its array
@@ -46,10 +45,10 @@ class Constellation {
 
 				// but only draw them if they're visible!
 				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound) {
-					// Size ranges from 3 to 5
+					// Size ranges from 4.5 to 6.5
 					this.size = 3 + ((j % 21) / 10);
-					this[vx][3] += random(0.007);
-					let scale = this.size + sin(this[vx][3]) * 3 * this[vx][4];
+					this[vx][3] += random(0.04);
+					let scale = this.size + sin(this[vx][3]) * 2 * this[vx][4];
 					let opacity = this.size * 1;
 					noStroke();
 
@@ -323,14 +322,16 @@ let currentMillis;
 //#region Draw 
 function draw() {
 	currentMillis = millis();
-	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
+	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5
 	background("#0E1346");
 
 	buttonPlacement();
 
 	// Navigation
-	cameraPanning();
+	cameraPanning();	
 
+	drawBackgroundStars();
+	
 	mouseDrawingLines();
 
 	aries.draw();
@@ -346,8 +347,6 @@ function draw() {
 	aquarius.draw();
 	pisces.draw();
 
-	drawBackgroundStars();
-
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
 	if (!isDrawing) {
@@ -361,21 +360,22 @@ function draw() {
 	toggleCompletedWindow();
 
 	// Ensures that the drawn lines pulse
-	strokeWeight(((sin(frameCount * 0.02) + 3.5)));
+	strokeWeight(dilatingStroke / 8 + 2)
+	//strokeWeight(((sin(millis() * 0.02) + 3.5)));
 
 	// Draws the lines of the constellations if they're visible
 	lines.forEach(drawLineIfVisible);
 
 	/*stroke(25, 29, 81);
-	strokeWeight(((sin(frameCount * 0.25) + 40)));
+	strokeWeight(((sin(millis() * 0.25) + 40)));
 	lines.forEach(drawLineIfVisible);
 
 	stroke(45, 49, 102);
-	strokeWeight((sin(frameCount * 0.25) + 20));
+	strokeWeight((sin(millis() * 0.25) + 20));
 	lines.forEach(drawLineIfVisible);
 
 	stroke("white");
-	strokeWeight((sin(frameCount * 0.25) + 5));
+	strokeWeight((sin(millis() * 0.25) + 5));
 	lines.forEach(drawLineIfVisible);*/
 
 	// Display Framerate
@@ -653,7 +653,7 @@ function neighbouringStarsGlow() {
 				neighbouringStars[i][1]), 0, 500, 0, 80), 0, 145);
 			alpha += (newAlpha - alpha) * 0.2;
 			fill(13, 0, 255, alpha)
-			let diameter = ((sin(frameCount * 0.08) + 2) * 10) + 6;
+			let diameter = ((sin(millis() * 0.002) + 3) * 10) + 6;
 			blendMode(OVERLAY);
 			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
 			blendMode(BLEND);
@@ -2057,14 +2057,13 @@ function keyReleased() {
 
 //#region Stars (Background)
 const randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
-const randomSize1 = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-const randomSize2 = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
+const randomSize = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
 
 class Star {
 	constructor() {
 		this.x = random(width + 450) - 450;
 		this.y = random(height);
-		this.size = random(randomSize1);
+		this.size = random(randomSize);
 		this.t = random(randomTAU);
 	}
 
@@ -2090,7 +2089,7 @@ class bigStar {
 	constructor() {
 		this.x = random(width + 450) - 450;
 		this.y = random(height);
-		this.size = random(randomSize2);
+		this.size = random(randomSize);
 		this.t = random(randomTAU);
 	}
 

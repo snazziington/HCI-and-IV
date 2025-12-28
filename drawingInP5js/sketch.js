@@ -19,7 +19,7 @@ let stars = [];
 let bigStars = [];
 const maxStars = 100;
 const maxBigStars = 100;
-let button, libButton, quizButton, helpButton;
+let button, libButton, quizButton, helpButton, navButton;
 let lib, quiz, detailedWindow, constDetailedWindow;
 
 //#region Constellation Info
@@ -108,16 +108,16 @@ function setup() {
 
 	helpButton = createButton('🛈\nHelp')
 
+	navButton = createButton('Nav')	
+	navButton.class("navButton");
+
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
 
-	buttons.push(libButton);
-	buttons.push(quizButton);
-	buttons.push(helpButton);
 	libButton.mousePressed(libButtonPress)
 	quizButton.mousePressed(quizButtonPress)
 	helpButton.mousePressed(helpButtonPress)
-
+	navButton.mousePressed(navButtonPress)
 	frameRate(30);
 }
 //#endregion
@@ -129,10 +129,14 @@ function buttonPlacement() {
 	libButton.position(0, 0);
 	quizButton.position(0, 100);
 	helpButton.position(0, 200);
+
+	navButton.position(detailedWindows.top, detailedWindows.bottom);
 }
 //#endregion
 
-
+function navButtonPress() {
+	print("pressing nav button");
+}
 
 //#region Set Up Constellations
 function setupConstellations() {
@@ -553,6 +557,10 @@ function mousePressed() {
 		}
 	}
 	//#endregion
+
+	//#region Closing
+
+	//#endregion
 }
 
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
@@ -560,15 +568,6 @@ const closeDetailedWindowButton = document.getElementById("closeDetailedWindow")
 function openConstellationInLibrary() {
 		print("opening the constellation");
 }
-
-function closeDetailedWindow() {
-	for (let i = 1; i < 13; i++) {
-		constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
-		detailedWindow.style.display = "none";
-		constDetailedWindow.style.display = "none";
-	}
-}
-
 
 let startingStarScale = 1;
 

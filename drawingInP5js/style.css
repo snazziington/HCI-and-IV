@@ -202,7 +202,7 @@ For testing purposes I can just have it print the name of the constellation to m
 Remember to remove the navButton css if you won't be using it in the end
 (might reuse it for the navButton though)*/
 button.navButton {
-  margin: 32px 0px 0px 835px;
+  margin: 32px 0px 0px 0px;
   width: 36px;
   height: 36px;
 

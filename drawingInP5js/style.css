@@ -72,7 +72,8 @@ library {
   position: absolute;
   top: 0%;
   height: 100%;
-  display: none;
+  /*---fix later*/
+  display: block;
   color: white;
   font-size: 24px;
 }
@@ -195,8 +196,30 @@ button.closeCompletedWindow {
   cursor: pointer;
 }
 
+/*---I could create a button in the js code, and when the detailed window is visible the button appears
+And if you click the button, depending on which constellation is visible, the button will take you to that constellation
+For testing purposes I can just have it print the name of the constellation to make sure it works.
+Remember to remove the navButton css if you won't be using it in the end
+(might reuse it for the navButton though)*/
+button.navButton {
+  margin: 32px 0px 0px 835px;
+  width: 36px;
+  height: 36px;
+
+  background-color: #090f31;
+  border: solid white 1px;
+  border-radius: 2px;
+  color: white;
+  
+  text-decoration: none;
+  font-size: 12px;
+  display: absolute;
+  cursor: pointer;
+}
+
 item {
-  display: none;
+  /*---fix later*/
+  display: block;
   width: 200px;
   height: 0px;
   margin-top: 60px;

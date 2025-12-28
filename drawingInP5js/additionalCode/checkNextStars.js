@@ -926,43 +926,43 @@ function checkNextStars(currentConstellation) {
 
 			break;
 
-		case 10: // capricorn
+		case 10: // capricornus
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [capricorn.v2];
+					neighbouringStars = [capricornus.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [capricorn.v1, capricorn.v3, capricorn.v4];
+					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [capricorn.v2];
+					neighbouringStars = [capricornus.v2];
 					break;
 
 				case 4:
-					neighbouringStars = [capricorn.v2, capricorn.v5, capricorn.v6, capricorn.v7];
+					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
 					break;
 
 				case 5:
-					neighbouringStars = [capricorn.v4];
+					neighbouringStars = [capricornus.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [capricorn.v4, capricorn.v7];
+					neighbouringStars = [capricornus.v4, capricornus.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [capricorn.v4, capricorn.v6, capricorn.v8];
+					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [capricorn.v7, capricorn.v9];
+					neighbouringStars = [capricornus.v7, capricornus.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [capricorn.v8];
+					neighbouringStars = [capricornus.v8];
 					break;
 			}
 

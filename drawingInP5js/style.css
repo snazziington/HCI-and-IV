@@ -72,8 +72,7 @@ library {
   position: absolute;
   top: 0%;
   height: 100%;
-  /*---change block to none*/
-  display: block;
+  display: none;
   color: white;
   font-size: 24px;
 }
@@ -197,8 +196,7 @@ button.closeCompletedWindow {
 }
 
 item {
-  /*---switch to "none" when done editing text*/
-  display: block;
+  display: none;
   width: 200px;
   height: 0px;
   margin-top: 60px;

@@ -11,13 +11,14 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-let translationX = -1800;
+var translationX = -1800;
 let translationY = -500;
 
 // Stars
 let stars = [];
-let bigStars = [];
-let button, libButton, quizButton, helpButton;
+const maxStars = 75;
+let button, libButton, quizButton, helpButton, navButton;
+let lib, quiz, detailedWindow, constDetailedWindow;
 
 //#region Constellation Info
 class Constellation {
@@ -33,7 +34,6 @@ class Constellation {
 	}
 
 	draw() {
-		strokeWeight(dilatingStroke / 3);
 		beginShape(POINTS);
 
 		// for each constellation, draw each star in its array
@@ -43,20 +43,22 @@ class Constellation {
 
 				// but only draw them if they're visible!
 				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound) {
-					// Size ranges from 3 to 5
+					// Size ranges from 4.5 to 6.5
 					this.size = 3 + ((j % 21) / 10);
-					this[vx][3] += random(0.007);
-					var scale = this.size + sin(this[vx][3]) * 3 * this[vx][4];
+					this[vx][3] += random(0.04);
+					let scale = this.size + sin(this[vx][3]) * 2 * this[vx][4];
 					let opacity = this.size * 1;
 					noStroke();
 
 					// Glow
-					fill(200, 195, 255, opacity);
-					//fill(255, 0, 0, opacity);
+					fill("rgba(89, 99, 212, 0.31)")
+					fill(110, 100, 255, opacity * 4);
+					//fill('#1d2155')
 					ellipse(this[vx][0], this[vx][1], scale * 3, scale * 3);
 
 					// Star
-					fill(200, 195, 255, opacity * 10);
+					fill(210, 200, 255, opacity * 20);
+					//fill('#aba8e2')
 					//fill(255, 0, 0, opacity * 10);
 					ellipse(this[vx][0], this[vx][1], scale, scale);
 				}
@@ -75,40 +77,39 @@ class Constellation {
 
 
 
-//#region Setup
+//#region
 function setup() {
-	createCanvas(5000, 2000);
+	createCanvas(6000, 2000);
 
 	// Prevents right-click from putting up the context menu
 	for (let element of document.getElementsByClassName("p5Canvas")) {
 		element.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
 
-	stroke("white");
-
 	// Initialises Stars
-	for (var i = 0; i < 200; i++) {
+	for (var i = 0; i < maxStars; i++) {
 		stars[i] = new Star();
-	}
-
-	for (var i = 0; i < 200; i++) {
-		bigStars[i] = new bigStar();
 	}
 
 	// empty default const (0th)
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
 
-	libButton = createButton('🕮\nLibrary')
-	quizButton = createButton('☑\nQuiz')
-	helpButton = createButton('🛈\nHelp')
+	libButton = createButton('🕮 Library')
+	lib = document.getElementById("library");
 
-	buttons.push(libButton);
-	buttons.push(quizButton);
-	buttons.push(helpButton);
+	quizButton = createButton('☑ Quiz')
+	quiz = document.getElementById("quiz");
+
+	helpButton = createButton('🛈 Help')
+
+	completedWindow = document.getElementById("completedWindow");
+	detailedWindow = document.getElementById("detailedWindows");
+
 	libButton.mousePressed(libButtonPress)
 	quizButton.mousePressed(quizButtonPress)
 	helpButton.mousePressed(helpButtonPress)
+	frameRate(30);
 }
 //#endregion
 
@@ -121,7 +122,6 @@ function buttonPlacement() {
 	helpButton.position(0, 200);
 }
 //#endregion
-
 
 
 //#region Set Up Constellations
@@ -162,7 +162,7 @@ function setupConstellations() {
 		1624, 1108, 1665, 1058, 1636, 1054, 1613, 985, 1594, 997, 1543, 968, 1526, 954,
 		1605, 1082, 1503, 1065, 1427, 1133, 1480, 1238, 1533, 1328, 1610, 1276, 1634, 1335);
 
-	capricorn = new Constellation(
+	capricornus = new Constellation(
 		1343, 943, 1342, 974, 1316, 1119, 1226, 1047, 1308, 1144, 1194, 1127,
 		1178, 1060, 1128, 1080, 1106, 1082);
 
@@ -243,7 +243,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "scorpio",
+			name: "scorpius",
 			v1: scorpius.v1, v2: scorpius.v2, v3: scorpius.v3, v4: scorpius.v4,
 			v5: scorpius.v5, v6: scorpius.v6, v7: scorpius.v7, v8: scorpius.v8,
 			v9: scorpius.v9, v10: scorpius.v10, v11: scorpius.v11, v12: scorpius.v12,
@@ -267,13 +267,13 @@ function setupConstellations() {
 		},
 
 		{
-			name: "capricorn",
-			v1: capricorn.v1, v2: capricorn.v2, v3: capricorn.v3, v4: capricorn.v4,
-			v5: capricorn.v5, v6: capricorn.v6, v7: capricorn.v7, v8: capricorn.v8,
-			v9: capricorn.v9,
+			name: "capricornus",
+			v1: capricornus.v1, v2: capricornus.v2, v3: capricornus.v3, v4: capricornus.v4,
+			v5: capricornus.v5, v6: capricornus.v6, v7: capricornus.v7, v8: capricornus.v8,
+			v9: capricornus.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [capricorn.v1[0], capricorn.v1[1], capricorn.v1[2]]
+			startStars: [capricornus.v1[0], capricornus.v1[1], capricornus.v1[2]]
 		},
 
 		{
@@ -305,10 +305,6 @@ function setupConstellations() {
 //#endregion
 
 let maxFrameRate = 0;
-let maxStars = 100;
-let maxBigStars = 100;
-let starsCount = 0;
-let bigStarsCount = 0;
 
 let leftBound, rightBound, topBound, bottomBound;
 let currentMillis;
@@ -316,17 +312,17 @@ let currentMillis;
 //#region Draw 
 function draw() {
 	currentMillis = millis();
-	dilatingStroke = ((sin(frameCount * 0.04) + 1) * 10) + 5
-	background("#0E1346");
+	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5;
+	background("hsla(235, 70%, 20%, 1.00)");
 
 	buttonPlacement();
 
 	// Navigation
 	cameraPanning();
-	drawBackgroundStars();
-	startDrawingConst()
-	// Draws background stars when they're visible
 
+	drawBackgroundStars();
+
+	mouseDrawingLines();
 
 	aries.draw();
 	taurus.draw();
@@ -337,57 +333,77 @@ function draw() {
 	libra.draw();
 	scorpius.draw();
 	sagittarius.draw();
-	capricorn.draw();
+	capricornus.draw();
 	aquarius.draw();
 	pisces.draw();
 
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
 	if (!isDrawing) {
-		stroke("white");
+		stroke("e5e5ffff");
 		strokeWeight(3);
 		constellationCheck();
 	}
 
-	x2 = newMouseX;
-	y2 = newMouseY;
-	stroke("#adaedfff")
+	toggleCompletedWindow();
 
 	// Ensures that the drawn lines pulse
-	strokeWeight(((sin(frameCount * 0.015) + 3.5)));
+	strokeWeight(dilatingStroke / 8 + 2)
+	//strokeWeight(((sin(millis() * 0.02) + 3.5)));
 
 	// Draws the lines of the constellations if they're visible
+	stroke("#e5e5ffff");
 	lines.forEach(drawLineIfVisible);
 
-	// "Completed constellation" window things
-	if (currentMillis - prevMillis < popupInterval && oneConstDone == 1) {
-		var popupWindow = document.getElementById("finishedConstellationPopup");
+	/*stroke(25, 29, 81);
+	strokeWeight(dilatingStroke / 3 + 7);
+	lines.forEach(drawLineIfVisible);
+
+	stroke(45, 49, 102);
+	strokeWeight(dilatingStroke / 3 + 2);
+	lines.forEach(drawLineIfVisible);
+
+	stroke("white");
+	strokeWeight(dilatingStroke / 15 + 1);
+	lines.forEach(drawLineIfVisible);*/
+
+	// Display Framerate
+	textSize(40);
+	fill("#e5e5ffff");
+	noStroke(); 
+	if (frameCount % 5 == 0) {
+		maxFrameRate = frameRate();
+	}
+	text(int(maxFrameRate), 1000 - translationX, 100 - translationY);
+	maxFrameRate = min(frameRate(), maxFrameRate);
+
+	// Lines to find center of screen
+	/*line(0 - translationX, 0 - translationY, windowWidth - translationX, windowHeight - translationY)
+	line(- translationX + windowWidth, 0 - translationY, 0 - translationX, windowHeight - translationY)*/
+}
+//#endregion
+
+let xCircle = 2400, yCircle = 800;
+function toggleCompletedWindow() {
+	// Show completedWindow if it has been visible for less than 5s
+	if (currentMillis - prevMillis < completedWindowInterval && oneConstDone == 1) {
 		var constName = document.getElementById(latestConstellation);
-		popupWindow.style.display = "block";
+		completedWindow.style.display = "block";
 
 		for (let i = 1; i < 13; i++) {
 			var constellation = document.getElementById(constellations[i].name);
 			constellation.style.display = "none";
 		}
 		constName.style.display = "inline";
-
-	} else {
-		var popupWindow = document.getElementById("finishedConstellationPopup");
-		popupWindow.style.display = "none";
 	}
 
-	// Display Framerate
-	/*textSize(40);
-	fill("#adaedfff");
-	if (frameCount % 5 == 0) {
-		maxFrameRate = frameRate();
+	// Fade out completedWindow if it has been visible for more than 5s
+	if (currentMillis - prevMillis > completedWindowInterval) {
+		$("#completedWindow").fadeOut(500);
 	}
-	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
-	maxFrameRate = min(frameRate(), maxFrameRate);*/
 }
-//#endregion
 
-function startDrawingConst() {
+function mouseDrawingLines() {
 	if (isDrawing) {
 
 		// Ensures starting stars stop glowing larger when you start drawing
@@ -396,22 +412,30 @@ function startDrawingConst() {
 			constellations[i].v1[4] = 1;
 		}
 
-		//error here
-		stroke(25, 29, 81);
-		strokeWeight(40);
-		line(x1, y1, x2, y2);
-
-		stroke(45, 49, 102);
-		strokeWeight(15);
-		line(x1, y1, x2, y2);
-
-		stroke("white");
-		strokeWeight(1);
-		line(x1, y1, x2, y2);
+		drawCurrentLines();
 
 		checkNextStars(currentConstellation);
 		neighbouringStarsGlow();
 	}
+}
+
+function drawCurrentLines() {
+	x2 = newMouseX;
+	y2 = newMouseY;
+
+	stroke('hsla(237, 70%, 31%, 1.00)');
+	//stroke(200, 195, 255, 30)
+	strokeWeight(dilatingStroke / 3 + 15);
+	line(x1, y1, x2, y2);
+
+	stroke('hsla(239, 57%, 46%, 1.00)');
+	//stroke(200, 195, 255, 15);
+	strokeWeight(dilatingStroke / 3 + 7);
+	line(x1, y1, x2, y2);
+
+	stroke('hsla(240, 100%, 91%, 1.00)');
+	strokeWeight(dilatingStroke / 15 + 1);
+	line(x1, y1, x2, y2);
 }
 
 //#region Drawing Constellations
@@ -517,17 +541,20 @@ function mousePressed() {
 
 	//#region Right-Click Closing Menu
 	if (mouseButton === RIGHT) {
-	}
-
-	if (mouseButton === RIGHT) {
 		for (let i = 1; i < 13; i++) {
-          let closingWindow = document.getElementById(constellations[i].name + "Popup")
-          let popupWindow = document.getElementById("constellationPopups");
-		  popupWindow.style.display = "none";
-                closingWindow.style.display = "none";
-        }
+			constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+			detailedWindow.style.display = "none";
+			constDetailedWindow.style.display = "none";
+		}
 	}
+	//#endregion
+
+	//#region Closing
+
+	//#endregion
 }
+
+const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
 
 let startingStarScale = 1;
 
@@ -608,16 +635,12 @@ function neighbouringStarsGlow() {
 		// If mouse is within range of a neighbouring star, that neighbouring star should glow
 		if (constellations[currentConstellation].completed == 0) {
 			noStroke();
-			let newAlpha = 255 - constrain(map(dist(newMouseX, newMouseY, neighbouringStars[i][0],
-				neighbouringStars[i][1]), 0, 500, 0, 80), 0, 145);
-			alpha += (newAlpha - alpha) * 0.2;
-			fill(13, 0, 255, alpha)
-			let diameter = ((sin(frameCount * 0.08) + 2) * 10) + 6;
+			fill("hsla(270, 39%, 76%, 1.00)");
+			let diameter = ((sin(millis() * 0.002) + 3) * 10) + 6;
 			blendMode(OVERLAY);
 			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
+			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter); 
 			blendMode(BLEND);
-			fill(255, 40)
-			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
 		}
 	}
 }
@@ -1555,43 +1578,43 @@ function checkNextStars(currentConstellation) {
 
 			break;
 
-		case 10: // capricorn
+		case 10: // capricornus
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [capricorn.v2];
+					neighbouringStars = [capricornus.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [capricorn.v1, capricorn.v3, capricorn.v4];
+					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [capricorn.v2];
+					neighbouringStars = [capricornus.v2];
 					break;
 
 				case 4:
-					neighbouringStars = [capricorn.v2, capricorn.v5, capricorn.v6, capricorn.v7];
+					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
 					break;
 
 				case 5:
-					neighbouringStars = [capricorn.v4];
+					neighbouringStars = [capricornus.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [capricorn.v4, capricorn.v7];
+					neighbouringStars = [capricornus.v4, capricornus.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [capricorn.v4, capricorn.v6, capricorn.v8];
+					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [capricorn.v7, capricorn.v9];
+					neighbouringStars = [capricornus.v7, capricornus.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [capricorn.v8];
+					neighbouringStars = [capricornus.v8];
 					break;
 			}
 
@@ -1935,24 +1958,22 @@ function checkNextStars(currentConstellation) {
 
 let oneConstDone = 0;
 let prevMillis = 0;
-let popupInterval = 5000;
+const completedWindowInterval = 5000;
 
 function addConstellationToLibrary(c) {
 	// Adds constellation to library
 	var currentConstItem = document.getElementById(constellations[c].name + "Item");
+	$("#currentConstItem").fadeIn(500);
 	currentConstItem.style.display = "block";
+
 	latestConstellation = constellations[c].name
 
 	// Finished const. popup appears
-	var popupWindow = document.getElementById("finishedConstellationPopup");
-	popupWindow.style.display = "block";
-
-	// Popup timer
+	completedWindow.style.display = "block";
+	$("#completedWindow").fadeIn(500);
+	//-- add toggle here
+	// completedWindow timer
 	prevMillis = millis();
-
-	// Popup appears
-	var currentConstPopup = document.getElementById(constellations[c].name + "Popup");
-	currentConstPopup.style.display = "block";
 }
 
 //#region Navigation
@@ -1976,8 +1997,8 @@ function cameraPanning() {
 		cursor('grab');
 		panningCamera = true;
 
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 500);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 + windowHeight, -1500), 0);
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-width + windowWidth, -width), 750);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-height + windowHeight, -height), 500);
 	}
 
 	else if (mouseDragging == false) {
@@ -2017,15 +2038,14 @@ function keyReleased() {
 
 
 //#region Stars (Background)
-let randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
-let randomSize1 = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-let randomSize2 = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
+const randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
+const randomSize = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
 
 class Star {
 	constructor() {
 		this.x = random(width + 450) - 450;
 		this.y = random(height);
-		this.size = random(randomSize1);
+		this.size = random(randomSize);
 		this.t = random(randomTAU);
 	}
 
@@ -2036,53 +2056,37 @@ class Star {
 		noStroke();
 
 		// Glow
-		fill('#1d2155');
-		ellipse(this.x, this.y, scale * 3, scale * 3);
-
-		// Star
-		fill('#aba8e2');
-		ellipse(this.x, this.y, scale);
-	}
-}
-
-class bigStar {
-	constructor() {
-		this.x = random(width + 450) - 450;
-		this.y = random(height);
-		this.size = random(randomSize2);
-		this.t = random(randomTAU);
-	}
-
-	draw() {
-		this.t += 0.05;
-		var scale = this.size + sin(this.t) * 3;
-		let opacity = this.size * 5;
-		noStroke();
-
-		// Glow
 		//fill(200, 195, 255, opacity);
-		fill('#1d2155');
+		fill('#22267b');
 		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
 		//fill(200, 195, 255, opacity * 10);
-		fill('#aba8e2');
-		ellipse(this.x, this.y, scale, scale);
+		fill('#a19ade');
+		ellipse(this.x, this.y, scale);
+
+		if ((leftBound < this.x + 20) == false) {
+			this.x += windowWidth + 40;
+		}
+
+		else if ((this.x < rightBound + 20) == false) {
+			this.x -= windowWidth + 40;
+		}
+
+		else if ((topBound < this.y + 20) == false) {
+			this.y += windowHeight + 40;
+		}
+
+		else if ((this.y < bottomBound + 20) == false) {
+			this.y -= windowHeight + 40;
+		}
 	}
 }
 
 function drawBackgroundStars() {
 	// Stars (only drawn if visible within the window
 	for (var i = 0; i < stars.length; i++) {
-		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
-			stars[i].draw();
-		}
-	}
-
-	for (var i = 0; i < bigStars.length; i++) {
-		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
-			bigStars[i].draw();
-		}
+		stars[i].draw();
 	}
 }
 
@@ -2101,8 +2105,8 @@ function soundEffects(n) {
 	4. completedConstellation*/
 
 	if (soundEffectsOn == 1) {
-		let velocity = 0.1;
-		let dur = 1 / 3;
+		const velocity = 0.1;
+		const dur = 1 / 3;
 		notesInt = (notesInt + round(random(1, 3))) % 4;
 
 		if (constellations[currentConstellation].completed == 1 && n == 4) {
@@ -2137,7 +2141,7 @@ function soundEffects(n) {
 					break;
 				case 2:
 					//continuedToNextStar
-					let notes2 = ['C4', 'E4', 'F4', 'A5', 'C5', 'E5', 'F5'];
+					const notes2 = ['C4', 'E4', 'F4', 'A5', 'C5', 'E5', 'F5'];
 					soundByte.play(notes2[notesInt], velocity, 0, dur);
 					break;
 				case 3:
@@ -2156,16 +2160,41 @@ function soundEffects(n) {
 
 //#region Button Functions
 function libButtonPress() {
-	var lib = document.getElementById("library");
 	if (lib.style.display === "block" && mouseButton === LEFT) {
 		lib.style.display = "none";
+		detailedWindow.style.left = "1%";
+		completedWindow.style.left = "1%";
+		quiz.style.left = "1%";
 	} else if (mouseButton === LEFT) {
 		lib.style.display = "block";
+		detailedWindow.style.left = "23%";
+		completedWindow.style.left = "23%";
+		quiz.style.left = "23%";
 	}
 }
 
 function quizButtonPress() {
+	// Close completedWindow
+	completedWindow.style.display = "none";
 
+	// Close Completed Window
+	for (let i = 1; i < 13; i++) {
+		var constellation = document.getElementById(constellations[i].name);
+		constellation.style.display = "none";
+	}
+
+	// Close Detailed Window
+	for (let i = 1; i < 13; i++) {
+		constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+		detailedWindow.style.display = "none";
+		constDetailedWindow.style.display = "none";
+	}
+
+	if (quiz.style.display === "block" && mouseButton === LEFT) {
+		quiz.style.display = "none";
+	} else if (mouseButton === LEFT) {
+		quiz.style.display = "block";
+	}
 }
 
 function helpButtonPress() {

@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  display: flex;
+  display: block;
   /*Hide scrollbars*/
   overflow: hidden;
   -webkit-user-select: none; /* Safari */
@@ -13,199 +13,249 @@ canvas {
   display: flex;
 }
 
+:root {
+  --library-colour: rgba(44, 47, 105, 0.418);
+  --library-item-colour: #00063552;
+
+  --detailed-window-colour: #00063552;
+  --completed-window-colour: #040a30e4;
+  
+  --button-colour: #0009377c;
+  --text-colour: #f0f0ff;
+  --border-colour: #5d60ff3e;
+}
+
 button {
   margin: 20px;
   width: 80px;
   height: 80px;
   text-align: center;
-  padding: 0px 5px 2px 5px;
+  padding: 10px 6px;
+  display: flex;
+  background-color: var(--button-colour);
+  border: double var(--border-colour) 3px;
+  border-radius: 5px;
+  color: var(--text-colour);
+  font-size: 20px;
+  cursor: pointer;
+}
 
-  background-color: #12183a;
-  border: solid white 1px;
-  border-radius: 5%;
-  color: white;
+hr {
+  width: 300px;
+  border: 3px double var(--library-colour);
+  margin-top: 15px;
+}
+
+img.thumbnail {
+  display: inline;
+  width: 40px;
+  height: 40px;
+  padding: 0px 10px 0px;
+  margin: 0;
+}
+
+button.closeDetailedWindow {
+  display: block;
+  margin: -3px 0px 0px 866px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  padding: 0px 0px;
+  
+  color: var(--text-colour) ;
   
   text-decoration: none;
-  display: inline-block;
-  font-size: 23px;
-  
+  font-size: 12px;
+  display: absolute;
   cursor: pointer;
 }
 
 sidebar {
   width: 150px;
-  /*background-color: rgba(44, 47, 105, 0.418);*/
   position: absolute;
   top: 0%;
   height: 395px;
 }
 
 library {
-  width: 20%;
-  background-color: rgba(44, 47, 105, 0.418);
+  width: 375px;
+  background-color: var(--detailed-window-colour) ;
   position: absolute;
-  top: 0%;
-  height: 100%;
-  display: none;
-  color: white;
-  font-size: 24px;
+  top: -0.5%;
+  left: -0.5%;
+  height: 110%;
+  /*---fix later*/
+  display: block;
+  color: var(--text-colour) ;
+  font-size: 20px;
+  border: 3px double #5558e13e;
+}
+
+libraryTitle {
+  display: block;
+  text-align: center;
+  margin: 30px 83px -16px;
+  width: 300px;
+  font-size: 30px;
 }
 
 libraryItems {
-  margin: 25px 100px;
+  margin: 40px 80px;
   display: block;
   cursor: pointer; 
 }
 
-img {
-  width: 250px;
-  height: 250px;
-  display: block;
-  margin: auto;
-  margin-top: 10%;
-}
-
-constellationPopups {
-  background-color: #0e153bb9;
+quiz {
+  background-color: var(--detailed-window-colour);
   position: absolute;
   display: none;
   margin: auto;
 
   line-height: 0px;
-  width: 500px;
-  height: 475px;
+  width: 900px;
+  height: 750px;
   top: 10%;
-  bottom: 20%;
-  left: 40%;
-  right: 20%;
-  padding-top: 25px;
+  bottom: 10%;
+  left: 1%;
+  right: 1%;
+  padding-top: 50px;
 
   font-size: 32px;
-  color: white;
+  color: var(--text-colour) ;
 
-  margin: 0px;
   text-align: center;
 
-  border: solid white 1px;
-  border-radius: 2%;
+  border: double var(--border-colour)  3px;
+  border-radius: 15px;
+}
+
+img {
+  height: 300px;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+detailedWindows {
+  background-color: var(--detailed-window-colour);
+  position: absolute;
+  display: none;
+  margin: auto;
+  font-weight: bold;
+
+  line-height: 0px;
+  width: 900px;
+  height: 800px;
+  top: 10%;
+  bottom: 20%;
+  left: 23%;
+  right: 1%;
+  padding-top: 12px;
+
+  font-size: 40px;
+  color: var(--text-colour) ;
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
 }
 
 description {
-  font-size: 16px;
-  line-height: 150%;
-  display: block;
-  text-align: center;
-  padding: 10px 16px 0 16px
-}
-
-finishedConstellationPopup {
-  position: absolute;
-  top: 80%;
-  left: 35%;
-  margin-left: auto;
-  margin: auto;
-  width: 40%;
-  height: 15%;
+  font-weight: normal;
   font-size: 24px;
-  background-color: rgba(15, 18, 70, 0.877);
-  color: white;
-  display: none;
+  line-height: 125%;
+  height: 295px;
+  display: block;
+  text-align: left;
+  padding: 32px 24px;
+  text-indent: 50px;
 }
 
-ariesItem {
-  display: none;
+p {
+  margin-block-start: 8px;
+  margin-block-end: 8px;
 }
 
-taurusItem {
+completedWindow {
+  background-color: var(--completed-window-colour);
+  color: var(--text-colour) ;
+  position: absolute;
   display: none;
+  margin: auto;
+  
+  width: 600px;
+  height: 54px;
+  top: 87%;
+  bottom: 20%;
+  left: 1%;
+  right: 1%;
+
+  padding: 40px 40px;
+  border-radius: 15px;
+  border: double var(--border-colour) 3px;
+  text-align: center;
+  font-size: 24px;
 }
 
-geminiItem {
-  display: none;
+button.navButton {
+  display: block;
+  width: 45px;
+  height: 45px;
+  color: var(--text-colour) ;
+  
+  text-decoration: none;
+  font-size: 12px;
+  right: 0%;
+  margin-top: 13px;
+  margin-left: 843px;
+  cursor: pointer;
 }
 
-cancerItem {
-  display: none;
+item {
+  /*---fix later*/
+  display: block;
+  width: 220px;
+  margin-bottom: 5px;
+  padding: 5px 0px;
+  height: 40px;
+  border-radius: 10px;
+  border: double 3px var(--border-colour);
+  background-color: var(--library-item-colour);
 }
 
-leoItem {
-  display: none;
+constNameLibrary {
+  display: inline;
+  vertical-align: 60%;
 }
 
-virgoItem {
-  display: none;
+brightestStar {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-libraItem {
+detailedWindow {
   display: none;
+  margin-top: 15px;
 }
 
-scorpioItem {
+dot {
+  position: absolute;
+  margin: auto;
+  transform: translateX(-50%) translateY(-50%);
+  height: 25px;
+  width: 25px;
+  background-color: rgba(209, 209, 255, 0.676);
+  border-radius: 50%;
   display: none;
+  animation: starGlowing 2s infinite;
 }
 
-sagittariusItem {
-  display: none;
-}
-
-capricornItem {
-  display: none;
-}
-
-aquariusItem {
-  display: none;
-}
-
-piscesItem {
-  display: none;
-}
-
-ariesPopup {
-  display: none;
-}
-
-taurusPopup {
-  display: none;
-}
-
-geminiPopup {
-  display: none;
-}
-
-cancerPopup {
-  display: none;
-}
-
-leoPopup {
-  display: none;
-}
-
-virgoPopup {
-  display: none;
-}
-
-libraPopup {
-  display: none;
-}
-
-scorpioPopup {
-  display: none;
-}
-
-sagittariusPopup {
-  display: none;
-}
-
-capricornPopup {
-  display: none;
-}
-
-aquariusPopup {
-  display: none;
-}
-
-piscesPopup {
-  display: none;
+@keyframes starGlowing {
+  50% {background-color: rgba(192, 192, 255, 0.468);
+       height: 15px;
+       width: 15px;}
 }
 
 aries {
@@ -236,7 +286,7 @@ libra {
   display: none;
 }
 
-scorpio {
+scorpius {
   display: none;
 }
 
@@ -244,7 +294,7 @@ sagittarius {
   display: none;
 }
 
-capricorn {
+capricornus {
   display: none;
 }
 
@@ -254,10 +304,4 @@ aquarius {
 
 pisces {
   display: none;
-}
-
-@media screen and (max-width: 1500px){
-  library {
-    width: 450px;
-  }
 }

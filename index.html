@@ -12,172 +12,496 @@
 
   <script src="libraries/p5.min.js"></script>
   <script src="libraries/p5.sound.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
 </head>
 
 <body>
   <script src="sketch.js"></script>
+  <script src="additionalCode/checkNextStars.js"></script>
   <!-- Sidebar -->
   <!-- Library -->
 
   <library id="library">
+    <libraryTitle>Discovered Constellations</libraryTitle>
     <libraryItems id="libraryItems">
-      <ul>
-        <ariesItem onclick="detailedMenu('ariesPopup')" id="ariesItem"> Aries </ariesItem>
-        <taurusItem onclick="detailedMenu('taurusPopup')" id="taurusItem"> Taurus </taurusItem>
-        <geminiItem onclick="detailedMenu('geminiPopup')" id="geminiItem"> Gemini </geminiItem>
-        <cancerItem onclick="detailedMenu('cancerPopup')" id="cancerItem"> Cancer </cancerItem>
-        <leoItem onclick="detailedMenu('leoPopup')" id="leoItem"> Leo </leoItem>
-        <virgoItem onclick="detailedMenu('virgoPopup')" id="virgoItem"> Virgo </virgoItem>
-        <libraItem onclick="detailedMenu('libraPopup')" id="libraItem"> Libra </libraItem>
-        <scorpioItem onclick="detailedMenu('scorpioPopup')" id="scorpioItem"> Scorpio </scorpioItem>
-        <sagittariusItem onclick="detailedMenu('sagittariusPopup')" id="sagittariusItem"> Sagittarius </sagittariusItem>
-        <capricornItem onclick="detailedMenu('capricornPopup')" id="capricornItem"> Capricorn </capricornItem>
-        <aquariusItem onclick="detailedMenu('aquariusPopup')" id="aquariusItem"> Aquarius </aquariusItem>
-        <piscesItem onclick="detailedMenu('piscesPopup')" id="piscesItem"> Pisces </piscesItem>
-      </ul>
 
+      <ul>
+        <item onclick="detailedMenu('ariesDetailedWindow')" id="ariesItem">
+          <img class="thumbnail" src="assets/TNaries.png">
+          <constNameLibrary>Aries</constNameLibrary>
+        </item>
+
+        <item onclick="detailedMenu('taurusDetailedWindow')" id="taurusItem">
+          <img class="thumbnail" src="assets/TNtaurus.png">
+          <constNameLibrary>Taurus</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('geminiDetailedWindow')" id="geminiItem">
+          <img class="thumbnail" src="assets/TNgemini.png">
+          <constNameLibrary>Gemini</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('cancerDetailedWindow')" id="cancerItem">
+          <img class="thumbnail" src="assets/TNcancer.png">
+          <constNameLibrary>Cancer</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('leoDetailedWindow')" id="leoItem">
+          <img class="thumbnail" src="assets/TNleo.png">
+          <constNameLibrary>Leo</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('virgoDetailedWindow')" id="virgoItem">
+          <img class="thumbnail" src="assets/TNvirgo.png">
+          <constNameLibrary>Virgo</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('libraDetailedWindow')" id="libraItem">
+          <img class="thumbnail" src="assets/TNlibra.png">
+          <constNameLibrary>Libra</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('scorpiusDetailedWindow')" id="scorpiusItem">
+          <img class="thumbnail" src="assets/TNscorpius.png">
+          <constNameLibrary>Scorpius</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('sagittariusDetailedWindow')" id="sagittariusItem">
+          <img class="thumbnail" src="assets/TNsagittarius.png">
+          <constNameLibrary>Sagittarius</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('capricornusDetailedWindow')" id="capricornusItem">
+          <img class="thumbnail" src="assets/TNcapricornus.png">
+          <constNameLibrary>Capricornus</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('aquariusDetailedWindow')" id="aquariusItem">
+          <img class="thumbnail" src="assets/TNaquarius.png">
+          <constNameLibrary>Aquarius</constNameLibrary>
+        </item>
+        <item onclick="detailedMenu('piscesDetailedWindow')" id="piscesItem">
+          <img class="thumbnail" src="assets/TNpisces.png">
+          <constNameLibrary>Pisces</constNameLibrary>
+        </item>
+      </ul>
       <script>
         function detailedMenu(x) {
+          // Close Quiz
+          quiz = document.getElementById("quiz");
+          quiz.style.display = "none";
+
+          // Close completedWindow
+          completedWindow.style.display = "none";
+
+          // Close constCompletedWindow
           for (let i = 1; i < 13; i++) {
-            let closingWindow = document.getElementById(constellations[i].name + "Popup")
-            let popupWindow = document.getElementById("constellationPopups");
-            popupWindow.style.display = "none";
+            var constCompletedWindow = document.getElementById(constellations[i].name);
+            constCompletedWindow.style.display = "none";
+          }
+
+          var constDetailedWindow = document.getElementById(x);
+
+          for (let i = 1; i < 13; i++) {
+            let closingWindow = document.getElementById(constellations[i].name + "DetailedWindow")
             closingWindow.style.display = "none";
           }
 
-          var popupWindow = document.getElementById("constellationPopups");
-          popupWindow.style.display = "block";
-          var constPopup = document.getElementById(x);
-          constPopup.style.display = "block";
+          detailedWindow.style.display = "block";
+          constDetailedWindow.style.display = "block";
         }
-
       </script>
     </libraryItems>
 
   </library>
 
-  <constellationPopups id="constellationPopups">
-    <ariesPopup id="ariesPopup"> Aries P
-      <img class="thumbnail" src="assets/aries.png">
-      <description>
-        In astrology, Aries is the first sign of the zodiac, considered as governing the period from about March 21 to about April 19.
-        Its representation as a ram is identified with the Egyptian god Amon and, in Greek mythology, with the ram with the golden fleec.
-      </description>
-    </ariesPopup>
+  <quiz id="quiz">
+    <button id="submit">Submit Answer</button>
+  </quiz>
 
-    <taurusPopup id="taurusPopup"> Taurus P
-      <img class="thumbnail" src="assets/taurus.png">
-      <description>
-        Also known as "Bull", Taurus is the second sign of the zodiac, considered as governing that portion of the year from about April 20 to about May 20.
-        Its representation as a bull is related to the Greek myth of Zeus, who assumed the form of a bull to abduct Europa.
-      </description>
-    </taurusPopup>
-    
-    <geminiPopup id="geminiPopup"> Gemini P
-      <img class="thumbnail" src="assets/gemini.png">
-      <description>
-        Gemini is the third sign of the zodiac, considered as governing the period from about May 21 to about June 21.
-        It is represented by a set of twins (or in Egyptian astrology by a pair of goats and in Arabian astrology by a pair of peacocks).
-        In addition to their identification as Castor and Pollux, which are also the names of its brightest stars, the twins have also been
-        related to other celebrated pairs, such as the younger and older Horus or Romulus and Remus.
-      </description>
-    </geminiPopup>
+  <detailedWindows id="detailedWindows">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeDetailedDetailedWindow()">X</button>
 
-    <cancerPopup id="cancerPopup"> Cancer P
-      <img class="thumbnail" src="assets/cancer.png">
-      <description>
-        In astrology, Cancer is the fourth sign of the zodiac, considered as governing the period from about June 22 to about July 22.
-        Its representation as a crab (or lobster or crayfish) is related to the crab in Greek mythology that pinched Heracles while he was fighting the Lernaean hydra.
-        Crushed by Heracles, the crab was rewarded by Heracles' enemy, Hera, by being placed in the heavens.
-      </description>
-    </cancerPopup>
+    <script>
+      let closeButton = document.getElementById("closeButton");
 
-    <leoPopup id="leoPopup"> Leo P
-      <img class="thumbnail" src="assets/leo.png">
+      function closeDetailedDetailedWindow() {
+        for (let i = 1; i < 13; i++) {
+          let constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+          detailedWindow.style.display = "none";
+          constDetailedWindow.style.display = "none";
+        }
+      }
+
+      function navButtonPress(constellation) {
+        let x, y;
+        switch (constellation) {
+          case 1: // aries
+            x = -3719;
+            y = 72;
+            break;
+          case 2: // taurus
+            x = -3423;
+            y = -84;
+            break;
+          case 3: // gemini
+            x = -2924;
+            y = -40;
+            break;
+          case 4: // cancer
+            x = -2629;
+            y = -107;
+            break;
+          case 5: // leo
+            x = -2253;
+            y = -134;
+            break;
+          case 6: // virgo
+            x = -1653;
+            y = -295;
+            break;
+          case 7: // libra
+            x = -1294;
+            y = -463;
+            break;
+          case 8: // scorpio
+            x = -1030;
+            y = -543;
+            break;
+          case 9: // sagittarius
+            x = -698;
+            y = -543;
+            break;
+          case 10: // capricorn
+            x = -215;
+            y = -543;
+            break;
+          case 11: // aquarius
+            x = 30;
+            y = -532;
+            break;
+          case 12: // pisces
+            x = 364;
+            y = -389;
+            break;
+        }
+
+        detailedWindow.style.display = "none"
+        translationX = x;
+        translationY = y;
+      }
+
+      function toggleBrightestStar(c) {
+        var x, y;
+        switch (c) {
+          case 1: // aries
+            x = "541px";
+            y = "205px";
+            break;
+          case 2: // taurus
+            x = "430px";
+            y = "320px";
+            break;
+          case 31: // gemini; castor
+            x = "329px";
+            y = "137px";
+            break;
+          case 32: // gemini; pollux
+            x = "302px";
+            y = "202px";
+            break;
+          case 4: // cancer
+            x = "529px";
+            y = "385px";
+            break;
+          case 5: // leo
+            x = "620px";
+            y = "380px";
+            break;
+          case 6: // virgo
+            x = "402px";
+            y = "370px";
+            break;
+          case 7: // libra
+            x = "475px";
+            y = "95px";
+            break;
+          case 8: // scorpio
+            x = "521px";
+            y = "172px";
+            break;
+          case 9: // sagittarius
+            x = "533px";
+            y = "237px";
+            break;
+          case 10: // capricorn
+            x = "256px";
+            y = "295px";
+            break;
+          case 11: // aquarius
+            x = "445px";
+            y = "95px";
+            break;
+          case 12: // pisces
+            x = "px";
+            y = "px";
+            break;
+        }
+
+        document.getElementById("brightStar").style.left = x;
+        document.getElementById("brightStar").style.top = y;
+        $("#brightStar").fadeIn(200);
+      }
+
+      function hideStar() {
+        $("#brightStar").fadeOut(500);
+      }
+    </script>
+    <dot id="brightStar"></dot>
+    <detailedWindow id="ariesDetailedWindow"> Aries
+      <hr>
+      <img src="assets/aries.png">
       <description>
+        <p><b>Astronomy</b></p>
+        <p>Aries is a constellation in the northern sky between Pisces and Taurus. It doesn't contain very bright
+          stars; its brightest star <brightestStar id="brightestStar" onmouseout="hideStar()" onmouseover="toggleBrightestStar(1)">Hamal</brightestStar> has a
+          magnitude of 2.0.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Aries is the first sign of the zodiac and governs the period March 21st to April 19th. Its representation as
+          a ram is identified with the Egyptian god Amon and, in Greek mythology, with the ram with the golden fleece.
+        </p>
+      </description>
+      <button class="navButton" onclick="navButtonPress(1)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="taurusDetailedWindow"> Taurus
+      <hr>
+      <img src="assets/taurus.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Taurus is a constellation in the northern sky between Aries and Gemini. Its brightest star is
+          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(2)">Aldebaran</brightestStar>,
+          which is the 14th brightest star in the sky with a magnitude of 0.85.
+        </p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Taurus is the second sign of the zodiac and governs the period April 20th to May 20th. Its representation as
+          a bull is related to the Greek myth of Zeus, who assumed the form of a bull to abduct Europa.</p>
 
       </description>
-    </leoPopup>
-    
-    <virgoPopup id="virgoPopup"> Virgo P
-      <img class="thumbnail" src="assets/virgo.png">
-      <description>
-        In astrology, Virgo is the sixth sign of the zodiac, considered as governing the period from about August 23 to about September 22.
-        It is represented as a young maiden carrying a sheaf of wheat. She is variously identified as a fertility goddess
-        (the Babylonian and Assyrian Ishtar, among others) or the harvest maiden (the Greek Persephone and others).
-      </description>
-    </virgoPopup>
-    <libraPopup id="libraPopup"> Libra P
-      <img class="thumbnail" src="assets/libra.png">
-      <description>
-        In astrology, Libra is the seventh sign of the zodiac, considered as governing the period from about September 22 to about October 23.
-        It is represented by a woman (sometimes identified with Astraea, the Roman goddess of justice), holding a balance scale or by the balance alone.
-      </description>
-    </libraPopup>
-    <scorpioPopup id="scorpioPopup"> Scorpio P
-      <img class="thumbnail" src="assets/scorpio.png">
-      <description>
-        In astrology, Scorpius (or Scorpio) is the eighth sign of the zodiac, considered as governing the period from about October 24 to about November 21.
-        Its representation as a scorpion is related to the Greek legend of the scorpion that stung Orion to death (said to be why Orion sets as Scorpius rises in the sky).
-      </description>
-    </scorpioPopup>
-    <sagittariusPopup id="sagittariusPopup"> Sagittarius P
-      <img class="thumbnail" src="assets/sagittarius.png">
-      <description>
-        In astrology, Sagittarius is the ninth sign of the zodiac, considered as governing the period from about November 22 to about December 21.
-        It is represented either by a centaur shooting a bow and arrow or by an arrow drawn across a bow. The identification of Sagittarius as a
-        mounted archer was made by the Babylonians as early as the 11th century bce.
-      </description>
-    </sagittariusPopup>
-    <capricornPopup id="capricornPopup"> Capricorn P
-      <img class="thumbnail" src="assets/capricorn.png">
-      <description>
-        Capricorn, in astrology, the 10th sign of the zodiac, considered as governing the period from about December 22 to about January 19.
-        One explanation of the fishtail with which the goat is often represented is found in the Greek myth of Pan, who, to avoid the monster Typhon,
-        jumped into the water just as he was changing into animal shape. The half above water assumed the shape of a goat while the lower half, the tail,
-        assumed the shape of a fish.
-      </description>
-    </capricornPopup>
-    <aquariusPopup id="aquariusPopup"> Aquarius P
-      <img class="thumbnail" src="assets/aquarius.png">
-      <description>
-        In astrology, Aquarius is the 11th sign of the zodiac, considered as governing the period from about January 20 to about February 18.
-        Its representation as a man pouring a stream of water out of a jug came about, it has been suggested, because in ancient times the rising
-        of Aquarius coincided in the Middle East with a period of floods and rain.      </description>
-      </description>
-    </aquariusPopup>
-    <piscesPopup id="piscesPopup"> Pisces P
-      <img class="thumbnail" src="assets/pisces.png">
-      <description>
-        In astrology, Pisces is the 12th sign of the zodiac, considered as governing the period from about February 19 to about March 20.
-        Its representation as two fish tied together is usually related to the Greek myth of Aphrodite and Eros, who jumped into a river to
-        escape the monster Typhon and changed into fish, or, alternatively, the two fish that carried them to safety.
-      </description>
-    </piscesPopup>
-  </constellationPopups>
+      <button class="navButton" onclick="navButtonPress(2)">🚩</button>
+    </detailedWindow>
 
-  <latestConstellation id="latestConstellation">
-  </latestConstellation>
+    <detailedWindow id="geminiDetailedWindow">Gemini
+      <hr>
 
-  <finishedConstellationPopup id="finishedConstellationPopup">
+      <img src="assets/gemini.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Gemini lies in the northern sky between Taurus and Cancer. Its brightest stars are <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(31)">Castor</brightestStar> (magnitude
+          of 1.58)
+          and <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(32)">Pollux</brightestStar> (magnitude of 1.15; the 17th
+          brightest star in the sky).</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Gemini is the third sign of the zodiac, and governs the period May 21st to June 21st. It's represented by a
+          set of twins in Greek astrology (namely Castor and Pollux), a pair of goats in Egyptian astrology, and a pair
+          of peacocks in Arabian astrology.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(3)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="cancerDetailedWindow"> Cancer
+      <hr>
+      <img src="assets/cancer.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Cancer lies in the northern sky between Gemini and Leo. Its brightest star,
+          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(4)">Al Tarf</brightestStar>, is quite dim with a magnitude
+          of 3.6.
+        </p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Cancer is the fourth sign of the zodiac, and governs the period June 22nd to July 22nd. Its representation as
+          a crab (or lobster or crayfish) is related to the crab in Greek mythology that pinched Heracles while he was
+          fighting the Lernaean hydra. Crushed by Heracles, the crab was rewarded by Heracles' enemy, Hera, by being
+          placed in the heavens.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(4)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="leoDetailedWindow"> Leo
+      <hr>
+      <img src="assets/leo.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Leo lies in the northern sky between Cancer and Virgo and its brightest star, <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(5)">Regulus</brightestStar>, has a magnitude
+          of
+          1.35.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Leo is the fifth sign of the zodiac and governs the period July 23rd to about August 22nd. Its representation
+          as a lion is usually linked with the Nemean lion slain by Heracles (Hercules) as part of the 12 Labours he was
+          forced to do as penance for killing his wife and children.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(5)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="virgoDetailedWindow"> Virgo
+      <hr>
+      <img src="assets/virgo.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Virgo lies in the southern sky between Leo and Libra, and its brightest star <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(6)">Spica</brightestStar> is the 15th
+          brightest star
+          in the sky with a magnitude of 1.04.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Virgo is the sixth sign of the zodiac and governs the period from August 23rd to September 22nd. It is
+          represented as a young maiden carrying a sheaf of wheat. She is variously identified as a fertility goddess
+          (the Babylonian and Assyrian Ishtar, among others) or the harvest maiden (the Greek Persephone and others).
+        </p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(6)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="libraDetailedWindow"> Libra
+      <hr>
+      <img src="assets/libra.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Libra lies in the southern sky between Virgo and Scorpius, and its brightest star <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(7)">Zubeneschamali</brightestStar>
+          (Arabic for
+          “northern claw,”) has a dim magnitude of 2.6.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Libra is the seventh sign of the zodiac and is considered as governing the period from September 22nd to
+          about October 23rd. It is represented by a woman (sometimes identified with Astraea, the Roman goddess of
+          justice), holding a balance scale, or by the balance alone.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(7)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="scorpiusDetailedWindow"> Scorpius
+      <hr>
+      <img src="assets/scorpius.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Scorpius lies in the southern sky between Libra and Sagittarius. Its brightest star, <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(8)">Antares</brightestStar>, is the
+          16th
+          brightest star with a magnitude of 1.1.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Scorpius (most-commonly known as Scorpio in astrology) is the eighth sign of the zodiac and is considered as
+          governing the period from about October 24th to about November 21st. Its representation as a scorpion is
+          related to the Greek legend of the scorpion that stung Orion to death (this is said to be why Orion sets as
+          Scorpius
+          rises in the sky).</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(8)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="sagittariusDetailedWindow"> Sagittarius
+      <hr>
+      <img src="assets/sagittarius.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Sagittarius lies in the southern sky between Scorpius and Capricornus. Its brightest star is <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(9)">Kaus
+            Australis</brightestStar> (from the Arabic for “bow” and the Latin for “southern,” respectively; it is also
+          called
+          Epsilon Sagittarii), with a magnitude of 1.9.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Sagittarius is the ninth sign of the zodiac, considered as governing the period from about November 22nd to
+          about December 21st. It is represented either by a centaur shooting a bow and arrow or by an arrow drawn
+          across a bow. The identification of Sagittarius as a mounted archer was made by the Babylonians as early as
+          the 11th century BCE. Fun fact: Sagittarius points towards the center of our galaxy, the Milky Way.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(9)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="capricornusDetailedWindow"> Capricornus
+      <hr>
+      <img src="assets/capricornus.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Capricornus lies in the southern sky between Sagittarius and Aquarius. It consists of dim stars; its
+          brightest star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(10)">Deneb Algedi</brightestStar> (Arabic for
+          “kid's tail”), has a magnitude of 2.9.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>In astrology, Capricornus is known as Capricornus and it is the tenth sign in the zodiac, considered
+          as governing the period from about December 22nd to January 19th. It's commonly represented as a goat with a
+          fishtail; in the Greek myth of Pan, in an attempt to avoid the monster Typhon, he jumped
+          into the water as he was changing into an animal's shape. The half above water assumed the shape of a goat
+          while the lower half assumed the shape of a fish.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(10)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="aquariusDetailedWindow"> Aquarius
+      <hr>
+      <img src="assets/aquarius.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Aquarius lies in the southern sky between Capricornus and Pisces. Its brightest star, <brightestStar
+            onmouseout="hideStar()" onmouseover="toggleBrightestStar(11)">Sadalmelik</brightestStar>
+          (Arabic for
+          “the lucky stars of the king”), has a dim magnitude of 3.0.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Aquarius is the eleventh sign of the zodiac and is considered as governing the period from about January 20th
+          to about February 18th. It is represented as a man pouring a stream of water out of a jug, likely because in
+          ancient times the rising of Aquarius coincided in the Middle East with a period of floods and rain.</p>
+      </description>
+      <button class="navButton" onclick="navButtonPress(11)">🚩</button>
+    </detailedWindow>
+
+    <detailedWindow id="piscesDetailedWindow"> Pisces
+      <hr>
+      <img src="assets/pisces.png">
+      <description>
+        <p><b>Astronomy</b></p>
+        <p>Pisces lies in the northern sky between Aquarius and Aries and mostly consists of dim stars; the brightest
+          star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(12)">Eta Piscium</brightestStar>, has a magnitude of
+          3.6.</p>
+        <br>
+        <p><b>Astrology</b></p>
+        <p>Pisces is the 12th sign of the zodiac, and is considered as governing the period from about February 19th to
+          about
+          March 20th. Its representation as two fish tied together is usually related to the Greek myth of Aphrodite and
+          Eros, who jumped into a river to escape the monster Typhon and changed into fish, or alternatively, the two
+          fish that carried them to safety.</p>
+
+      </description>
+      <button class="navButton" onclick="navButtonPress(12)">🚩</button>
+    </detailedWindow>
+
+  </detailedWindows>
+  <completedWindow id="completedWindow">
     You just finished drawing <ariesName id="aries">Aries! </ariesName>
     <taurusName id="taurus">Taurus!</taurusName>
     <geminiName id="gemini">Gemini!</geminiName>
     <cancerName id="cancer">Cancer!</cancerName>
     <leoName id="leo">Leo!</leoName>
     <virgoName id="virgo">Virgo!</virgoName>
-    <libraName id="libra">Libra!</libraName>  
-    <scorpioName id="scorpio">Scorpio!</scorpioName>
+    <libraName id="libra">Libra!</libraName>
+    <scorpiusName id="scorpius">Scorpius!</scorpiusName>
     <sagittariusName id="sagittarius">Sagittarius!</sagittariusName>
-    <capricornName id="capricorn">Capricorn!</capricornName>
+    <capricornusName id="capricornus">Capricornus!</capricornusName>
     <aquariusName id="aquarius">Aquarius!</aquariusName>
     <piscesName id="pisces">Pisces!
     </piscesName>
     Click its name in the library to learn more!
-  </finishedConstellationPopup>
-
+  </completedWindow>
   <script>
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();

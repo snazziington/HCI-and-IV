@@ -85,7 +85,7 @@ library {
   left: -0.5%;
   height: 110%;
   /*---fix later*/
-  display: block;
+  display: none;
   color: var(--text-colour) ;
   font-size: 20px;
   border: 3px double #5558e13e;
@@ -214,7 +214,7 @@ button.navButton {
 
 item {
   /*---fix later*/
-  display: block;
+  display: none;
   width: 220px;
   margin-bottom: 5px;
   padding: 5px 0px;

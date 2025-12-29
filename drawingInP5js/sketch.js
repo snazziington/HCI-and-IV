@@ -38,7 +38,7 @@ class Constellation {
 
 		// for each constellation, draw each star in its array
 		for (let i = 0; i < constellations.length; i++) {
-			for (let j = 1; j < constellations[i].size; j++) {
+			for (let j = 1; j <= constellations[i].size; j++) {
 				let vx = ("v" + j)
 
 				// but only draw them if they're visible!
@@ -51,15 +51,15 @@ class Constellation {
 					noStroke();
 
 					// Glow
-					fill("rgba(89, 99, 212, 0.31)")
-					fill(110, 100, 255, opacity * 4);
 					//fill('#1d2155')
+					//fill("rgba(89, 99, 212, 0.31)")
+					fill(110, 100, 255, opacity * 4);
 					ellipse(this[vx][0], this[vx][1], scale * 3, scale * 3);
 
 					// Star
-					fill(210, 200, 255, opacity * 20);
 					//fill('#aba8e2')
 					//fill(255, 0, 0, opacity * 10);
+					fill(210, 200, 255, opacity * 20);
 					ellipse(this[vx][0], this[vx][1], scale, scale);
 				}
 			}
@@ -235,7 +235,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "libra",
+			name: "libra", size: 5,
 			v1: libra.v1, v2: libra.v2, v3: libra.v3, v4: libra.v4, v5: libra.v5,
 			line: [0, 0, 0, 0, 0],
 			completed: 0,
@@ -243,7 +243,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "scorpius",
+			name: "scorpius", size: 13,
 			v1: scorpius.v1, v2: scorpius.v2, v3: scorpius.v3, v4: scorpius.v4,
 			v5: scorpius.v5, v6: scorpius.v6, v7: scorpius.v7, v8: scorpius.v8,
 			v9: scorpius.v9, v10: scorpius.v10, v11: scorpius.v11, v12: scorpius.v12,
@@ -254,7 +254,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "sagittarius",
+			name: "sagittarius", size: 21,
 			v1: sagittarius.v1, v2: sagittarius.v2, v3: sagittarius.v3, v4: sagittarius.v4,
 			v5: sagittarius.v5, v6: sagittarius.v6, v7: sagittarius.v7, v8: sagittarius.v8,
 			v9: sagittarius.v9, v10: sagittarius.v10, v11: sagittarius.v11, v12: sagittarius.v12,
@@ -267,7 +267,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "capricornus",
+			name: "capricornus", size: 9,
 			v1: capricornus.v1, v2: capricornus.v2, v3: capricornus.v3, v4: capricornus.v4,
 			v5: capricornus.v5, v6: capricornus.v6, v7: capricornus.v7, v8: capricornus.v8,
 			v9: capricornus.v9,
@@ -277,7 +277,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "aquarius",
+			name: "aquarius", size: 16,
 			v1: aquarius.v1, v2: aquarius.v2, v3: aquarius.v3, v4: aquarius.v4,
 			v5: aquarius.v5, v6: aquarius.v6, v7: aquarius.v7, v8: aquarius.v8,
 			v9: aquarius.v9, v10: aquarius.v10, v11: aquarius.v11, v12: aquarius.v12,
@@ -288,7 +288,7 @@ function setupConstellations() {
 		},
 
 		{
-			name: "pisces",
+			name: "pisces", size: 18,
 			v1: pisces.v1, v2: pisces.v2, v3: pisces.v3, v4: pisces.v4,
 			v5: pisces.v5, v6: pisces.v6, v7: pisces.v7, v8: pisces.v8,
 			v9: pisces.v9, v10: pisces.v10, v11: pisces.v11, v12: pisces.v12,
@@ -380,6 +380,8 @@ function draw() {
 	// Lines to find center of screen
 	/*line(0 - translationX, 0 - translationY, windowWidth - translationX, windowHeight - translationY)
 	line(- translationX + windowWidth, 0 - translationY, 0 - translationX, windowHeight - translationY)*/
+
+	print(translationX, translationY);
 }
 //#endregion
 

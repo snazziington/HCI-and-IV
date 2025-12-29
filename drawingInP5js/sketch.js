@@ -11,14 +11,12 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-let translationX = -1800;
+var translationX = -1800;
 let translationY = -500;
 
 // Stars
 let stars = [];
-let bigStars = [];
-const maxStars = 100;
-const maxBigStars = 100;
+const maxStars = 75;
 let button, libButton, quizButton, helpButton, navButton;
 let lib, quiz, detailedWindow, constDetailedWindow;
 
@@ -53,12 +51,13 @@ class Constellation {
 					noStroke();
 
 					// Glow
-					fill(200, 195, 255, opacity);
+					fill("rgba(89, 99, 212, 0.31)")
+					fill(110, 100, 255, opacity * 4);
 					//fill('#1d2155')
 					ellipse(this[vx][0], this[vx][1], scale * 3, scale * 3);
 
 					// Star
-					fill(200, 195, 255, opacity * 10);
+					fill(210, 200, 255, opacity * 20);
 					//fill('#aba8e2')
 					//fill(255, 0, 0, opacity * 10);
 					ellipse(this[vx][0], this[vx][1], scale, scale);
@@ -80,7 +79,7 @@ class Constellation {
 
 //#region
 function setup() {
-	createCanvas(5000, 2000);
+	createCanvas(6000, 2000);
 
 	// Prevents right-click from putting up the context menu
 	for (let element of document.getElementsByClassName("p5Canvas")) {
@@ -92,24 +91,17 @@ function setup() {
 		stars[i] = new Star();
 	}
 
-	for (var i = 0; i < maxBigStars; i++) {
-		bigStars[i] = new bigStar();
-	}
-
 	// empty default const (0th)
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
 	setupConstellations();
 
-	libButton = createButton('🕮\nLibrary')
+	libButton = createButton('🕮 Library')
 	lib = document.getElementById("library");
 
-	quizButton = createButton('☑\nQuiz')
+	quizButton = createButton('☑ Quiz')
 	quiz = document.getElementById("quiz");
 
-	helpButton = createButton('🛈\nHelp')
-
-	navButton = createButton('Nav')	
-	navButton.class("navButton");
+	helpButton = createButton('🛈 Help')
 
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
@@ -117,7 +109,6 @@ function setup() {
 	libButton.mousePressed(libButtonPress)
 	quizButton.mousePressed(quizButtonPress)
 	helpButton.mousePressed(helpButtonPress)
-	navButton.mousePressed(navButtonPress)
 	frameRate(30);
 }
 //#endregion
@@ -129,14 +120,9 @@ function buttonPlacement() {
 	libButton.position(0, 0);
 	quizButton.position(0, 100);
 	helpButton.position(0, 200);
-
-	navButton.position(detailedWindows.top, detailedWindows.bottom);
 }
 //#endregion
 
-function navButtonPress() {
-	print("pressing nav button");
-}
 
 //#region Set Up Constellations
 function setupConstellations() {
@@ -326,16 +312,16 @@ let currentMillis;
 //#region Draw 
 function draw() {
 	currentMillis = millis();
-	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5
-	background("#0E1346");
+	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5;
+	background("hsla(235, 70%, 20%, 1.00)");
 
 	buttonPlacement();
 
 	// Navigation
-	cameraPanning();	
+	cameraPanning();
 
 	drawBackgroundStars();
-	
+
 	mouseDrawingLines();
 
 	aries.draw();
@@ -354,12 +340,10 @@ function draw() {
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
 	if (!isDrawing) {
-		stroke("white");
+		stroke("e5e5ffff");
 		strokeWeight(3);
 		constellationCheck();
 	}
-
-	stroke("#adaedfff")
 
 	toggleCompletedWindow();
 
@@ -368,31 +352,38 @@ function draw() {
 	//strokeWeight(((sin(millis() * 0.02) + 3.5)));
 
 	// Draws the lines of the constellations if they're visible
+	stroke("#e5e5ffff");
 	lines.forEach(drawLineIfVisible);
 
 	/*stroke(25, 29, 81);
-	strokeWeight(((sin(millis() * 0.25) + 40)));
+	strokeWeight(dilatingStroke / 3 + 7);
 	lines.forEach(drawLineIfVisible);
 
 	stroke(45, 49, 102);
-	strokeWeight((sin(millis() * 0.25) + 20));
+	strokeWeight(dilatingStroke / 3 + 2);
 	lines.forEach(drawLineIfVisible);
 
 	stroke("white");
-	strokeWeight((sin(millis() * 0.25) + 5));
+	strokeWeight(dilatingStroke / 15 + 1);
 	lines.forEach(drawLineIfVisible);*/
 
 	// Display Framerate
 	textSize(40);
-	fill("#adaedfff");
+	fill("#e5e5ffff");
+	noStroke(); 
 	if (frameCount % 5 == 0) {
 		maxFrameRate = frameRate();
 	}
-	text(int(maxFrameRate), 200 - translationX, 100 - translationY);
+	text(int(maxFrameRate), 1000 - translationX, 100 - translationY);
 	maxFrameRate = min(frameRate(), maxFrameRate);
+
+	// Lines to find center of screen
+	/*line(0 - translationX, 0 - translationY, windowWidth - translationX, windowHeight - translationY)
+	line(- translationX + windowWidth, 0 - translationY, 0 - translationX, windowHeight - translationY)*/
 }
 //#endregion
 
+let xCircle = 2400, yCircle = 800;
 function toggleCompletedWindow() {
 	// Show completedWindow if it has been visible for less than 5s
 	if (currentMillis - prevMillis < completedWindowInterval && oneConstDone == 1) {
@@ -432,18 +423,18 @@ function drawCurrentLines() {
 	x2 = newMouseX;
 	y2 = newMouseY;
 
-	stroke(25, 29, 81);
+	stroke('hsla(237, 70%, 31%, 1.00)');
 	//stroke(200, 195, 255, 30)
-	strokeWeight(40);
+	strokeWeight(dilatingStroke / 3 + 15);
 	line(x1, y1, x2, y2);
 
-	stroke(45, 49, 102);
+	stroke('hsla(239, 57%, 46%, 1.00)');
 	//stroke(200, 195, 255, 15);
-	strokeWeight(15);
+	strokeWeight(dilatingStroke / 3 + 7);
 	line(x1, y1, x2, y2);
 
-	stroke("white");
-	strokeWeight(1);
+	stroke('hsla(240, 100%, 91%, 1.00)');
+	strokeWeight(dilatingStroke / 15 + 1);
 	line(x1, y1, x2, y2);
 }
 
@@ -565,10 +556,6 @@ function mousePressed() {
 
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
 
-function openConstellationInLibrary() {
-		print("opening the constellation");
-}
-
 let startingStarScale = 1;
 
 function constellationCheck() {
@@ -648,16 +635,12 @@ function neighbouringStarsGlow() {
 		// If mouse is within range of a neighbouring star, that neighbouring star should glow
 		if (constellations[currentConstellation].completed == 0) {
 			noStroke();
-			let newAlpha = 255 - constrain(map(dist(newMouseX, newMouseY, neighbouringStars[i][0],
-				neighbouringStars[i][1]), 0, 500, 0, 80), 0, 145);
-			alpha += (newAlpha - alpha) * 0.2;
-			fill(13, 0, 255, alpha)
+			fill("hsla(270, 39%, 76%, 1.00)");
 			let diameter = ((sin(millis() * 0.002) + 3) * 10) + 6;
 			blendMode(OVERLAY);
 			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
+			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter); 
 			blendMode(BLEND);
-			fill(255, 40)
-			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter);
 		}
 	}
 }
@@ -1982,7 +1965,7 @@ function addConstellationToLibrary(c) {
 	var currentConstItem = document.getElementById(constellations[c].name + "Item");
 	$("#currentConstItem").fadeIn(500);
 	currentConstItem.style.display = "block";
-	
+
 	latestConstellation = constellations[c].name
 
 	// Finished const. popup appears
@@ -2014,8 +1997,8 @@ function cameraPanning() {
 		cursor('grab');
 		panningCamera = true;
 
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-5000 + windowWidth, -5000), 500);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-1500 + windowHeight, -1500), 0);
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-width + windowWidth, -width), 750);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-height + windowHeight, -height), 500);
 	}
 
 	else if (mouseDragging == false) {
@@ -2074,54 +2057,36 @@ class Star {
 
 		// Glow
 		//fill(200, 195, 255, opacity);
-		fill('#1d2155');
+		fill('#22267b');
 		ellipse(this.x, this.y, scale * 3, scale * 3);
 
 		// Star
 		//fill(200, 195, 255, opacity * 10);
-		fill('#aba8e2');
+		fill('#a19ade');
 		ellipse(this.x, this.y, scale);
-	}
-}
 
-class bigStar {
-	constructor() {
-		this.x = random(width + 450) - 450;
-		this.y = random(height);
-		this.size = random(randomSize);
-		this.t = random(randomTAU);
-	}
+		if ((leftBound < this.x + 20) == false) {
+			this.x += windowWidth + 40;
+		}
 
-	draw() {
-		this.t += 0.05;
-		var scale = this.size + sin(this.t) * 3;
-		let opacity = this.size * 5;
-		noStroke();
+		else if ((this.x < rightBound + 20) == false) {
+			this.x -= windowWidth + 40;
+		}
 
-		// Glow
-		//fill(200, 195, 255, opacity);
-		fill('#1d2155');
-		ellipse(this.x, this.y, scale * 3, scale * 3);
+		else if ((topBound < this.y + 20) == false) {
+			this.y += windowHeight + 40;
+		}
 
-		// Star
-		//fill(200, 195, 255, opacity * 10);
-		fill('#aba8e2');
-		ellipse(this.x, this.y, scale, scale);
+		else if ((this.y < bottomBound + 20) == false) {
+			this.y -= windowHeight + 40;
+		}
 	}
 }
 
 function drawBackgroundStars() {
 	// Stars (only drawn if visible within the window
 	for (var i = 0; i < stars.length; i++) {
-		if (leftBound < stars[i].x && stars[i].x < rightBound && topBound < stars[i].y && stars[i].y < bottomBound) {
-			stars[i].draw();
-		}
-	}
-
-	for (var i = 0; i < bigStars.length; i++) {
-		if (leftBound < bigStars[i].x && bigStars[i].x < rightBound && topBound < bigStars[i].y && bigStars[i].y < bottomBound) {
-			bigStars[i].draw();
-		}
+		stars[i].draw();
 	}
 }
 

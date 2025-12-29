@@ -13,44 +13,56 @@ canvas {
   display: flex;
 }
 
+:root {
+  --library-colour: rgba(44, 47, 105, 0.418);
+  --library-item-colour: #00063552;
+
+  --detailed-window-colour: #00063552;
+  --completed-window-colour: #040a30e4;
+  
+  --button-colour: #0009377c;
+  --text-colour: #f0f0ff;
+  --border-colour: #5d60ff3e;
+}
+
 button {
   margin: 20px;
   width: 80px;
   height: 80px;
   text-align: center;
-  padding: 0px 5px 2px;
-
-  background-color: #12183a;
-  border: solid white 1px;
+  padding: 10px 6px;
+  display: flex;
+  background-color: var(--button-colour);
+  border: double var(--border-colour) 3px;
   border-radius: 5px;
-  color: white;
-  
-  text-decoration: none;
-  display: inline-block;
-  font-size: 23px;
-  
+  color: var(--text-colour);
+  font-size: 20px;
   cursor: pointer;
+}
+
+hr {
+  width: 300px;
+  border: 3px double var(--library-colour);
+  margin-top: 15px;
 }
 
 img.thumbnail {
   display: inline;
-  width: 50px;
-  height: 50px;
-  vertical-align: bottom;
+  width: 40px;
+  height: 40px;
   padding: 0px 10px 0px;
+  margin: 0;
 }
 
 button.closeDetailedWindow {
-  margin: 0px 0px 0px 850px;
+  display: block;
+  margin: -3px 0px 0px 866px;
   width: 24px;
   height: 24px;
   text-align: center;
   padding: 0px 0px;
-
-  background-color: #090f31;
-  border: solid white 1px;
-  border-radius: 2px;
-  color: white;
+  
+  color: var(--text-colour) ;
   
   text-decoration: none;
   font-size: 12px;
@@ -60,32 +72,41 @@ button.closeDetailedWindow {
 
 sidebar {
   width: 150px;
-  /*background-color: rgba(44, 47, 105, 0.418);*/
   position: absolute;
   top: 0%;
   height: 395px;
 }
 
 library {
-  width: 20%;
-  background-color: rgba(44, 47, 105, 0.418);
+  width: 375px;
+  background-color: var(--detailed-window-colour) ;
   position: absolute;
-  top: 0%;
-  height: 100%;
+  top: -0.5%;
+  left: -0.5%;
+  height: 110%;
   /*---fix later*/
   display: block;
-  color: white;
-  font-size: 24px;
+  color: var(--text-colour) ;
+  font-size: 20px;
+  border: 3px double #5558e13e;
+}
+
+libraryTitle {
+  display: block;
+  text-align: center;
+  margin: 30px 83px -16px;
+  width: 300px;
+  font-size: 30px;
 }
 
 libraryItems {
-  margin: 25px 80px;
+  margin: 40px 80px;
   display: block;
   cursor: pointer; 
 }
 
 quiz {
-  background-color: #0e153bb9;
+  background-color: var(--detailed-window-colour);
   position: absolute;
   display: none;
   margin: auto;
@@ -100,27 +121,27 @@ quiz {
   padding-top: 50px;
 
   font-size: 32px;
-  color: white;
+  color: var(--text-colour) ;
 
   text-align: center;
 
-  border: solid white 1px;
+  border: double var(--border-colour)  3px;
   border-radius: 15px;
 }
 
 img {
-  width: 250px;
-  height: 250px;
+  height: 300px;
   display: block;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 20px;
 }
 
 detailedWindows {
-  background-color: #0e153bb9;
+  background-color: var(--detailed-window-colour);
   position: absolute;
   display: none;
   margin: auto;
+  font-weight: bold;
 
   line-height: 0px;
   width: 900px;
@@ -132,24 +153,22 @@ detailedWindows {
   padding-top: 12px;
 
   font-size: 40px;
-  color: white;
+  color: var(--text-colour) ;
 
   text-align: center;
 
-  border: solid white 1px;
+  border: double var(--border-colour) 3px;
   border-radius: 15px;
 }
 
-detailedTitle {
-  padding-top: 32px;
-}
-
 description {
+  font-weight: normal;
   font-size: 24px;
   line-height: 125%;
+  height: 295px;
   display: block;
   text-align: left;
-  padding: 32px 16px;
+  padding: 32px 24px;
   text-indent: 50px;
 }
 
@@ -157,9 +176,10 @@ p {
   margin-block-start: 8px;
   margin-block-end: 8px;
 }
+
 completedWindow {
-  background-color: #040a30e4;
-  color: white;
+  background-color: var(--completed-window-colour);
+  color: var(--text-colour) ;
   position: absolute;
   display: none;
   margin: auto;
@@ -173,60 +193,69 @@ completedWindow {
 
   padding: 40px 40px;
   border-radius: 15px;
-  border: solid white 1px;
+  border: double var(--border-colour) 3px;
   text-align: center;
   font-size: 24px;
 }
 
-button.closeCompletedWindow {
-  margin: 12px 0px 0px 602px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  padding: 0px 0px;
-
-  background-color: #090f31;
-  border: solid white 1px;
-  border-radius: 2px;
-  color: white;
-  
-  text-decoration: none;
-  font-size: 12px;
-  display: absolute;
-  cursor: pointer;
-}
-
-/*---I could create a button in the js code, and when the detailed window is visible the button appears
-And if you click the button, depending on which constellation is visible, the button will take you to that constellation
-For testing purposes I can just have it print the name of the constellation to make sure it works.
-Remember to remove the navButton css if you won't be using it in the end
-(might reuse it for the navButton though)*/
 button.navButton {
-  margin: 32px 0px 0px 0px;
-  width: 36px;
-  height: 36px;
-
-  background-color: #090f31;
-  border: solid white 1px;
-  border-radius: 2px;
-  color: white;
+  display: block;
+  width: 45px;
+  height: 45px;
+  color: var(--text-colour) ;
   
   text-decoration: none;
   font-size: 12px;
-  display: absolute;
+  right: 0%;
+  margin-top: 13px;
+  margin-left: 843px;
   cursor: pointer;
 }
 
 item {
   /*---fix later*/
   display: block;
-  width: 200px;
-  height: 0px;
-  margin-top: 60px;
+  width: 220px;
+  margin-bottom: 5px;
+  padding: 5px 0px;
+  height: 40px;
+  border-radius: 10px;
+  border: double 3px var(--border-colour);
+  background-color: var(--library-item-colour);
+}
+
+constNameLibrary {
+  display: inline;
+  vertical-align: 60%;
+}
+
+brightestStar {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 detailedWindow {
   display: none;
+  margin-top: 15px;
+}
+
+dot {
+  position: absolute;
+  margin: auto;
+  transform: translateX(-50%) translateY(-50%);
+  height: 25px;
+  width: 25px;
+  background-color: rgba(209, 209, 255, 0.676);
+  border-radius: 50%;
+  display: none;
+  animation: starGlowing 2s infinite;
+}
+
+@keyframes starGlowing {
+  50% {background-color: rgba(192, 192, 255, 0.468);
+       height: 15px;
+       width: 15px;}
 }
 
 aries {
@@ -275,10 +304,4 @@ aquarius {
 
 pisces {
   display: none;
-}
-
-@media screen and (max-width: 1750px){
-  library {
-    width: 350px;
-  }
 }

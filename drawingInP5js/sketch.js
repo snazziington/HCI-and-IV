@@ -19,7 +19,7 @@ let stars = [];
 const maxStars = 100;
 let button, libButton, quizButton, helpButton, navButton;
 //--fix later
-let lib, quiz, quizAccessible = 1, detailedWindow, constDetailedWindow;
+let lib, quiz, quizAccessible = 0, detailedWindow, constDetailedWindow;
 
 //#region Constellation Info
 class Constellation {
@@ -695,9 +695,12 @@ function addConstellationToLibrary(c) {
 
 	//--fix later
 	if (nameAns.length > -1 && quizAccessible == 0) {
+		print("um");
 		quizAccessible = 1;
 		quizButton.style.opacity = '1'
 		quizButton.style.backgroundColor = rs.getPropertyValue('--button-colour');
+		quizButton.style.color = rs.getPropertyValue('--text-colour');
+		document.getElementById("quizMenuButton").style.cursor = "pointer"
 	}
 }
 

@@ -204,6 +204,7 @@ LibraryTitle {
 
 LibraryItems {
   margin: 40px 80px;
+  /*//--fix later*/
   display: block;
   cursor: pointer;
 }

@@ -33,7 +33,7 @@ canvas {
 }
 
 button {
-  position: absolute;
+  position: block;
   margin: 20px;
   width: 80px;
   height: 80px;
@@ -48,6 +48,9 @@ button {
   cursor: pointer;
 }
 
+buttons {
+  position: absolute;
+}
 button.libButton {
   top: 0px;
 }
@@ -95,9 +98,9 @@ quiz {
 button.quizButton {
   background-color: var(--button-colour);
   font-size: 28px;
-  display: inline;
   width: 400px;
   height: 100px;
+  display: inline;
 }
 
 button.nextQuestion {

@@ -18,7 +18,8 @@ let translationY = -500;
 let stars = [];
 const maxStars = 100;
 let button, libButton, quizButton, helpButton, navButton;
-let lib, quiz, quizAccessible = 0, detailedWindow, constDetailedWindow;
+//--fix later
+let lib, quiz, quizAccessible = 1, detailedWindow, constDetailedWindow;
 
 //#region Constellation Info
 class Constellation {
@@ -93,13 +94,17 @@ function setup() {
 	initialiseImages();
 	setupConstellations();
 
-	quiz = document.getElementById("quizMenuButton");
-	quiz.style.color = 'grey'
-	quiz.style.backgroundColor = 'hsla(230, 40%, 10%, 0.49)';
+	quiz = document.getElementById("quiz");
+	quizButton = document.getElementById("quizMenuButton");
+	quizButton.style.color = 'grey'
+	quizButton.style.backgroundColor = 'hsla(230, 40%, 10%, 0.49)';
 
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
 	
+	//--fix later
+	imageAns = [AriesImg, TaurusImg, GeminiImg, LeoImg];
+	nameAns = ["Aries", "Taurus", "Gemini", "Leo"];
 	frameRate(30);
 }
 
@@ -689,10 +694,10 @@ function addConstellationToLibrary(c) {
 	constellations[c].v1[4] = 1;
 
 	//--fix later
-	if (nameAns.length > 1 && quizAccessible == 0) {
+	if (nameAns.length > -1 && quizAccessible == 0) {
 		quizAccessible = 1;
-		quiz.style.opacity = '1'
-		quiz.style.backgroundColor = rs.getPropertyValue('--button-colour');
+		quizButton.style.opacity = '1'
+		quizButton.style.backgroundColor = rs.getPropertyValue('--button-colour');
 	}
 }
 

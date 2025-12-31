@@ -228,30 +228,32 @@
         return a;
       }
     </script>
+    <quizButtonAnswers>
+      <button id="answer1" onclick="evaluateAnswer(answer1, 'answer1')" class="quizButton">
+        <script>
+          document.write(answer1)
+        </script>
+      </button>
 
-    <button id="answer1" onclick="evaluateAnswer(answer1, 'answer1')" class="quizButton">
-      <script>
-        document.write(answer1)
-      </script>
-    </button>
+      <button id="answer2" onclick="evaluateAnswer(answer2, 'answer2')" class="quizButton">
+        <script>
+          document.write(answer2)
+        </script>
+      </button>
 
-    <button id="answer2" onclick="evaluateAnswer(answer2, 'answer2')" class="quizButton">
-      <script>
-        document.write(answer2)
-      </script>
-    </button>
+      <button id="answer3" onclick="evaluateAnswer(answer3, 'answer3')" class="quizButton">
+        <script>
+          document.write(answer3)
+        </script>
+      </button>
 
-    <button id="answer3" onclick="evaluateAnswer(answer3, 'answer3')" class="quizButton">
-      <script>
-        document.write(answer3)
-      </script>
-    </button>
+      <button id="answer4" onclick="evaluateAnswer(answer4, 'answer4')" class="quizButton">
+        <script>
+          document.write(answer4)
+        </script>
+      </button>
+    </quizButtonAnswers>
 
-    <button id="answer4" onclick="evaluateAnswer(answer4, 'answer4')" class="quizButton">
-      <script>
-        document.write(answer4)
-      </script>
-    </button>
 
     <button id="nextQ" onclick="nextQuestion()" class="nextQuestion">Next Question</button>
   </quiz>
@@ -685,7 +687,7 @@
 
     function quizButtonPress() {
       if (quizAccessible == 1) {
-        quiz.style.display = "block";
+        quizButton.style.display = "block";
         nextQuestion();
 
         // Close Completed Window
@@ -716,8 +718,9 @@
   </script>
   <buttons onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
     <button class="libButton" onclick="libButtonPress()">🕮 Library</button>
-    <button id= "quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseover="quizMouseOver()"
+    <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseover="quizMouseOver()"
       onmouseout="quizMouseOut()">☑ Quiz</button>
     <button class="helpButton" onclick="helpButtonPress()">🛈 Help</button>
 </body>
+
 </html>

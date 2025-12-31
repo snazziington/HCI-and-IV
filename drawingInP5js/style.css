@@ -1,12 +1,16 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   display: block;
   /*Hide scrollbars*/
   overflow: hidden;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
 
 canvas {
@@ -14,18 +18,22 @@ canvas {
 }
 
 :root {
-  --library-colour: rgba(44, 47, 105, 0.418);
-  --library-item-colour: #00063552;
+  --Library-colour: rgba(44, 47, 105, 0.418);
+  --Library-item-colour: #00063552;
 
-  --detailed-window-colour: #00063552;
-  --completed-window-colour: #040a30e4;
-  
+  --detailed-window-colour: #030b40e4;
+  --completed-window-colour: #030b40b9;
+
   --button-colour: #0009377c;
   --text-colour: #f0f0ff;
-  --border-colour: #5d60ff3e;
+  --border-colour: #6164ff41;
+
+  --green-button: hsl(140, 80%, 30%);
+  --red-button: hsl(0, 80%, 30%);
 }
 
 button {
+  position: absolute;
   margin: 20px;
   width: 80px;
   height: 80px;
@@ -40,9 +48,102 @@ button {
   cursor: pointer;
 }
 
+button.libButton {
+  top: 0px;
+}
+
+button.quizMenuButton {
+  top: 100px;
+}
+
+button.quizNA {
+  background-color: #030b40e4;
+  opacity: 0.5;
+}
+
+button.helpButton {
+  top: 200px;
+}
+
+quiz {
+  background-color: var(--detailed-window-colour);
+  position: absolute;
+  display: none;
+  margin: auto;
+  margin-left: 25%;
+
+  line-height: 0px;
+  width: 900px;
+  height: 700px;
+  top: 15%;
+  bottom: 20%;
+  left: 1%;
+  right: 1%;
+  padding-top: 50px;
+
+  font-size: 38px;
+  font-weight: bold;
+  color: var(--text-colour);
+  text-transform: capitalize;
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
+}
+
+button.quizButton {
+  background-color: var(--button-colour);
+  font-size: 28px;
+  display: inline;
+  width: 400px;
+  height: 100px;
+}
+
+button.nextQuestion {
+  display: none;
+  position: absolute;
+  background-color: var(--button-colour);
+  margin: auto;
+  right: 1%;
+  left: 1%;
+  width: 175px;
+  height: 60px;
+  padding: 16px 20px;
+  text-align: center;
+}
+
+quizDesc {
+  display: block;
+  margin: 48px;
+  font-weight: bold;
+}
+
+quizNotAccessible {
+  background-color: var(--detailed-window-colour);
+  position: absolute;
+  display: none;
+  margin-left: 120px;
+
+  width: 350px;
+  height: 90px;
+  top: 11.5%;
+  bottom: 20%;
+  padding-top: 10px;
+  
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-colour);
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
+}
+
 hr {
   width: 300px;
-  border: 3px double var(--library-colour);
+  border: 3px double var(--border-colour);
   margin-top: 15px;
 }
 
@@ -61,9 +162,9 @@ button.closeDetailedWindow {
   height: 24px;
   text-align: center;
   padding: 0px 0px;
-  
-  color: var(--text-colour) ;
-  
+
+  color: var(--text-colour);
+
   text-decoration: none;
   font-size: 12px;
   display: absolute;
@@ -77,21 +178,20 @@ sidebar {
   height: 395px;
 }
 
-library {
+Library {
   width: 375px;
-  background-color: var(--detailed-window-colour) ;
+  background-color: var(--detailed-window-colour);
   position: absolute;
   top: -0.5%;
   left: -0.5%;
   height: 110%;
-  /*---fix later*/
   display: none;
-  color: var(--text-colour) ;
+  color: var(--text-colour);
   font-size: 20px;
   border: 3px double #5558e13e;
 }
 
-libraryTitle {
+LibraryTitle {
   display: block;
   text-align: center;
   margin: 30px 83px -16px;
@@ -99,34 +199,10 @@ libraryTitle {
   font-size: 30px;
 }
 
-libraryItems {
+LibraryItems {
   margin: 40px 80px;
   display: block;
-  cursor: pointer; 
-}
-
-quiz {
-  background-color: var(--detailed-window-colour);
-  position: absolute;
-  display: none;
-  margin: auto;
-
-  line-height: 0px;
-  width: 900px;
-  height: 750px;
-  top: 10%;
-  bottom: 10%;
-  left: 1%;
-  right: 1%;
-  padding-top: 50px;
-
-  font-size: 32px;
-  color: var(--text-colour) ;
-
-  text-align: center;
-
-  border: double var(--border-colour)  3px;
-  border-radius: 15px;
+  cursor: pointer;
 }
 
 img {
@@ -141,19 +217,20 @@ detailedWindows {
   position: absolute;
   display: none;
   margin: auto;
+  margin-left: 25%;
   font-weight: bold;
 
   line-height: 0px;
   width: 900px;
   height: 800px;
-  top: 10%;
+  top: 15%;
   bottom: 20%;
-  left: 23%;
+  left: 1%;
   right: 1%;
   padding-top: 12px;
 
   font-size: 40px;
-  color: var(--text-colour) ;
+  color: var(--text-colour);
 
   text-align: center;
 
@@ -179,19 +256,19 @@ p {
 
 completedWindow {
   background-color: var(--completed-window-colour);
-  color: var(--text-colour) ;
+  color: var(--text-colour);
   position: absolute;
   display: none;
   margin: auto;
-  
-  width: 600px;
-  height: 54px;
-  top: 87%;
+
+  width: 700px;
+  height: 24px;
+  top: 93%;
   bottom: 20%;
   left: 1%;
   right: 1%;
 
-  padding: 40px 40px;
+  padding: 34px 24px;
   border-radius: 15px;
   border: double var(--border-colour) 3px;
   text-align: center;
@@ -202,8 +279,8 @@ button.navButton {
   display: block;
   width: 45px;
   height: 45px;
-  color: var(--text-colour) ;
-  
+  color: var(--text-colour);
+
   text-decoration: none;
   font-size: 12px;
   right: 0%;
@@ -214,14 +291,14 @@ button.navButton {
 
 item {
   /*---fix later*/
-  display: none;
+  display: block;
   width: 220px;
   margin-bottom: 5px;
   padding: 5px 0px;
   height: 40px;
   border-radius: 10px;
   border: double 3px var(--border-colour);
-  background-color: var(--library-item-colour);
+  background-color: var(--Library-item-colour);
 }
 
 constNameLibrary {
@@ -246,62 +323,64 @@ dot {
   transform: translateX(-50%) translateY(-50%);
   height: 25px;
   width: 25px;
-  background-color: rgba(209, 209, 255, 0.676);
+  background-color: rgba(209, 209, 255, 0.73);
   border-radius: 50%;
   display: none;
   animation: starGlowing 2s infinite;
 }
 
 @keyframes starGlowing {
-  50% {background-color: rgba(192, 192, 255, 0.468);
-       height: 15px;
-       width: 15px;}
+  50% {
+    background-color: rgba(192, 192, 255, 0.468);
+    height: 18px;
+    width: 18px;
+  }
 }
 
-aries {
+Aries {
   display: none;
 }
 
-taurus {
+Taurus {
   display: none;
 }
 
-gemini {
+Gemini {
   display: none;
 }
 
-cancer {
+Cancer {
   display: none;
 }
 
-leo {
+Leo {
   display: none;
 }
 
-virgo {
+Virgo {
   display: none;
 }
 
-libra {
+Libra {
   display: none;
 }
 
-scorpius {
+Scorpius {
   display: none;
 }
 
-sagittarius {
+Sagittarius {
   display: none;
 }
 
-capricornus {
+Capricornus {
   display: none;
 }
 
-aquarius {
+Aquarius {
   display: none;
 }
 
-pisces {
+Pisces {
   display: none;
 }

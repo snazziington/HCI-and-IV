@@ -1,5 +1,10 @@
-Things I Need to do Next:
-Quiz:
+Ok so.
+Find the correct answer.
+Put the correct answer into the "answers" array.
+Put 3 random answers that are not in the array into the array.
+then have each answersX variable select a random element from the "answers" array, and remove it.
+
+---
 1. Create the quiz UI (question w/ space for image, and 4 answer boxes)
 Could have an array of answers and questions? So for QuestionA ("Which constellation is Aries?") there'd be an array of "AnswersA" which is a list of all the possible answers (so the images). And since the answer is Aries (const 1), the pool of answers must have 1, but they will also have 3 random ones. And only 1 is going to be correct.
 So there's a Question. There's a QuestionArray which is all the possible specific questions, and AnswersArray which is all the possible answers. The index of the answer of any given question will always be the same index as the answer. I.e., questionArray[i]'s answer is answerAray[i].

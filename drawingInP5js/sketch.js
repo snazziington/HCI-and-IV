@@ -1,5 +1,5 @@
 //#region Initialising variables
-let aries, taurus, gemini, cancer, leo
+let Aries, Taurus, Gemini, Cancer, Leo
 let lines = [];		// This is where the drawn lines will be stored
 let constellations = [];
 let distance = 20;		// How close you have to click on a constellation to be able to draw it (in pixels)
@@ -16,9 +16,9 @@ let translationY = -500;
 
 // Stars
 let stars = [];
-const maxStars = 75;
+const maxStars = 100;
 let button, libButton, quizButton, helpButton, navButton;
-let lib, quiz, detailedWindow, constDetailedWindow;
+let lib, quiz, quizAccessible = 0, detailedWindow, constDetailedWindow;
 
 //#region Constellation Info
 class Constellation {
@@ -45,7 +45,7 @@ class Constellation {
 				if (leftBound < this[vx][0] && this[vx][0] < rightBound && topBound < this[vx][1] && this[vx][1] < bottomBound) {
 					// Size ranges from 4.5 to 6.5
 					this.size = 3 + ((j % 21) / 10);
-					this[vx][3] += random(0.04);
+					this[vx][3] += random(0.007);
 					let scale = this.size + sin(this[vx][3]) * 2 * this[vx][4];
 					let opacity = this.size * 1;
 					noStroke();
@@ -67,19 +67,16 @@ class Constellation {
 
 		endShape();
 	}
-
-	completed() {
-		stroke("red");
-		strokeWeight(dilatingStroke / 3);
-	}
 }
 //#endregion
 
 
 
-//#region
+//#region Setup
 function setup() {
 	createCanvas(6000, 2000);
+	constWindowWidth = windowWidth;
+	constWindowHeight = windowHeight;
 
 	// Prevents right-click from putting up the context menu
 	for (let element of document.getElementsByClassName("p5Canvas")) {
@@ -93,87 +90,110 @@ function setup() {
 
 	// empty default const (0th)
 	constellations.push({ line: [0], completed: 1, startStars: [0] });
+	initialiseImages();
 	setupConstellations();
 
-	libButton = createButton('🕮 Library')
-	lib = document.getElementById("library");
-
-	quizButton = createButton('☑ Quiz')
-	quiz = document.getElementById("quiz");
-
-	helpButton = createButton('🛈 Help')
+	quiz = document.getElementById("quizMenuButton");
+	quiz.style.color = 'grey'
+	quiz.style.backgroundColor = 'hsla(230, 40%, 10%, 0.49)';
 
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
-
-	libButton.mousePressed(libButtonPress)
-	quizButton.mousePressed(quizButtonPress)
-	helpButton.mousePressed(helpButtonPress)
+	
 	frameRate(30);
+}
+
+var AriesImg, TaurusImg, GeminiImg, CancerImg, LeoImg, VirgoImg, LibraImg,
+	ScorpiusImg, SagittariusImg, CapricornusImg, AquariusImg, PiscesImg;
+
+var imageAns = [], nameAns = [];
+
+function initialiseImages() {
+	AriesImg = document.getElementById("AriesImg").src;
+	TaurusImg = document.getElementById("TaurusImg").src;
+	GeminiImg = document.getElementById("GeminiImg").src;
+	CancerImg = document.getElementById("CancerImg").src;
+	LeoImg = document.getElementById("LeoImg").src;
+	VirgoImg = document.getElementById("VirgoImg").src;
+	LibraImg = document.getElementById("LibraImg").src;
+	ScorpiusImg = document.getElementById("ScorpiusImg").src;
+	SagittariusImg = document.getElementById("SagittariusImg").src;
+	CapricornusImg = document.getElementById("CapricornusImg").src;
+	AquariusImg = document.getElementById("AquariusImg").src;
+	PiscesImg = document.getElementById("PiscesImg").src;
 }
 //#endregion
 
 
 
-//#region Button Placement
-function buttonPlacement() {
-	libButton.position(0, 0);
-	quizButton.position(0, 100);
-	helpButton.position(0, 200);
+//#region Buttons
+function hoveringMenuTrue() {
+	hoveringMenus = 1;
+	if (this.name == "quizButton") {
+		quizMouseOver();
+	}
 }
+
+function hoveringMenuFalse() {
+	hoveringMenus = 0;
+	if (this.name == "quizButton") {
+		quizMouseOut();
+	}
+}
+
 //#endregion
 
 
 //#region Set Up Constellations
 function setupConstellations() {
 	// Lower 200
-	aries = new Constellation(4579, 423, 4707, 399, 4758, 407, 4770, 421);
+	Aries = new Constellation(4579, 423, 4707, 399, 4758, 407, 4770, 421);
 
 	// Lower 200
-	taurus = new Constellation(4599, 570, 4480, 583, 4409, 571, 4383, 579, 4359, 581, 4149, 589,
+	Taurus = new Constellation(4599, 570, 4480, 583, 4409, 571, 4383, 579, 4359, 581, 4149, 589,
 		4366, 540, 4308, 509, 4154, 479, 4452, 431, 4380, 552, 4400, 553)
 
-	gemini = new Constellation(
+	Gemini = new Constellation(
 		4045, 482, 4017, 500, 3994, 505, 3927, 484, 3982, 535, 3843, 434, 3885, 378,
 		3778, 418, 3808, 468, 3753, 473, 3782, 485, 3761, 517, 3834, 540, 3847, 606, 3882, 549,
 		3966, 588, 3951, 635);
 
-	cancer = new Constellation(
+	Cancer = new Constellation(
 		3577, 467, 3655, 485, 3588, 564, 3584, 606, 3543, 690, 3680, 717);
 
-	leo = new Constellation(
+	Leo = new Constellation(
 		3385, 532, 3364, 502, 3291, 533, 3277, 577, 3315, 622, 3305, 683,
 		3117, 553, 3108, 618, 3005, 612);
 
-	virgo = new Constellation(
+	Virgo = new Constellation(
 		2996, 711, 2877, 780, 2807, 779, 2776, 710, 2775, 612, 2642, 736,
 		2561, 689, 2410, 647, 2648, 880, 2493, 842, 2492, 781, 2397, 758);
 
-	libra = new Constellation(
+	Libra = new Constellation(
 		2358, 904, 2286, 812, 2223, 876, 2166, 897, 2303, 1019);
 
-	scorpius = new Constellation(
+	Scorpius = new Constellation(
 		2134, 927, 2152, 966, 2145, 1010, 2060, 1014, 2041, 1035, 2004, 1113,
 		1998, 1164, 1996, 1222, 1954, 1236, 1891, 1238, 1860, 1206, 1870, 1189,
 		1892, 1158);
 
-	sagittarius = new Constellation(
+	Sagittarius = new Constellation(
 		1750, 963, 1838, 1043, 1715, 1027, 1790, 1084, 1745, 1083, 1748, 1144, 1773, 1174,
 		1624, 1108, 1665, 1058, 1636, 1054, 1613, 985, 1594, 997, 1543, 968, 1526, 954,
 		1605, 1082, 1503, 1065, 1427, 1133, 1480, 1238, 1533, 1328, 1610, 1276, 1634, 1335);
 
-	capricornus = new Constellation(
+	Capricornus = new Constellation(
 		1343, 943, 1342, 974, 1316, 1119, 1226, 1047, 1308, 1144, 1194, 1127,
 		1178, 1060, 1128, 1080, 1106, 1082);
 
 	// Higher 200
-	aquarius = new Constellation(
+	Aquarius = new Constellation(
 		1244, 836, 1226, 837, 1098, 839, 970, 815, 975, 923, 1042, 982, 951, 976,
 		913, 1039, 914, 1075, 911, 1164, 925, 849, 896, 844, 875, 854, 865, 972,
 		803, 1028, 864, 1176);
 
 	// Higher 200
-	pisces = new Constellation(
+	Pisces = new Constellation(
 		741, 780, 727, 816, 680, 833, 666, 786, 695, 762, 604, 796, 538, 807,
 		460, 849, 414, 863, 338, 919, 306, 942, 279, 986, 252, 1005, 273, 902,
 		291, 799, 307, 667, 278, 636, 310, 564);
@@ -181,122 +201,122 @@ function setupConstellations() {
 	// pushes all of the constellation's values into the constellations array						
 	constellations.push(
 		{
-			name: "aries", size: 4, v1: aries.v1, v2: aries.v2, v3: aries.v3, v4: aries.v4,
+			name: "Aries", img: AriesImg, size: 4, v1: Aries.v1, v2: Aries.v2, v3: Aries.v3, v4: Aries.v4,
 			line: [0, 0, 0], completed: 0,
-			startStars: [aries.v1[0], aries.v1[1], aries.v1[2]],
+			startStars: [Aries.v1[0], Aries.v1[1], Aries.v1[2]],
 		},
 
 		{
-			name: "taurus", size: 12, v1: taurus.v1, v2: taurus.v2, v3: taurus.v3, v4: taurus.v4,
-			v5: taurus.v5, v6: taurus.v6, v7: taurus.v7, v8: taurus.v8,
-			v9: taurus.v9, v10: taurus.v10, v11: taurus.v11, v12: taurus.v12,
+			name: "Taurus", img: TaurusImg, size: 12, v1: Taurus.v1, v2: Taurus.v2, v3: Taurus.v3, v4: Taurus.v4,
+			v5: Taurus.v5, v6: Taurus.v6, v7: Taurus.v7, v8: Taurus.v8,
+			v9: Taurus.v9, v10: Taurus.v10, v11: Taurus.v11, v12: Taurus.v12,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
-			startStars: [taurus.v1[0], taurus.v1[1], taurus.v1[2]]
+			startStars: [Taurus.v1[0], Taurus.v1[1], Taurus.v1[2]]
 		},
 
 		{
-			name: "gemini", size: 17,
-			v1: gemini.v1, v2: gemini.v2, v3: gemini.v3, v4: gemini.v4,
-			v5: gemini.v5, v6: gemini.v6, v7: gemini.v7, v8: gemini.v8,
-			v9: gemini.v9, v10: gemini.v10, v11: gemini.v11, v12: gemini.v12,
-			v13: gemini.v13, v14: gemini.v14, v15: gemini.v15, v16: gemini.v16,
-			v17: gemini.v17,
+			name: "Gemini", img: GeminiImg, size: 17,
+			v1: Gemini.v1, v2: Gemini.v2, v3: Gemini.v3, v4: Gemini.v4,
+			v5: Gemini.v5, v6: Gemini.v6, v7: Gemini.v7, v8: Gemini.v8,
+			v9: Gemini.v9, v10: Gemini.v10, v11: Gemini.v11, v12: Gemini.v12,
+			v13: Gemini.v13, v14: Gemini.v14, v15: Gemini.v15, v16: Gemini.v16,
+			v17: Gemini.v17,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [gemini.v1[0], gemini.v1[1], gemini.v1[2]]
+			startStars: [Gemini.v1[0], Gemini.v1[1], Gemini.v1[2]]
 		},
 
 		{
-			name: "cancer", size: 6,
-			v1: cancer.v1, v2: cancer.v2, v3: cancer.v3, v4: cancer.v4,
-			v5: cancer.v5, v6: cancer.v6,
+			name: "Cancer", img: CancerImg, size: 6,
+			v1: Cancer.v1, v2: Cancer.v2, v3: Cancer.v3, v4: Cancer.v4,
+			v5: Cancer.v5, v6: Cancer.v6,
 			line: [0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [cancer.v1[0], cancer.v1[1], cancer.v1[2]]
+			startStars: [Cancer.v1[0], Cancer.v1[1], Cancer.v1[2]]
 		},
 
 		{
-			name: "leo", size: 9,
-			v1: leo.v1, v2: leo.v2, v3: leo.v3, v4: leo.v4,
-			v5: leo.v5, v6: leo.v6, v7: leo.v7, v8: leo.v8, v9: leo.v9,
+			name: "Leo", img: LeoImg, size: 9,
+			v1: Leo.v1, v2: Leo.v2, v3: Leo.v3, v4: Leo.v4,
+			v5: Leo.v5, v6: Leo.v6, v7: Leo.v7, v8: Leo.v8, v9: Leo.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [leo.v1[0], leo.v1[1], leo.v1[2]]
+			startStars: [Leo.v1[0], Leo.v1[1], Leo.v1[2]]
 		},
 
 		{
-			name: "virgo", size: 12,
-			v1: virgo.v1, v2: virgo.v2, v3: virgo.v3, v4: virgo.v4,
-			v5: virgo.v5, v6: virgo.v6, v7: virgo.v7, v8: virgo.v8,
-			v9: virgo.v9, v10: virgo.v10, v11: virgo.v11, v12: virgo.v12,
+			name: "Virgo", img: VirgoImg, size: 12,
+			v1: Virgo.v1, v2: Virgo.v2, v3: Virgo.v3, v4: Virgo.v4,
+			v5: Virgo.v5, v6: Virgo.v6, v7: Virgo.v7, v8: Virgo.v8,
+			v9: Virgo.v9, v10: Virgo.v10, v11: Virgo.v11, v12: Virgo.v12,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [virgo.v1[0], virgo.v1[1], virgo.v1[2]]
+			startStars: [Virgo.v1[0], Virgo.v1[1], Virgo.v1[2]]
 		},
 
 		{
-			name: "libra", size: 5,
-			v1: libra.v1, v2: libra.v2, v3: libra.v3, v4: libra.v4, v5: libra.v5,
+			name: "Libra", img: LibraImg, size: 5,
+			v1: Libra.v1, v2: Libra.v2, v3: Libra.v3, v4: Libra.v4, v5: Libra.v5,
 			line: [0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [libra.v1[0], libra.v1[1], libra.v1[2]]
+			startStars: [Libra.v1[0], Libra.v1[1], Libra.v1[2]]
 		},
 
 		{
-			name: "scorpius", size: 13,
-			v1: scorpius.v1, v2: scorpius.v2, v3: scorpius.v3, v4: scorpius.v4,
-			v5: scorpius.v5, v6: scorpius.v6, v7: scorpius.v7, v8: scorpius.v8,
-			v9: scorpius.v9, v10: scorpius.v10, v11: scorpius.v11, v12: scorpius.v12,
-			v13: scorpius.v13,
+			name: "Scorpius", img: ScorpiusImg, size: 13,
+			v1: Scorpius.v1, v2: Scorpius.v2, v3: Scorpius.v3, v4: Scorpius.v4,
+			v5: Scorpius.v5, v6: Scorpius.v6, v7: Scorpius.v7, v8: Scorpius.v8,
+			v9: Scorpius.v9, v10: Scorpius.v10, v11: Scorpius.v11, v12: Scorpius.v12,
+			v13: Scorpius.v13,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [scorpius.v1[0], scorpius.v1[1], scorpius.v1[2]]
+			startStars: [Scorpius.v1[0], Scorpius.v1[1], Scorpius.v1[2]]
 		},
 
 		{
-			name: "sagittarius", size: 21,
-			v1: sagittarius.v1, v2: sagittarius.v2, v3: sagittarius.v3, v4: sagittarius.v4,
-			v5: sagittarius.v5, v6: sagittarius.v6, v7: sagittarius.v7, v8: sagittarius.v8,
-			v9: sagittarius.v9, v10: sagittarius.v10, v11: sagittarius.v11, v12: sagittarius.v12,
-			v13: sagittarius.v13, v14: sagittarius.v14, v15: sagittarius.v15, v16: sagittarius.v16,
-			v17: sagittarius.v17, v18: sagittarius.v18, v19: sagittarius.v19, v20: sagittarius.v20,
-			v21: sagittarius.v21,
+			name: "Sagittarius", img: SagittariusImg, size: 21,
+			v1: Sagittarius.v1, v2: Sagittarius.v2, v3: Sagittarius.v3, v4: Sagittarius.v4,
+			v5: Sagittarius.v5, v6: Sagittarius.v6, v7: Sagittarius.v7, v8: Sagittarius.v8,
+			v9: Sagittarius.v9, v10: Sagittarius.v10, v11: Sagittarius.v11, v12: Sagittarius.v12,
+			v13: Sagittarius.v13, v14: Sagittarius.v14, v15: Sagittarius.v15, v16: Sagittarius.v16,
+			v17: Sagittarius.v17, v18: Sagittarius.v18, v19: Sagittarius.v19, v20: Sagittarius.v20,
+			v21: Sagittarius.v21,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [sagittarius.v1[0], sagittarius.v1[1], sagittarius.v1[2]]
+			startStars: [Sagittarius.v1[0], Sagittarius.v1[1], Sagittarius.v1[2]]
 		},
 
 		{
-			name: "capricornus", size: 9,
-			v1: capricornus.v1, v2: capricornus.v2, v3: capricornus.v3, v4: capricornus.v4,
-			v5: capricornus.v5, v6: capricornus.v6, v7: capricornus.v7, v8: capricornus.v8,
-			v9: capricornus.v9,
+			name: "Capricornus", img: CapricornusImg, size: 9,
+			v1: Capricornus.v1, v2: Capricornus.v2, v3: Capricornus.v3, v4: Capricornus.v4,
+			v5: Capricornus.v5, v6: Capricornus.v6, v7: Capricornus.v7, v8: Capricornus.v8,
+			v9: Capricornus.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0,
-			startStars: [capricornus.v1[0], capricornus.v1[1], capricornus.v1[2]]
+			startStars: [Capricornus.v1[0], Capricornus.v1[1], Capricornus.v1[2]]
 		},
 
 		{
-			name: "aquarius", size: 16,
-			v1: aquarius.v1, v2: aquarius.v2, v3: aquarius.v3, v4: aquarius.v4,
-			v5: aquarius.v5, v6: aquarius.v6, v7: aquarius.v7, v8: aquarius.v8,
-			v9: aquarius.v9, v10: aquarius.v10, v11: aquarius.v11, v12: aquarius.v12,
-			v13: aquarius.v13, v14: aquarius.v14, v15: aquarius.v15, v16: aquarius.v16,
+			name: "Aquarius", img: AquariusImg, size: 16,
+			v1: Aquarius.v1, v2: Aquarius.v2, v3: Aquarius.v3, v4: Aquarius.v4,
+			v5: Aquarius.v5, v6: Aquarius.v6, v7: Aquarius.v7, v8: Aquarius.v8,
+			v9: Aquarius.v9, v10: Aquarius.v10, v11: Aquarius.v11, v12: Aquarius.v12,
+			v13: Aquarius.v13, v14: Aquarius.v14, v15: Aquarius.v15, v16: Aquarius.v16,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15 connections
 			completed: 0,
-			startStars: [aquarius.v1[0], aquarius.v1[1], aquarius.v1[2]]
+			startStars: [Aquarius.v1[0], Aquarius.v1[1], Aquarius.v1[2]]
 		},
 
 		{
-			name: "pisces", size: 18,
-			v1: pisces.v1, v2: pisces.v2, v3: pisces.v3, v4: pisces.v4,
-			v5: pisces.v5, v6: pisces.v6, v7: pisces.v7, v8: pisces.v8,
-			v9: pisces.v9, v10: pisces.v10, v11: pisces.v11, v12: pisces.v12,
-			v13: pisces.v13, v14: pisces.v14, v15: pisces.v15, v16: pisces.v16,
-			v17: pisces.v17, v18: pisces.v18,
+			name: "Pisces", img: PiscesImg, size: 18,
+			v1: Pisces.v1, v2: Pisces.v2, v3: Pisces.v3, v4: Pisces.v4,
+			v5: Pisces.v5, v6: Pisces.v6, v7: Pisces.v7, v8: Pisces.v8,
+			v9: Pisces.v9, v10: Pisces.v10, v11: Pisces.v11, v12: Pisces.v12,
+			v13: Pisces.v13, v14: Pisces.v14, v15: Pisces.v15, v16: Pisces.v16,
+			v17: Pisces.v17, v18: Pisces.v18,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 19 connections
 			completed: 0,
-			startStars: [pisces.v1[0], pisces.v1[1], pisces.v1[2]]
+			startStars: [Pisces.v1[0], Pisces.v1[1], Pisces.v1[2]]
 		},
 
 	);
@@ -306,7 +326,7 @@ function setupConstellations() {
 
 let maxFrameRate = 0;
 
-let leftBound, rightBound, topBound, bottomBound;
+let leftBound, rightBound, topBound, bottomBound, constWindowWidth, constWindowHeight;
 let currentMillis;
 
 //#region Draw 
@@ -315,8 +335,6 @@ function draw() {
 	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5;
 	background("hsla(235, 70%, 20%, 1.00)");
 
-	buttonPlacement();
-
 	// Navigation
 	cameraPanning();
 
@@ -324,18 +342,18 @@ function draw() {
 
 	mouseDrawingLines();
 
-	aries.draw();
-	taurus.draw();
-	gemini.draw();
-	cancer.draw();
-	leo.draw();
-	virgo.draw();
-	libra.draw();
-	scorpius.draw();
-	sagittarius.draw();
-	capricornus.draw();
-	aquarius.draw();
-	pisces.draw();
+	Aries.draw();
+	Taurus.draw();
+	Gemini.draw();
+	Cancer.draw();
+	Leo.draw();
+	Virgo.draw();
+	Libra.draw();
+	Scorpius.draw();
+	Sagittarius.draw();
+	Capricornus.draw();
+	Aquarius.draw();
+	Pisces.draw();
 
 	// if you are not drawing, check whether you're hovering a constellation's starting star
 	// and set that constellation's value to currentConstellation
@@ -368,20 +386,18 @@ function draw() {
 	lines.forEach(drawLineIfVisible);*/
 
 	// Display Framerate
-	textSize(40);
+	/*textSize(40);
 	fill("#e5e5ffff");
 	noStroke(); 
 	if (frameCount % 5 == 0) {
 		maxFrameRate = frameRate();
 	}
 	text(int(maxFrameRate), 1000 - translationX, 100 - translationY);
-	maxFrameRate = min(frameRate(), maxFrameRate);
+	maxFrameRate = min(frameRate(), maxFrameRate);*/
 
 	// Lines to find center of screen
 	/*line(0 - translationX, 0 - translationY, windowWidth - translationX, windowHeight - translationY)
 	line(- translationX + windowWidth, 0 - translationY, 0 - translationX, windowHeight - translationY)*/
-
-	print(translationX, translationY);
 }
 //#endregion
 
@@ -536,10 +552,14 @@ function mousePressed() {
 		}
 	}
 
-	else if (!isDrawing && mouseButton === LEFT && !keyIsDown(32)) {
+	else if (!isDrawing && mouseButton === LEFT && !keyIsDown(32) && hoveringMenus == 0) {
 		soundEffects(0); // "cannot start drawing here" sound
 	}
 	//#endregion
+
+	else if (mouseButton === LEFT) {
+		soundEffects(5);
+	}
 
 	//#region Right-Click Closing Menu
 	if (mouseButton === RIGHT) {
@@ -559,6 +579,7 @@ function mousePressed() {
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
 
 let startingStarScale = 1;
+let hoveringMenus = 0;
 
 function constellationCheck() {
 	// for each constellation
@@ -567,42 +588,32 @@ function constellationCheck() {
 		// check if hovering near any of the constellation's starting Stars
 		for (let j = 0; j < constellations[i].startStars.length - 1; j = j + 3) {
 
-			// if not drawing
-			if (isDrawing != 1) {
+			// if not drawing, mouse within 1000px, constellation is incomplete,
+			// no lines have been drawn, then startingStar glows
+			if (isDrawing != 1 && dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
+				newMouseX, newMouseY) < 1000 && constellations[i].completed == 0 && constellations[i].line.every(noLinesDrawn)) {
+				// the scale of the glowing is proportional to the mouse's distance to the star
+				startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 1000, 8, 5)
+				constellations[i].v1[4] += (startingStarScale - constellations[i].v1[4]) * 0.2
+			}
 
-				// if mouse within dist 500px, starting star starts to glow
-				if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
-					newMouseX, newMouseY) < 500) {
-
-					// and no lines have been drawn!!!!
-					if (constellations[i].completed == 0 && constellations[i].line.every(noLinesDrawn)) {
-						startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 500, 7, 4)
-						//constellations[i].v1[4] = startingStarScale
-						constellations[i].v1[4] += (startingStarScale - constellations[i].v1[4]) * 0.2
-					}
-
-					else if (constellations[i].completed == 1) {
-						constellations[i].v1[4] = 1;
-					}
-				}
-
-				else {
-					//alpha += (newAlpha - alpha) * 0.2;
-					constellations[i].v1[4] += (1 - constellations[i].v1[4]) * 0.01
-				}
+			else {
+				constellations[i].v1[4] += (1 - constellations[i].v1[4]) * 0.01
 			}
 
 			// if yes, set that star's constellation value to currentConstellation
 			if (dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
-				newMouseX, newMouseY) < distance) {
+				newMouseX, newMouseY) < distance && hoveringMenus == 0) {
 
 				currentConstellation = i;
 
 				// this is the star value you are hovering over (integer)
 				currentStar = (constellations[i].startStars[j + 2])
 
-				// the nearestStar is the coordinates of the starting star that is being hovered over
-				nearestStar = [constellations[i].startStars[j], constellations[i].startStars[j + 1]];
+				// the nearestStar is the coordinates of the starting star
+				// that is being hovered over
+				nearestStar = [constellations[i].startStars[j],
+				constellations[i].startStars[j + 1]];
 
 				// draws a circle so I know I am hovering over a startingStar
 				ellipse(newMouseX, newMouseY, 10, 10);
@@ -610,11 +621,11 @@ function constellationCheck() {
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;
 
+				//this line ensures you can keep drawing from all the connected stars
 				if (canDraw == 1) { break; }
 			}
 
 			else {
-				//if (canDraw)
 				canDraw = 0;
 			}
 
@@ -634,1326 +645,16 @@ let alpha = 10
 
 function neighbouringStarsGlow() {
 	for (let i = 0; i < neighbouringStars.length; i++) {
-		// If mouse is within range of a neighbouring star, that neighbouring star should glow
+		// If mouse within range of a neighbouring star, that neighbouring star should glow
 		if (constellations[currentConstellation].completed == 0) {
 			noStroke();
 			fill("hsla(270, 39%, 76%, 1.00)");
 			let diameter = ((sin(millis() * 0.002) + 3) * 10) + 6;
 			blendMode(OVERLAY);
 			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
-			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter); 
+			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
 			blendMode(BLEND);
 		}
-	}
-}
-//#endregion
-
-
-
-//#region Constellation Data
-// Will probably have to do nested switch statements for the constellations here I think
-function checkNextStars(currentConstellation) {
-	switch (currentConstellation) { // Check which constellation we are currently drawing
-
-		case 1: // 0 = aries
-			switch (currentStar) { // Check which star we are on, and
-				// determines neighbouring stars based on currentStar
-				case 1:
-					neighbouringStars = [aries.v2]
-					break;
-				case 2:
-					neighbouringStars = [aries.v1, aries.v3]
-					break;
-				case 3:
-					neighbouringStars = [aries.v2, aries.v4]
-					break;
-				case 4:
-					neighbouringStars = [aries.v3]
-					break;
-			}
-
-			// Sends drawn lines to line array so that system knows when all lines have been drawn
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 4)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-			break;
-
-		case 2: // 1 = taurus
-			switch (currentStar) { // Check which star we are on, and
-				// determines neighbouring stars based on currentStar
-				case 1:
-					neighbouringStars = [taurus.v2];
-					break;
-				case 2:
-					neighbouringStars = [taurus.v1, taurus.v3];
-					break;
-				case 3:
-					neighbouringStars = [taurus.v2, taurus.v4, taurus.v12];
-					break;
-				case 4:
-					neighbouringStars = [taurus.v3, taurus.v5];
-					break;
-				case 5:
-					neighbouringStars = [taurus.v4, taurus.v6, taurus.v7];
-					break;
-				case 6:
-					neighbouringStars = [taurus.v5];
-					break;
-				case 7:
-					neighbouringStars = [taurus.v5, taurus.v8, taurus.v11,];
-					break;
-				case 8:
-					neighbouringStars = [taurus.v7, taurus.v9];
-					break;
-				case 9:
-					neighbouringStars = [taurus.v8];
-					break;
-				case 10:
-					neighbouringStars = [taurus.v12];
-					break;
-				case 11:
-					neighbouringStars = [taurus.v7, taurus.v12];
-					break;
-				case 12:
-					neighbouringStars = [taurus.v11, taurus.v3, taurus.v10];
-					break;
-			}
-
-			// Sends drawn lines to line array so that system knows when all lines have been drawn
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 4)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 5 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 5)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 3)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 12 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 12)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 12 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 12)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 7)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[9] = 1;
-			}
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8)) {
-				constellations[currentConstellation].line[10] = 1;
-			}
-
-			else if ((previousStar == 5 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 5)) {
-				constellations[currentConstellation].line[11] = 1;
-			}
-
-			break;
-
-		case 3: // Gemini
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [gemini.v2]
-					break;
-
-				case 2:
-					neighbouringStars = [gemini.v1, gemini.v3]
-					break;
-
-				case 3:
-					neighbouringStars = [gemini.v2, gemini.v4]
-					break;
-
-				case 4:
-					neighbouringStars = [gemini.v3, gemini.v5, gemini.v6]
-					break;
-
-				case 5:
-					neighbouringStars = [gemini.v4]
-					break;
-
-				case 6:
-					neighbouringStars = [gemini.v4, gemini.v7, gemini.v8, gemini.v9]
-					break;
-
-				case 7:
-					neighbouringStars = [gemini.v6]
-					break;
-
-				case 8:
-					neighbouringStars = [gemini.v6]
-					break;
-
-				case 9:
-					neighbouringStars = [gemini.v6, gemini.v11]
-					break;
-
-				case 10:
-					neighbouringStars = [gemini.v11]
-					break;
-
-				case 11:
-					neighbouringStars = [gemini.v9, gemini.v10, gemini.v12, gemini.v13]
-					break;
-
-				case 12:
-					neighbouringStars = [gemini.v11]
-					break;
-
-				case 13:
-					neighbouringStars = [gemini.v11, gemini.v14, gemini.v15]
-					break;
-
-				case 14:
-					neighbouringStars = [gemini.v13, gemini.v17]
-					break;
-
-				case 15:
-					neighbouringStars = [gemini.v13, gemini.v16]
-					break;
-
-				case 16:
-					neighbouringStars = [gemini.v15]
-					break;
-
-				case 17:
-					neighbouringStars = [gemini.v14]
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 6)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 6)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 6)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 9 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 9)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 11)) {
-				constellations[currentConstellation].line[9] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11)) {
-				constellations[currentConstellation].line[10] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 13) ||
-				(previousStar == 13 && currentStar == 11)) {
-				constellations[currentConstellation].line[11] = 1;
-			}
-
-			else if ((previousStar == 13 && currentStar == 14) ||
-				(previousStar == 14 && currentStar == 13)) {
-				constellations[currentConstellation].line[12] = 1;
-			}
-
-			else if ((previousStar == 13 && currentStar == 15) ||
-				(previousStar == 15 && currentStar == 13)) {
-				constellations[currentConstellation].line[13] = 1;
-			}
-
-			else if ((previousStar == 14 && currentStar == 17) ||
-				(previousStar == 17 && currentStar == 14)) {
-				constellations[currentConstellation].line[14] = 1;
-			}
-
-			else if ((previousStar == 15 && currentStar == 16) ||
-				(previousStar == 16 && currentStar == 15)) {
-				constellations[currentConstellation].line[15] = 1;
-			}
-
-			break;
-
-		case 4: // Cancer
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [cancer.v3]
-					break;
-
-				case 2:
-					neighbouringStars = [cancer.v3]
-					break;
-
-				case 3:
-					neighbouringStars = [cancer.v1, cancer.v2, cancer.v4]
-					break;
-
-				case 4:
-					neighbouringStars = [cancer.v3, cancer.v5, cancer.v6]
-					break;
-
-				case 5:
-					neighbouringStars = [cancer.v4]
-					break;
-
-				case 6:
-					neighbouringStars = [cancer.v4]
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			break;
-
-		case 5: // Leo
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [leo.v2]
-					break;
-
-				case 2:
-					neighbouringStars = [leo.v1, leo.v3]
-					break;
-
-				case 3:
-					neighbouringStars = [leo.v2, leo.v4]
-					break;
-
-				case 4:
-					neighbouringStars = [leo.v3, leo.v5, leo.v7]
-					break;
-
-				case 5:
-					neighbouringStars = [leo.v4, leo.v6]
-					break;
-
-				case 6:
-					neighbouringStars = [leo.v5, leo.v8]
-					break;
-
-				case 7:
-					neighbouringStars = [leo.v4, leo.v8, leo.v9]
-					break;
-
-				case 8:
-					neighbouringStars = [leo.v6, leo.v7, leo.v9]
-					break;
-
-				case 9:
-					neighbouringStars = [leo.v7, leo.v8]
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 6)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 7)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-			break;
-
-		case 6: // Virgo
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [virgo.v2];
-					break;
-
-				case 2:
-					neighbouringStars = [virgo.v1, virgo.v3];
-					break;
-
-				case 3:
-					neighbouringStars = [virgo.v2, virgo.v4, virgo.v9];
-					break;
-
-				case 4:
-					neighbouringStars = [virgo.v3, virgo.v5, virgo.v6];
-					break;
-
-				case 5:
-					neighbouringStars = [virgo.v4];
-					break;
-
-				case 6:
-					neighbouringStars = [virgo.v4, virgo.v7, virgo.v9];
-					break;
-
-				case 7:
-					neighbouringStars = [virgo.v6, virgo.v8];
-					break;
-
-				case 8:
-					neighbouringStars = [virgo.v7];
-					break;
-
-				case 9:
-					neighbouringStars = [virgo.v3, virgo.v6, virgo.v10];
-					break;
-
-				case 10:
-					neighbouringStars = [virgo.v9, virgo.v11];
-					break;
-
-				case 11:
-					neighbouringStars = [virgo.v10, virgo.v12];
-					break;
-
-				case 12:
-					neighbouringStars = [virgo.v11];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 3)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 6)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 6)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-
-			else if ((previousStar == 9 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 9)) {
-				constellations[currentConstellation].line[9] = 1;
-			}
-
-			else if ((previousStar == 10 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 10)) {
-				constellations[currentConstellation].line[10] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11)) {
-				constellations[currentConstellation].line[11] = 1;
-			}
-
-			break;
-
-		case 7: // Libra
-			switch (currentStar) {
-				case 1:
-					neighbouringStars = [libra.v2, libra.v5];
-					break;
-
-				case 2:
-					neighbouringStars = [libra.v1, libra.v3];
-					break;
-
-				case 3:
-					neighbouringStars = [libra.v2, libra.v4, libra.v5];
-					break;
-
-				case 4:
-					neighbouringStars = [libra.v3];
-					break;
-
-				case 5:
-					neighbouringStars = [libra.v1, libra.v3];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 1 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 1)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 3)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			break;
-
-		case 8: // Scorpius
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [scorpius.v4];
-					break;
-
-				case 2:
-					neighbouringStars = [scorpius.v4];
-					break;
-
-				case 3:
-					neighbouringStars = [scorpius.v4];
-					break;
-
-				case 4:
-					neighbouringStars = [scorpius.v1, scorpius.v2, scorpius.v3, scorpius.v5];
-					break;
-
-				case 5:
-					neighbouringStars = [scorpius.v4, scorpius.v6];
-					break;
-
-				case 6:
-					neighbouringStars = [scorpius.v5, scorpius.v7];
-					break;
-
-				case 7:
-					neighbouringStars = [scorpius.v6, scorpius.v8];
-					break;
-
-				case 8:
-					neighbouringStars = [scorpius.v7, scorpius.v9];
-					break;
-
-				case 9:
-					neighbouringStars = [scorpius.v8, scorpius.v10];
-					break;
-
-				case 10:
-					neighbouringStars = [scorpius.v9, scorpius.v11];
-					break;
-
-				case 11:
-					neighbouringStars = [scorpius.v10, scorpius.v12];
-					break;
-
-				case 12:
-					neighbouringStars = [scorpius.v11, scorpius.v13];
-					break;
-
-				case 13:
-					neighbouringStars = [scorpius.v12];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 5 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 5)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 6)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 9 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 9)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-
-			else if ((previousStar == 10 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 10)) {
-				constellations[currentConstellation].line[9] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11)) {
-				constellations[currentConstellation].line[10] = 1;
-			}
-
-			else if ((previousStar == 12 && currentStar == 13) ||
-				(previousStar == 13 && currentStar == 12)) {
-				constellations[currentConstellation].line[11] = 1;
-			}
-
-			break;
-
-		case 9: // Sagittarius
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [sagittarius.v3];
-					break;
-
-				case 2:
-					neighbouringStars = [sagittarius.v4];
-					break;
-
-				case 3:
-					neighbouringStars = [sagittarius.v1, sagittarius.v5, sagittarius.v9];
-					break;
-
-				case 4:
-					neighbouringStars = [sagittarius.v2, sagittarius.v5, sagittarius.v6];
-					break;
-
-				case 5:
-					neighbouringStars = [sagittarius.v3, sagittarius.v4, sagittarius.v6, sagittarius.v9];
-					break;
-
-				case 6:
-					neighbouringStars = [sagittarius.v4, sagittarius.v5, sagittarius.v7, sagittarius.v8];
-					break;
-
-				case 7:
-					neighbouringStars = [sagittarius.v6];
-					break;
-
-				case 8:
-					neighbouringStars = [sagittarius.v6, sagittarius.v9, sagittarius.v15];
-					break;
-
-				case 9:
-					neighbouringStars = [sagittarius.v3, sagittarius.v5, sagittarius.v8, sagittarius.v10];
-					break;
-
-				case 10:
-					neighbouringStars = [sagittarius.v9, sagittarius.v11, sagittarius.v15];
-					break;
-
-				case 11:
-					neighbouringStars = [sagittarius.v10, sagittarius.v12];
-					break;
-
-				case 12:
-					neighbouringStars = [sagittarius.v11, sagittarius.v13];
-					break;
-
-				case 13:
-					neighbouringStars = [sagittarius.v12, sagittarius.v14];
-					break;
-
-				case 14:
-					neighbouringStars = [sagittarius.v13];
-					break;
-
-				case 15:
-					neighbouringStars = [sagittarius.v8, sagittarius.v10, sagittarius.v16];
-					break;
-
-				case 16:
-					neighbouringStars = [sagittarius.v15, sagittarius.v17];
-					break;
-
-				case 17:
-					neighbouringStars = [sagittarius.v16, sagittarius.v18];
-					break;
-
-				case 18:
-					neighbouringStars = [sagittarius.v17, sagittarius.v19];
-					break;
-
-				case 19:
-					neighbouringStars = [sagittarius.v18, sagittarius.v20, sagittarius.v21];
-					break;
-
-				case 20:
-					neighbouringStars = [sagittarius.v19];
-					break;
-
-				case 21:
-					neighbouringStars = [sagittarius.v19];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 1)) {
-				constellations[currentConstellation].line[0] = 1;
-			}
-
-			else if ((previousStar == 2 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 2)) {
-				constellations[currentConstellation].line[1] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4)) {
-				constellations[currentConstellation].line[2] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 3)) {
-				constellations[currentConstellation].line[3] = 1;
-			}
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
-			}
-
-			else if ((previousStar == 5 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 5)) {
-				constellations[currentConstellation].line[5] = 1;
-			}
-
-			else if ((previousStar == 6 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 6)) {
-				constellations[currentConstellation].line[6] = 1;
-			}
-
-			else if ((previousStar == 5 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 5)) {
-				constellations[currentConstellation].line[7] = 1;
-			}
-
-			else if ((previousStar == 3 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 3)) {
-				constellations[currentConstellation].line[8] = 1;
-			}
-
-			else if ((previousStar == 9 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 9)) {
-				constellations[currentConstellation].line[9] = 1;
-			}
-
-			else if ((previousStar == 9 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 9)) {
-				constellations[currentConstellation].line[10] = 1;
-			}
-
-			else if ((previousStar == 8 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 8)) {
-				constellations[currentConstellation].line[11] = 1;
-			}
-
-			else if ((previousStar == 8 && currentStar == 15) ||
-				(previousStar == 15 && currentStar == 8)) {
-				constellations[currentConstellation].line[12] = 1;
-			}
-
-			else if ((previousStar == 15 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 15)) {
-				constellations[currentConstellation].line[13] = 1;
-			}
-
-			else if ((previousStar == 15 && currentStar == 16) ||
-				(previousStar == 16 && currentStar == 15)) {
-				constellations[currentConstellation].line[14] = 1;
-			}
-
-			else if ((previousStar == 10 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 10)) {
-				constellations[currentConstellation].line[15] = 1;
-			}
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11)) {
-				constellations[currentConstellation].line[16] = 1;
-			}
-
-			else if ((previousStar == 12 && currentStar == 13) ||
-				(previousStar == 13 && currentStar == 12)) {
-				constellations[currentConstellation].line[17] = 1;
-			}
-
-			else if ((previousStar == 13 && currentStar == 14) ||
-				(previousStar == 14 && currentStar == 13)) {
-				constellations[currentConstellation].line[18] = 1;
-			}
-
-			else if ((previousStar == 16 && currentStar == 17) ||
-				(previousStar == 17 && currentStar == 16)) {
-				constellations[currentConstellation].line[19] = 1;
-			}
-
-			else if ((previousStar == 17 && currentStar == 18) ||
-				(previousStar == 18 && currentStar == 17)) {
-				constellations[currentConstellation].line[20] = 1;
-			}
-
-			else if ((previousStar == 18 && currentStar == 19) ||
-				(previousStar == 19 && currentStar == 18)) {
-				constellations[currentConstellation].line[21] = 1;
-			}
-
-			else if ((previousStar == 19 && currentStar == 20) ||
-				(previousStar == 20 && currentStar == 19)) {
-				constellations[currentConstellation].line[22] = 1;
-			}
-
-			else if ((previousStar == 19 && currentStar == 21) ||
-				(previousStar == 21 && currentStar == 19)) {
-				constellations[currentConstellation].line[23] = 1;
-			}
-
-			break;
-
-		case 10: // capricornus
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [capricornus.v2];
-					break;
-
-				case 2:
-					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
-					break;
-
-				case 3:
-					neighbouringStars = [capricornus.v2];
-					break;
-
-				case 4:
-					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
-					break;
-
-				case 5:
-					neighbouringStars = [capricornus.v4];
-					break;
-
-				case 6:
-					neighbouringStars = [capricornus.v4, capricornus.v7];
-					break;
-
-				case 7:
-					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
-					break;
-
-				case 8:
-					neighbouringStars = [capricornus.v7, capricornus.v9];
-					break;
-
-				case 9:
-					neighbouringStars = [capricornus.v8];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1))
-				constellations[currentConstellation].line[0] = 1;
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2))
-				constellations[currentConstellation].line[1] = 1;
-
-			else if ((previousStar == 2 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 2))
-				constellations[currentConstellation].line[2] = 1;
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4))
-				constellations[currentConstellation].line[3] = 1;
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4))
-				constellations[currentConstellation].line[4] = 1;
-
-			else if ((previousStar == 4 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 4))
-				constellations[currentConstellation].line[5] = 1;
-
-			else if ((previousStar == 7 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 7))
-				constellations[currentConstellation].line[6] = 1;
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7))
-				constellations[currentConstellation].line[7] = 1;
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8))
-				constellations[currentConstellation].line[8] = 1;
-
-			break;
-
-		case 11: // Aquarius
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [aquarius.v2];
-					break;
-
-				case 2:
-					neighbouringStars = [aquarius.v1, aquarius.v3];
-					break;
-
-				case 3:
-					neighbouringStars = [aquarius.v2, aquarius.v4];
-					break;
-
-				case 4:
-					neighbouringStars = [aquarius.v3, aquarius.v5, aquarius.v11];
-					break;
-
-				case 5:
-					neighbouringStars = [aquarius.v4, aquarius.v6, aquarius.v7];
-					break;
-
-				case 6:
-					neighbouringStars = [aquarius.v5];
-					break;
-
-				case 7:
-					neighbouringStars = [aquarius.v5, aquarius.v8];
-					break;
-
-				case 8:
-					neighbouringStars = [aquarius.v7, aquarius.v9];
-					break;
-
-				case 9:
-					neighbouringStars = [aquarius.v8, aquarius.v10];
-					break;
-
-				case 10:
-					neighbouringStars = [aquarius.v9];
-					break;
-
-				case 11:
-					neighbouringStars = [aquarius.v4, aquarius.v12];
-					break;
-
-				case 12:
-					neighbouringStars = [aquarius.v11, aquarius.v13];
-					break;
-
-				case 13:
-					neighbouringStars = [aquarius.v12, aquarius.v14];
-					break;
-
-				case 14:
-					neighbouringStars = [aquarius.v13, aquarius.v15];
-					break;
-
-				case 15:
-					neighbouringStars = [aquarius.v14, aquarius.v16];
-					break;
-
-				case 16:
-					neighbouringStars = [aquarius.v15];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1))
-				constellations[currentConstellation].line[0] = 1;
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2))
-				constellations[currentConstellation].line[1] = 1;
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3))
-				constellations[currentConstellation].line[2] = 1;
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4))
-				constellations[currentConstellation].line[3] = 1;
-
-			else if ((previousStar == 4 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 4))
-				constellations[currentConstellation].line[4] = 1;
-
-			else if ((previousStar == 5 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 5))
-				constellations[currentConstellation].line[5] = 1;
-
-			else if ((previousStar == 5 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 5))
-				constellations[currentConstellation].line[6] = 1;
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7))
-				constellations[currentConstellation].line[7] = 1;
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8))
-				constellations[currentConstellation].line[8] = 1;
-
-			else if ((previousStar == 9 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 9))
-				constellations[currentConstellation].line[9] = 1;
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11))
-				constellations[currentConstellation].line[10] = 1;
-
-			else if ((previousStar == 12 && currentStar == 13) ||
-				(previousStar == 13 && currentStar == 12))
-				constellations[currentConstellation].line[11] = 1;
-
-			else if ((previousStar == 13 && currentStar == 14) ||
-				(previousStar == 14 && currentStar == 13))
-				constellations[currentConstellation].line[12] = 1;
-
-			else if ((previousStar == 14 && currentStar == 15) ||
-				(previousStar == 15 && currentStar == 14))
-				constellations[currentConstellation].line[13] = 1;
-
-			else if ((previousStar == 15 && currentStar == 16) ||
-				(previousStar == 16 && currentStar == 15))
-				constellations[currentConstellation].line[14] = 1;
-
-			break;
-
-		case 12: // Pisces
-			switch (currentStar) {
-
-				case 1:
-					neighbouringStars = [pisces.v2, pisces.v5];
-					break;
-
-				case 2:
-					neighbouringStars = [pisces.v1, pisces.v3];
-					break;
-
-				case 3:
-					neighbouringStars = [pisces.v2, pisces.v4];
-					break;
-
-				case 4:
-					neighbouringStars = [pisces.v3, pisces.v5, pisces.v6];
-					break;
-
-				case 5:
-					neighbouringStars = [pisces.v1, pisces.v4];
-					break;
-
-				case 6:
-					neighbouringStars = [pisces.v4, pisces.v7];
-					break;
-
-				case 7:
-					neighbouringStars = [pisces.v6, pisces.v8];
-					break;
-
-				case 8:
-					neighbouringStars = [pisces.v7, pisces.v9];
-					break;
-
-				case 9:
-					neighbouringStars = [pisces.v8, pisces.v10];
-					break;
-
-				case 10:
-					neighbouringStars = [pisces.v9, pisces.v11];
-					break;
-
-				case 11:
-					neighbouringStars = [pisces.v10, pisces.v12];
-					break;
-
-				case 12:
-					neighbouringStars = [pisces.v11, pisces.v13];
-					break;
-
-				case 13:
-					neighbouringStars = [pisces.v12, pisces.v14];
-					break;
-
-				case 14:
-					neighbouringStars = [pisces.v13, pisces.v15];
-					break;
-
-				case 15:
-					neighbouringStars = [pisces.v14, pisces.v16];
-					break;
-
-				case 16:
-					neighbouringStars = [pisces.v15, pisces.v17, pisces.v18];
-					break;
-
-				case 17:
-					neighbouringStars = [pisces.v16, pisces.v18];
-					break;
-
-				case 18:
-					neighbouringStars = [pisces.v16, pisces.v17];
-					break;
-			}
-
-			if ((previousStar == 1 && currentStar == 2) ||
-				(previousStar == 2 && currentStar == 1))
-				constellations[currentConstellation].line[0] = 1;
-
-			else if ((previousStar == 1 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 1))
-				constellations[currentConstellation].line[1] = 1;
-
-			else if ((previousStar == 2 && currentStar == 3) ||
-				(previousStar == 3 && currentStar == 2))
-				constellations[currentConstellation].line[2] = 1;
-
-			else if ((previousStar == 3 && currentStar == 4) ||
-				(previousStar == 4 && currentStar == 3))
-				constellations[currentConstellation].line[3] = 1;
-
-			else if ((previousStar == 4 && currentStar == 5) ||
-				(previousStar == 5 && currentStar == 4))
-				constellations[currentConstellation].line[4] = 1;
-
-			else if ((previousStar == 4 && currentStar == 6) ||
-				(previousStar == 6 && currentStar == 4))
-				constellations[currentConstellation].line[5] = 1;
-
-			else if ((previousStar == 6 && currentStar == 7) ||
-				(previousStar == 7 && currentStar == 6))
-				constellations[currentConstellation].line[6] = 1;
-
-			else if ((previousStar == 7 && currentStar == 8) ||
-				(previousStar == 8 && currentStar == 7))
-				constellations[currentConstellation].line[7] = 1;
-
-			else if ((previousStar == 8 && currentStar == 9) ||
-				(previousStar == 9 && currentStar == 8))
-				constellations[currentConstellation].line[8] = 1;
-
-			else if ((previousStar == 9 && currentStar == 10) ||
-				(previousStar == 10 && currentStar == 9))
-				constellations[currentConstellation].line[9] = 1;
-
-			else if ((previousStar == 10 && currentStar == 11) ||
-				(previousStar == 11 && currentStar == 10))
-				constellations[currentConstellation].line[10] = 1;
-
-			else if ((previousStar == 11 && currentStar == 12) ||
-				(previousStar == 12 && currentStar == 11))
-				constellations[currentConstellation].line[11] = 1;
-
-			else if ((previousStar == 12 && currentStar == 13) ||
-				(previousStar == 13 && currentStar == 12))
-				constellations[currentConstellation].line[12] = 1;
-
-			else if ((previousStar == 13 && currentStar == 14) ||
-				(previousStar == 14 && currentStar == 13))
-				constellations[currentConstellation].line[13] = 1;
-
-			else if ((previousStar == 14 && currentStar == 15) ||
-				(previousStar == 15 && currentStar == 14))
-				constellations[currentConstellation].line[14] = 1;
-
-			else if ((previousStar == 15 && currentStar == 16) ||
-				(previousStar == 16 && currentStar == 15))
-				constellations[currentConstellation].line[15] = 1;
-
-			else if ((previousStar == 16 && currentStar == 17) ||
-				(previousStar == 17 && currentStar == 16))
-				constellations[currentConstellation].line[16] = 1;
-
-			else if ((previousStar == 16 && currentStar == 18) ||
-				(previousStar == 18 && currentStar == 16))
-				constellations[currentConstellation].line[17] = 1;
-
-			else if ((previousStar == 17 && currentStar == 18) ||
-				(previousStar == 18 && currentStar == 17))
-				constellations[currentConstellation].line[18] = 1;
-			break;
-	}
-
-	// allLinesDrawn = method which returns true if all lines have been drawn
-	const allLinesDrawn = (value) => value == 1;
-
-	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
-		constellations[currentConstellation].completed = 1;
-		oneConstDone = 1;
-		addConstellationToLibrary(currentConstellation);
-		soundEffects(4); // "completed constellation" sound
-	}
-
-	if (constellations[currentConstellation].completed == 1) {
-		isDrawing = false;
 	}
 }
 //#endregion
@@ -1963,7 +664,7 @@ let prevMillis = 0;
 const completedWindowInterval = 5000;
 
 function addConstellationToLibrary(c) {
-	// Adds constellation to library
+	// Adds constellation to Library
 	var currentConstItem = document.getElementById(constellations[c].name + "Item");
 	$("#currentConstItem").fadeIn(500);
 	currentConstItem.style.display = "block";
@@ -1976,6 +677,23 @@ function addConstellationToLibrary(c) {
 	//-- add toggle here
 	// completedWindow timer
 	prevMillis = millis();
+
+	//--fix Later
+	// Push constellation's image into imageAnswers array
+	//imageAns.push(constellations[c].img)
+
+	// Push name of constellation into nameAnswers array
+	//nameAns.push(constellations[c].name)
+
+	// Stops startingStar from glowing(?)
+	constellations[c].v1[4] = 1;
+
+	//--fix later
+	if (nameAns.length > 1 && quizAccessible == 0) {
+		quizAccessible = 1;
+		quiz.style.opacity = '1'
+		quiz.style.backgroundColor = rs.getPropertyValue('--button-colour');
+	}
 }
 
 //#region Navigation
@@ -1999,8 +717,10 @@ function cameraPanning() {
 		cursor('grab');
 		panningCamera = true;
 
-		translationX = constrain((prevTranslationX - mouseStartX + mouseX), max(-width + windowWidth, -width), 750);
-		translationY = constrain((prevTranslationY - mouseStartY + mouseY), max(-height + windowHeight, -height), 500);
+		translationX = constrain((prevTranslationX - mouseStartX + mouseX),
+			max(-width + windowWidth, -width), 750);
+		translationY = constrain((prevTranslationY - mouseStartY + mouseY),
+			max(-height + windowHeight, -height), 500);
 	}
 
 	else if (mouseDragging == false) {
@@ -2011,7 +731,7 @@ function cameraPanning() {
 		panningCamera = false;
 	}
 
-	// Canvas boundaries
+	// Canvas boundAries
 	leftBound = -translationX;
 	rightBound = -translationX + windowWidth;
 	topBound = -translationY;
@@ -2040,12 +760,13 @@ function keyReleased() {
 
 
 //#region Stars (Background)
-const randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
+const randomTAU = [0, 0.5, 1, 1.5, 2, 2.5, 3,
+	3.5, 4, 4.5, 5, 5.5, 6];
 const randomSize = [3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5];
 
 class Star {
 	constructor() {
-		this.x = random(width + 450) - 450;
+		this.x = random(width);
 		this.y = random(height);
 		this.size = random(randomSize);
 		this.t = random(randomTAU);
@@ -2068,19 +789,19 @@ class Star {
 		ellipse(this.x, this.y, scale);
 
 		if ((leftBound < this.x + 20) == false) {
-			this.x += windowWidth + 40;
+			this.x += constWindowWidth + 40;
 		}
 
 		else if ((this.x < rightBound + 20) == false) {
-			this.x -= windowWidth + 40;
+			this.x -= constWindowWidth + 40;
 		}
 
 		else if ((topBound < this.y + 20) == false) {
-			this.y += windowHeight + 40;
+			this.y += constWindowHeight + 40;
 		}
 
 		else if ((this.y < bottomBound + 20) == false) {
-			this.y -= windowHeight + 40;
+			this.y -= constWindowHeight + 40;
 		}
 	}
 }
@@ -2104,7 +825,8 @@ function soundEffects(n) {
 	1. startDrawing
 	2. continuedToNextStar
 	3. stoppedDrawing
-	4. completedConstellation*/
+	4. completedConstellation
+	5. clickingButtons*/
 
 	if (soundEffectsOn == 1) {
 		const velocity = 0.1;
@@ -2113,7 +835,7 @@ function soundEffects(n) {
 
 		if (constellations[currentConstellation].completed == 1 && n == 4) {
 			// Would love it if the chord that plays corresponds to the next
-			// note in the notesInt sequence
+			// note in the notesInt sequence. Not necessary though.
 			notes4 = ['F4', 'A5', 'C5', 'F5'];
 			soundByte.play(notes4[0], velocity, 0, dur);
 			soundByte.play(notes4[1], velocity, 0.1, dur);
@@ -2152,83 +874,21 @@ function soundEffects(n) {
 					soundByte.play('F4', velocity, 0, 0.3);
 					soundByte.play('F3', velocity / 2, 0, 0.3);
 					break;
+
+				case 5:
+					//clickingButtons
+					soundByte.play('F3', velocity, 0, dur * 1.1);
+					soundByte.play('C4', velocity, 0, dur * 1.1);
+
+					break;
 			}
 		}
 	}
 }
 //#endregion
 
-
-
 //#region Button Functions
-function libButtonPress() {
-	if (lib.style.display === "block" && mouseButton === LEFT) {
-		lib.style.display = "none";
-		detailedWindow.style.left = "1%";
-		completedWindow.style.left = "1%";
-		quiz.style.left = "1%";
-	} else if (mouseButton === LEFT) {
-		lib.style.display = "block";
-		detailedWindow.style.left = "23%";
-		completedWindow.style.left = "23%";
-		quiz.style.left = "23%";
-	}
-}
 
-function quizButtonPress() {
-	// Close completedWindow
-	completedWindow.style.display = "none";
 
-	// Close Completed Window
-	for (let i = 1; i < 13; i++) {
-		var constellation = document.getElementById(constellations[i].name);
-		constellation.style.display = "none";
-	}
 
-	// Close Detailed Window
-	for (let i = 1; i < 13; i++) {
-		constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
-		detailedWindow.style.display = "none";
-		constDetailedWindow.style.display = "none";
-	}
-
-	if (quiz.style.display === "block" && mouseButton === LEFT) {
-		quiz.style.display = "none";
-	} else if (mouseButton === LEFT) {
-		quiz.style.display = "block";
-	}
-}
-
-function helpButtonPress() {
-
-}
-
-function keyPressed() {
-	switch (key) {
-		case 'q':
-			q.true = 1;
-			background("pink")
-			break;
-
-		case 'w':
-			w.true = 1;
-			background("coral")
-			break;
-
-		case 'e':
-			e.true = 1;
-			background("yellow")
-			break;
-
-		case 'r':
-			r.true = 1;
-			background("lime")
-			break;
-
-		case 't':
-			t.true = 1;
-			background("cyan")
-			break;
-	}
-}
 //#endregion

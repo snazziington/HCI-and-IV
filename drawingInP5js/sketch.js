@@ -99,6 +99,8 @@ function setup() {
 	quizButton.style.color = 'grey'
 	quizButton.style.backgroundColor = 'hsla(230, 40%, 10%, 0.49)';
 
+	help = document.getElementById("Help");
+
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
 	
@@ -572,6 +574,8 @@ function mousePressed() {
 			constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
 			detailedWindow.style.display = "none";
 			constDetailedWindow.style.display = "none";
+			quiz.style.display = "none";
+			help.style.display = "none";
 		}
 	}
 	//#endregion

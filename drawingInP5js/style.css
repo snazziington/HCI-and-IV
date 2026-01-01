@@ -82,12 +82,11 @@ quiz {
   bottom: 20%;
   left: 1%;
   right: 1%;
-  padding-top: 50px;
+  padding-top: 12px;
 
   font-size: 38px;
   font-weight: bold;
   color: var(--text-colour);
-  text-transform: capitalize;
 
   text-align: center;
 
@@ -95,12 +94,18 @@ quiz {
   border-radius: 15px;
 }
 
+quizQuestion {
+  display: block;
+  margin-top: 30px;
+}
+
 button.quizButton {
   background-color: var(--button-colour);
   font-size: 28px;
   width: 400px;
-  height: 100px;
+  height: 80px;
   display: inline;
+  margin: 16px 12px;
 }
 
 button.nextQuestion {
@@ -145,6 +150,12 @@ quizNotAccessible {
 }
 
 hr {
+  width: 300px;
+  border: 3px double var(--border-colour);
+  margin-top: 15px;
+}
+
+hr.other {
   width: 300px;
   border: 3px double var(--border-colour);
   margin-top: 15px;
@@ -256,6 +267,42 @@ description {
 p {
   margin-block-start: 8px;
   margin-block-end: 8px;
+}
+
+help {
+  background-color: var(--detailed-window-colour);
+  position: absolute;
+  display: block;
+  margin: auto;
+  margin-left: 25%;
+
+  width: 900px;
+  height: 700px;
+  top: 15%;
+  bottom: 20%;
+  left: 1%;
+  right: 1%;
+  padding-top: 12px;
+
+  font-size: 38px;
+  font-weight: bold;
+  color: var(--text-colour);
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
+}
+
+helpDescription {
+  font-weight: normal;
+  font-size: 24px;
+  padding: 0px 24px;
+  line-height: 125%;
+  height: 295px;
+  display: block;
+  text-align: left;
+  text-indent: 50px;
 }
 
 completedWindow {

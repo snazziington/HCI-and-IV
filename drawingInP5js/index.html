@@ -13,8 +13,6 @@
   <script src="librAries/p5.min.js"></script>
   <script src="librAries/p5.sound.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
 </head>
 
 <body>
@@ -24,6 +22,24 @@
   <!-- Library -->
   </buttons>
 
+  <Help id="Help">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeHelp()">X</button>
+    <p>How to Play</p>
+    <helpDescription>
+      <p>Hi there! The aim of <i>My Little Observatory</i> is to help people learn constellations
+        in an interactive way.
+        
+        <p>You can draw existing constellations on the <b>Star Map</b>, and find out more
+        about them in the <b>Library</b>.</p>
+        
+        <p>Once you've discovered at least 4 constellations, you can start
+        testing your knowledge in the <b>Quiz</b>!</p>
+      <br>
+      <p><b>Controls</b></p>
+      <p>Left-click to start drawing constellations</p>
+      <p>Right-click or click the “cross” to close any menu</p>
+    </helpDescription>
+  </Help>
   <Library id="Library" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
     <LibraryTitle>Discovered Constellations</LibraryTitle>
     <LibraryItems id="LibraryItems">
@@ -82,8 +98,8 @@
       <script>
         function detailedMenu(x) {
           // Close Quiz
-          quiz = document.getElementById("quiz");
           quiz.style.display = "none";
+          help.style.display = "none";
 
           // Close completedWindow
           completedWindow.style.display = "none";
@@ -111,6 +127,7 @@
   <quizNotAccessible id="quizNA">You can access the quiz once you've discovered at least <b>4</b> constellations!
   </quizNotAccessible>
   <quiz id="quiz" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <button class="closeDetailedWindow" id="closeQuiz" onclick="closeQuiz()">X</button>
     <quizQuestion id="quizQuestion"></quizQuestion>
     <quizDesc id="quizDesc"></quizDesc>
     <img id="quizImg"></img>
@@ -118,6 +135,13 @@
       var answer1 = "", answer2 = "", answer3 = "", answer4 = "", answerName, correctAnswer;
       var r = document.querySelector(':root');
       var rs = getComputedStyle(r);
+
+      function closeHelp() {
+        help.style.display = 'none';
+      }
+      function closeQuiz() {
+        quiz.style.display = 'none';
+      }
 
       function nextQuestion() {
         questionAnswered = 0;
@@ -259,13 +283,12 @@
   </quiz>
 
   <detailedWindows id="detailedWindows">
-    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeDetailedDetailedWindow()">X</button>
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeDetailedWindow()">X</button>
 
     <script>
-      let closeButton = document.getElementById("closeButton");
       let nextQuestionButton = document.getElementById("nextQ");
 
-      function closeDetailedDetailedWindow() {
+      function closeDetailedWindow() {
         for (let i = 1; i < 13; i++) {
           let constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
           detailedWindow.style.display = "none";
@@ -665,12 +688,15 @@
 
   <script>
     lib = document.getElementById("Library");
+    help = document.getElementById("Help");
 
     function libButtonPress() {
       if (lib.style.display === "block" && mouseButton === LEFT) {
         lib.style.display = "none";
-      } else if (mouseButton === LEFT && quiz.style.display !== "block") {
+      } else if (mouseButton === LEFT) {
         lib.style.display = "block";
+        quiz.style.display = "none";
+        help.style.display = "none";
       }
     }
 
@@ -689,13 +715,10 @@
     function quizButtonPress() {
       if (quizAccessible == 1) {
         quizButton.style.display = "block";
+        help.style.display = "none";
+        lib.style.display = "none";
         nextQuestion();
 
-        // Close Completed Window
-        for (let i = 1; i < 13; i++) {
-          var constellation = document.getElementById(constellations[i].name);
-          constellation.style.display = "none";
-        }
 
         // Close Detailed Window
         for (let i = 1; i < 13; i++) {
@@ -713,7 +736,22 @@
     }
 
     function helpButtonPress() {
+      // Close Detailed Window
+      for (let i = 1; i < 13; i++) {
+        constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+        detailedWindow.style.display = "none";
+        constDetailedWindow.style.display = "none";
+      }
 
+      // Close library
+      lib.style.display = "none";
+      quiz.style.display = "none";
+
+      if (help.style.display === "block" && mouseButton === LEFT) {
+        help.style.display = "none";
+      } else if (mouseButton === LEFT) {
+        help.style.display = "block";
+      }
     }
 
   </script>

@@ -1290,6 +1290,9 @@ function checkNextStars(currentConstellation) {
 
 	// allLinesDrawn = method which returns true if all lines have been drawn
 	const allLinesDrawn = (value) => value == 1;
+	for (let i = 0; i < neighbouringStars.length; i++) {
+		neighbouringStars[i][6] = 1;
+	}
 
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		constellations[currentConstellation].completed = 1;

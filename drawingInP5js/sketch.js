@@ -17,7 +17,7 @@ let translationY = -500;
 // Stars
 let stars = [];
 const maxStars = 100;
-let button, libButton, quizButton, helpButton, navButton;
+let button, libButton, quizButton, aboutButton, navButton;
 //--fix later
 let lib, quiz, quizAccessible = 0, detailedWindow, constDetailedWindow;
 
@@ -26,12 +26,14 @@ class Constellation {
 	constructor(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, x7, y7, x8, y8, x9, y9, x10, y10,
 		x11, y11, x12, y12, x13, y13, x14, y14, x15, y15, x16, y16, x17, y17, x18, y18,
 		x19, y19, x20, y20, x21, y21, x22, y22) {
-		this.v1 = [x1, y1, 1, random(randomTAU), 1]; this.v2 = [x2, y2, 2, random(randomTAU), 1]; this.v3 = [x3, y3, 3, random(randomTAU), 1]; this.v4 = [x4, y4, 4, random(randomTAU), 1];
-		this.v5 = [x5, y5, 5, random(randomTAU), 1]; this.v6 = [x6, y6, 6, random(randomTAU), 1]; this.v7 = [x7, y7, 7, random(randomTAU), 1]; this.v8 = [x8, y8, 8, random(randomTAU), 1];
-		this.v9 = [x9, y9, 9, random(randomTAU), 1]; this.v10 = [x10, y10, 10, random(randomTAU), 1]; this.v11 = [x11, y11, 11, random(randomTAU), 1]; this.v12 = [x12, y12, 12, random(randomTAU), 1];
-		this.v13 = [x13, y13, 13, random(randomTAU), 1]; this.v14 = [x14, y14, 14, random(randomTAU), 1]; this.v15 = [x15, y15, 15, random(randomTAU), 1]; this.v16 = [x16, y16, 16, random(randomTAU), 1];
-		this.v17 = [x17, y17, 17, random(randomTAU), 1]; this.v18 = [x18, y18, 18, random(randomTAU), 1]; this.v19 = [x19, y19, 19, random(randomTAU), 1]; this.v20 = [x20, y20, 20, random(randomTAU), 1];
-		this.v21 = [x21, y21, 21, random(randomTAU), 1]; this.v22 = [x22, y22, 22, random(randomTAU), 1];
+		// "1, 0, 0" == startingStar scale,
+		// starCompleted status, starVisible status (whether it has been next to the active star the user is drawing from)
+		this.v1 = [x1, y1, 1, random(randomTAU), 1, 0, 0]; this.v2 = [x2, y2, 2, random(randomTAU), 1, 0, 0]; this.v3 = [x3, y3, 3, random(randomTAU), 1, 0, 0]; this.v4 = [x4, y4, 4, random(randomTAU), 1, 0, 0];
+		this.v5 = [x5, y5, 5, random(randomTAU), 1, 0, 0]; this.v6 = [x6, y6, 6, random(randomTAU), 1, 0, 0]; this.v7 = [x7, y7, 7, random(randomTAU), 1, 0, 0]; this.v8 = [x8, y8, 8, random(randomTAU), 1, 0, 0];
+		this.v9 = [x9, y9, 9, random(randomTAU), 1, 0, 0]; this.v10 = [x10, y10, 10, random(randomTAU), 1, 0, 0]; this.v11 = [x11, y11, 11, random(randomTAU), 1, 0, 0]; this.v12 = [x12, y12, 12, random(randomTAU), 1, 0, 0];
+		this.v13 = [x13, y13, 13, random(randomTAU), 1, 0, 0]; this.v14 = [x14, y14, 14, random(randomTAU), 1, 0, 0]; this.v15 = [x15, y15, 15, random(randomTAU), 1, 0, 0]; this.v16 = [x16, y16, 16, random(randomTAU), 1, 0, 0];
+		this.v17 = [x17, y17, 17, random(randomTAU), 1, 0, 0]; this.v18 = [x18, y18, 18, random(randomTAU), 1, 0, 0]; this.v19 = [x19, y19, 19, random(randomTAU), 1, 0, 0]; this.v20 = [x20, y20, 20, random(randomTAU), 1, 0, 0];
+		this.v21 = [x21, y21, 21, random(randomTAU), 1, 0, 0]; this.v22 = [x22, y22, 22, random(randomTAU), 1, 0, 0];
 	}
 
 	draw() {
@@ -99,7 +101,7 @@ function setup() {
 	quizButton.style.color = 'grey'
 	quizButton.style.backgroundColor = 'hsla(230, 40%, 10%, 0.49)';
 
-	help = document.getElementById("Help");
+	about = document.getElementById("About");
 
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
@@ -209,7 +211,7 @@ function setupConstellations() {
 	constellations.push(
 		{
 			name: "Aries", img: AriesImg, size: 4, v1: Aries.v1, v2: Aries.v2, v3: Aries.v3, v4: Aries.v4,
-			line: [0, 0, 0], completed: 0,
+			line: [0, 0, 0], completed: 0, glowArray: [],
 			startStars: [Aries.v1[0], Aries.v1[1], Aries.v1[2]],
 		},
 
@@ -217,7 +219,7 @@ function setupConstellations() {
 			name: "Taurus", img: TaurusImg, size: 12, v1: Taurus.v1, v2: Taurus.v2, v3: Taurus.v3, v4: Taurus.v4,
 			v5: Taurus.v5, v6: Taurus.v6, v7: Taurus.v7, v8: Taurus.v8,
 			v9: Taurus.v9, v10: Taurus.v10, v11: Taurus.v11, v12: Taurus.v12,
-			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0,
+			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], completed: 0, glowArray: [],
 			startStars: [Taurus.v1[0], Taurus.v1[1], Taurus.v1[2]]
 		},
 
@@ -229,7 +231,7 @@ function setupConstellations() {
 			v13: Gemini.v13, v14: Gemini.v14, v15: Gemini.v15, v16: Gemini.v16,
 			v17: Gemini.v17,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Gemini.v1[0], Gemini.v1[1], Gemini.v1[2]]
 		},
 
@@ -238,7 +240,7 @@ function setupConstellations() {
 			v1: Cancer.v1, v2: Cancer.v2, v3: Cancer.v3, v4: Cancer.v4,
 			v5: Cancer.v5, v6: Cancer.v6,
 			line: [0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Cancer.v1[0], Cancer.v1[1], Cancer.v1[2]]
 		},
 
@@ -247,7 +249,7 @@ function setupConstellations() {
 			v1: Leo.v1, v2: Leo.v2, v3: Leo.v3, v4: Leo.v4,
 			v5: Leo.v5, v6: Leo.v6, v7: Leo.v7, v8: Leo.v8, v9: Leo.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Leo.v1[0], Leo.v1[1], Leo.v1[2]]
 		},
 
@@ -257,7 +259,7 @@ function setupConstellations() {
 			v5: Virgo.v5, v6: Virgo.v6, v7: Virgo.v7, v8: Virgo.v8,
 			v9: Virgo.v9, v10: Virgo.v10, v11: Virgo.v11, v12: Virgo.v12,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Virgo.v1[0], Virgo.v1[1], Virgo.v1[2]]
 		},
 
@@ -265,7 +267,7 @@ function setupConstellations() {
 			name: "Libra", img: LibraImg, size: 5,
 			v1: Libra.v1, v2: Libra.v2, v3: Libra.v3, v4: Libra.v4, v5: Libra.v5,
 			line: [0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Libra.v1[0], Libra.v1[1], Libra.v1[2]]
 		},
 
@@ -276,7 +278,7 @@ function setupConstellations() {
 			v9: Scorpius.v9, v10: Scorpius.v10, v11: Scorpius.v11, v12: Scorpius.v12,
 			v13: Scorpius.v13,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Scorpius.v1[0], Scorpius.v1[1], Scorpius.v1[2]]
 		},
 
@@ -289,7 +291,7 @@ function setupConstellations() {
 			v17: Sagittarius.v17, v18: Sagittarius.v18, v19: Sagittarius.v19, v20: Sagittarius.v20,
 			v21: Sagittarius.v21,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Sagittarius.v1[0], Sagittarius.v1[1], Sagittarius.v1[2]]
 		},
 
@@ -299,7 +301,7 @@ function setupConstellations() {
 			v5: Capricornus.v5, v6: Capricornus.v6, v7: Capricornus.v7, v8: Capricornus.v8,
 			v9: Capricornus.v9,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Capricornus.v1[0], Capricornus.v1[1], Capricornus.v1[2]]
 		},
 
@@ -310,7 +312,7 @@ function setupConstellations() {
 			v9: Aquarius.v9, v10: Aquarius.v10, v11: Aquarius.v11, v12: Aquarius.v12,
 			v13: Aquarius.v13, v14: Aquarius.v14, v15: Aquarius.v15, v16: Aquarius.v16,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15 connections
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Aquarius.v1[0], Aquarius.v1[1], Aquarius.v1[2]]
 		},
 
@@ -322,7 +324,7 @@ function setupConstellations() {
 			v13: Pisces.v13, v14: Pisces.v14, v15: Pisces.v15, v16: Pisces.v16,
 			v17: Pisces.v17, v18: Pisces.v18,
 			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 19 connections
-			completed: 0,
+			completed: 0, glowArray: [],
 			startStars: [Pisces.v1[0], Pisces.v1[1], Pisces.v1[2]]
 		},
 
@@ -341,7 +343,6 @@ function draw() {
 	currentMillis = millis();
 	dilatingStroke = ((sin(millis() * 0.001) + 1) * 10) + 5;
 	background("hsla(235, 70%, 20%, 1.00)");
-
 	// Navigation
 	cameraPanning();
 
@@ -379,6 +380,7 @@ function draw() {
 	// Draws the lines of the constellations if they're visible
 	stroke("#e5e5ffff");
 	lines.forEach(drawLineIfVisible);
+	
 
 	/*stroke(25, 29, 81);
 	strokeWeight(dilatingStroke / 3 + 7);
@@ -430,7 +432,7 @@ function toggleCompletedWindow() {
 
 function mouseDrawingLines() {
 	if (isDrawing) {
-
+		
 		// Ensures starting stars stop glowing larger when you start drawing
 		// by resetting the starting star scale value to 1;
 		for (let i = 1; i < constellations.length; i++) {
@@ -473,7 +475,7 @@ let neighbouringStars = [];
 let completedDrawing = 0;
 let currentStar;
 let currentStarV;
-let previousStar;
+let previousStar = 1;
 
 const noLinesDrawn = (value) => value == 0;
 let soundByte;
@@ -487,6 +489,7 @@ function drawLineIfVisible(l) {
 }
 
 function mousePressed() {
+	print(currentStar, constellations[currentConstellation].line);
 	//#region Start Playing Sound
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
@@ -575,7 +578,7 @@ function mousePressed() {
 			detailedWindow.style.display = "none";
 			constDetailedWindow.style.display = "none";
 			quiz.style.display = "none";
-			help.style.display = "none";
+			about.style.display = "none";
 		}
 	}
 	//#endregion
@@ -630,7 +633,7 @@ function constellationCheck() {
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;
 
-				//this line ensures you can keep drawing from all the connected stars
+				//this line below ensures you can keep drawing from all the connected stars
 				if (canDraw == 1) { break; }
 			}
 
@@ -645,27 +648,6 @@ function constellationCheck() {
 
 const withinDrawingRange = (distance) => distance < dist(constellations[i].v1[0],
 	constellations[i].v1[1], newMouseX, newMouseY);
-//#endregion
-
-
-
-//#region Glow Neighbouring Stars
-let alpha = 10
-
-function neighbouringStarsGlow() {
-	for (let i = 0; i < neighbouringStars.length; i++) {
-		// If mouse within range of a neighbouring star, that neighbouring star should glow
-		if (constellations[currentConstellation].completed == 0) {
-			noStroke();
-			fill("hsla(270, 39%, 76%, 1.00)");
-			let diameter = ((sin(millis() * 0.002) + 3) * 10) + 6;
-			blendMode(OVERLAY);
-			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
-			ellipse(neighbouringStars[i][0], neighbouringStars[i][1], diameter, diameter);
-			blendMode(BLEND);
-		}
-	}
-}
 //#endregion
 
 let oneConstDone = 0;
@@ -699,7 +681,6 @@ function addConstellationToLibrary(c) {
 
 	//--fix later
 	if (nameAns.length > -1 && quizAccessible == 0) {
-		print("um");
 		quizAccessible = 1;
 		quizButton.style.opacity = '1'
 		quizButton.style.backgroundColor = rs.getPropertyValue('--button-colour');

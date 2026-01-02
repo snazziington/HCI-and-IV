@@ -64,7 +64,7 @@ button.quizNA {
   opacity: 0.5;
 }
 
-button.helpButton {
+button.aboutButton {
   top: 200px;
 }
 
@@ -269,10 +269,16 @@ p {
   margin-block-end: 8px;
 }
 
-help {
+ul.help {
+  list-style-type: "★";
+  text-indent: 12px;
+  margin-top: -6px;
+}
+
+about {
   background-color: var(--detailed-window-colour);
   position: absolute;
-  display: block;
+  display: none;
   margin: auto;
   margin-left: 25%;
 
@@ -294,7 +300,7 @@ help {
   border-radius: 15px;
 }
 
-helpDescription {
+aboutDescription {
   font-weight: normal;
   font-size: 24px;
   padding: 0px 24px;

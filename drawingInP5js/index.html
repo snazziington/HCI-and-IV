@@ -18,28 +18,36 @@
 <body>
   <script src="sketch.js"></script>
   <script src="additionalCode/checkNextStars.js"></script>
+  <script src="additionalCode/checkNeighbouringStars.js"></script>
   <!-- Sidebar -->
   <!-- Library -->
   </buttons>
 
-  <Help id="Help">
-    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeHelp()">X</button>
-    <p>How to Play</p>
-    <helpDescription>
-      <p>Hi there! The aim of <i>My Little Observatory</i> is to help people learn constellations
-        in an interactive way.
-        
-        <p>You can draw existing constellations on the <b>Star Map</b>, and find out more
-        about them in the <b>Library</b>.</p>
-        
-        <p>Once you've discovered at least 4 constellations, you can start
+  <About id="About">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeAbout()">X</button>
+    <p>About</p>
+    <aboutDescription>
+      <p>Welcome to <b>My Little Observatory</b>, a site where you can learn the constellations!
+
+      <p>You can draw existing constellations on the <b>Star Map</b>, and find out more
+        about them in the <b>Library</b>. Once you've discovered at least 4 constellations, you can start
         testing your knowledge in the <b>Quiz</b>!</p>
       <br>
-      <p><b>Controls</b></p>
-      <p>Left-click to start drawing constellations</p>
-      <p>Right-click or click the “cross” to close any menu</p>
-    </helpDescription>
-  </Help>
+      <p><b>Controls:</b>
+      <ul class="help">
+        <li>Left-click to start drawing constellations</li>
+        <li>Right-click to stop drawing</li>
+        <li>Middle-click and drag to navigate the star map</li></p>
+      </ul>
+
+      <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <b>brighter</b> the
+        object, the <b>lower</b> the number assigned as a magnitude.</p>
+      <p>E.g., Polaris (the North Star) has a magnitude of 2, whereas Betelgeuse, a brighter star, has a
+        magnitude of 0.6. If a celestial object is very bright, its magnitudes can be negative; our Sun
+        has a magnitude of -26.7, and our Moon has a magnitude of -11 (during a full moon).</p>
+
+    </aboutDescription>
+  </About>
   <Library id="Library" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
     <LibraryTitle>Discovered Constellations</LibraryTitle>
     <LibraryItems id="LibraryItems">
@@ -99,7 +107,7 @@
         function detailedMenu(x) {
           // Close Quiz
           quiz.style.display = "none";
-          help.style.display = "none";
+          about.style.display = "none";
 
           // Close completedWindow
           completedWindow.style.display = "none";
@@ -136,8 +144,8 @@
       var r = document.querySelector(':root');
       var rs = getComputedStyle(r);
 
-      function closeHelp() {
-        help.style.display = 'none';
+      function closeAbout() {
+        about.style.display = 'none';
       }
       function closeQuiz() {
         quiz.style.display = 'none';
@@ -688,7 +696,7 @@
 
   <script>
     lib = document.getElementById("Library");
-    help = document.getElementById("Help");
+    about = document.getElementById("About");
 
     function libButtonPress() {
       if (lib.style.display === "block" && mouseButton === LEFT) {
@@ -696,7 +704,7 @@
       } else if (mouseButton === LEFT) {
         lib.style.display = "block";
         quiz.style.display = "none";
-        help.style.display = "none";
+        about.style.display = "none";
       }
     }
 
@@ -715,7 +723,7 @@
     function quizButtonPress() {
       if (quizAccessible == 1) {
         quizButton.style.display = "block";
-        help.style.display = "none";
+        about.style.display = "none";
         lib.style.display = "none";
         nextQuestion();
 
@@ -735,7 +743,7 @@
       }
     }
 
-    function helpButtonPress() {
+    function aboutButtonPress() {
       // Close Detailed Window
       for (let i = 1; i < 13; i++) {
         constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
@@ -747,10 +755,10 @@
       lib.style.display = "none";
       quiz.style.display = "none";
 
-      if (help.style.display === "block" && mouseButton === LEFT) {
-        help.style.display = "none";
+      if (about.style.display === "block" && mouseButton === LEFT) {
+        about.style.display = "none";
       } else if (mouseButton === LEFT) {
-        help.style.display = "block";
+        about.style.display = "block";
       }
     }
 
@@ -759,7 +767,7 @@
     <button class="libButton" onclick="libButtonPress()">🕮 Library</button>
     <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseover="quizMouseOver()"
       onmouseout="quizMouseOut()">☑ Quiz</button>
-    <button class="helpButton" onclick="helpButtonPress()">🛈 Help</button>
+    <button class="aboutButton" onclick="aboutButtonPress()">🛈 About</button>
 </body>
 
 </html>

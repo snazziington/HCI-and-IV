@@ -11,7 +11,7 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-var translationX = -1800;
+var translationX = -100;
 let translationY = -500;
 
 // Stars
@@ -489,7 +489,7 @@ function drawLineIfVisible(l) {
 }
 
 function mousePressed() {
-	print(currentStar, constellations[currentConstellation].line);
+	//print(constellations[currentConstellation].line[5], constellations[currentConstellation].line[6])
 	//#region Start Playing Sound
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
@@ -586,6 +586,7 @@ function mousePressed() {
 	//#region Closing
 
 	//#endregion
+	//print(currentStar, constellations[currentConstellation].line);
 }
 
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");

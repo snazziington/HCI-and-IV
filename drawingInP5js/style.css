@@ -65,7 +65,10 @@ button {
 
 buttons {
   position: absolute;
+  top: 0px;
+  left: 0px;
 }
+
 button.libButton {
   top: 0px;
 }
@@ -145,6 +148,14 @@ img.mcq {
   display: inline;
 }
 
+img.star {
+  display: inline;
+  width: 30px;
+  height: 30px;
+  vertical-align: -20%;
+  margin-right: 12px;
+}
+
 button.nextQuestion {
   display: none;
   position: absolute;
@@ -160,9 +171,12 @@ button.nextQuestion {
 
 quizDesc {
   display: block;
+  padding: 6px;
+  font-size: 44px;
   margin: 48px 0px 36px;
   font-weight: bold;
   height: 0px;
+  text-decoration: underline;
 }
 
 quizNotAccessible {
@@ -176,6 +190,27 @@ quizNotAccessible {
   top: 11.5%;
   bottom: 20%;
   padding-top: 10px;
+  
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-colour);
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
+}
+
+starVisible {
+  background-color: var(--detailed-window-colour);
+  position: absolute;
+  display: none;
+  margin: -50px -370px;
+  line-height: 120%;
+
+  width: 360px;
+  height: 60px;
+  padding: 10px 0px;
   
   font-size: 24px;
   font-weight: bold;
@@ -311,23 +346,24 @@ p {
   margin-block-start: 8px;
   margin-block-end: 8px;
   margin: 0px;
+  line-height: 125%;
 }
 
 ul.help {
   list-style-type: "★";
-  text-indent: 12px;
-  margin-top: -6px;
+  text-indent: 25px;
+  margin: 0px;
 }
 
 about {
   background-color: var(--detailed-window-colour);
   position: absolute;
-  display: none;
+  display: block;
   margin: auto;
-  margin-left: 25%;
+  margin-left: 15%;
 
-  width: 900px;
-  height: 700px;
+  width: 1000px;
+  height: 850px;
   top: 15%;
   bottom: 20%;
   left: 1%;
@@ -351,7 +387,7 @@ aboutDescription {
   height: 295px;
   display: block;
   text-align: left;
-  padding: 32px 32px;
+  padding: 12px 32px;
   text-indent: 64px;
 }
 

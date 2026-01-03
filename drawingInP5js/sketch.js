@@ -73,7 +73,9 @@ class Constellation {
 }
 //#endregion
 
-
+function preload() {
+	font = loadFont('fonts/Urbanist-VariableFont_wght.ttf')
+}
 
 //#region Setup
 function setup() {
@@ -381,7 +383,6 @@ function draw() {
 	stroke("#e5e5ffff");
 	lines.forEach(drawLineIfVisible);
 
-	print(hoveringMenus);
 	// Notate stars
 	/*for (let i = 1; i <= constellations[currentConstellation].size; i++) {
 		let storv = 'v' + i
@@ -622,10 +623,19 @@ function constellationCheck() {
 				constellations[i].startStars[j + 1]];
 
 				// Draws a star so I know I can start drawing
+				noStroke();
+				textFont(font);
 				textSize(((sin(millis() * 0.003) + 1) * 4) + 12);
 				fill('white');
 				textAlign(CENTER, CENTER);
-				text("★", newMouseX, newMouseY - 8)
+				if (constellations[currentConstellation].completed == 1) {
+					textSize(24);
+					text(`This is ${constellations[currentConstellation].name}!`, newMouseX + 65, newMouseY - 15)
+					
+				} else {
+					text("★", newMouseX, newMouseY - 8)
+				}
+				
 
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;

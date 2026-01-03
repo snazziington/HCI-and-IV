@@ -27,7 +27,8 @@
   <!-- Library -->
 
   <About id="About">
-    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeAbout()">X</button>
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeAbout()"
+      style="margin-left:958px">X</button>
     <p>About</p>
     <aboutDescription>
       <p>Welcome to <sb>My Little Observatory</sb>, a site where you can learn the constellations!
@@ -36,25 +37,59 @@
         about them in the <sb>Library</sb>. Once you've discovered at least 4 constellations, you can start
         testing your knowledge in the <sb>Quiz</sb>!</p>
       <br>
-      <p><b>Controls:</b>
+      <p><b>Controls:</b></p>
       <ul class="help">
-        <li><sb>Left-click</sb> to start drawing constellations</li>
-        <li><sb>Right-click</sb> to stop drawing</li>
-        <li><sb>Middle-click</sb> and drag to navigate the star map</li>
+        <li>
+          <p>
+            <sb>Left-click</sb> to start drawing constellations
+          </p>
+        </li>
+        <li>
+          <p>
+            <sb>Right-click</sb> to stop drawing
+          </p>
+        </li>
+        </li>
+        <li>
+          <p>
+            <sb>Middle-click</sb> and drag to navigate the star map
+          </p>
+        </li>
+        </li>
         </p>
         <ul class="help">
-          <li>You can also hold <b>spacebar</b> and drag to navigate the star map</li>
+          <p>
+            <li>You can also hold <b>spacebar</b> and drag to navigate the star map</li>
+            <br>
+          </p>
         </ul>
       </ul>
 
-      <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <sb>brighter</sb> the
-        object, the <sb>lower</sb> the number assigned as a magnitude.</p>
-      <p>E.g., Polaris (the North Star) has a magnitude of 2, whereas Betelgeuse, a brighter star, has a
-        magnitude of 0.6. If a celestial object is very bright, its magnitudes can be negative; our Sun
-        has a magnitude of -26.7, and our Moon has a magnitude of -11 (during a full moon).</p>
-        <br>
-      <p><b>Data Sources</b>: Stellarium, Britannica</p>
-        
+      <p><b>Key:</b></p>
+      <ul class="help">
+        <li>
+          <p>
+          <p style="margin-top:-15px"><img class="star" src="assets/star1.png">Stars glow blue if they belong to the
+            constellation you're currently drawing.</p>
+                  </li>
+        <li>
+          <p style="margin-top:-15px"><img class="star" src="assets/star2.png">Stars glow pink if they are adjacent to
+            the star you're drawing
+            from; you can left-click to continue drawing to this star</p>
+                  </li>
+        <li>
+          <p><span style="margin-left:-24px" class="material-symbols-outlined">location_on</button></span>
+            Click this icon in a library page to travel to the selected constellation.</p>
+                    </li>
+          <br>
+          <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <sb>brighter</sb> the
+            object, the <sb>lower</sb> the number assigned as a magnitude. E.g., Polaris (the North Star) has a
+            magnitude of
+            2, whereas Betelgeuse, a brighter star, has a
+            magnitude of 0.6.</p>
+          <br>
+          <p><b>Data Sources</b>: Stellarium, Britannica</p>
+
     </aboutDescription>
   </About>
   <Library id="Library" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
@@ -115,13 +150,10 @@
       <script>
         let prevWindow;
         function detailedMenu(x) {
-          print(x, prevWindow);
           if (lib.style.display == 'block' && x == prevWindow) {
             closeDetailedWindow()
-            print("closing")
             prevWindow = 0;
           } else {
-            print("opening smt")
             prevWindow = x
             // Close Quiz
             quiz.style.display = "none";
@@ -191,7 +223,6 @@
             answerInt = round(random(imageAns.length - 1));
             while (prevAns == answerInt) {
               answerInt = round(random(imageAns.length - 1));
-              print("reroll")
             }
             prevAns = answerInt;
             answerName = imageAns[answerInt];
@@ -234,7 +265,6 @@
             answerInt = round(random(nameAns.length - 1));
             while (prevAns == answerInt) {
               answerInt = round(random(nameAns.length - 1));
-              print("reroll")
             }
             prevAns = answerInt;
             answerName = nameAns[answerInt];
@@ -422,6 +452,12 @@
         translationY = y;
       }
 
+
+      function hideStar() {
+        $("#brightStar").fadeOut(180);
+        $("#starVisible").fadeOut(180);
+      }
+
       function toggleBrightestStar(c) {
         var x, y;
         switch (c) {
@@ -481,12 +517,20 @@
 
         document.getElementById("brightStar").style.left = x;
         document.getElementById("brightStar").style.top = y;
+
+        $("#starVisible").fadeIn(200);
         $("#brightStar").fadeIn(200);
+
+        let mX = mouseX + "px";  // Horizontal
+        let mY = mouseY + "px";  // Vertical
+        print(mouseX, mouseY);
+
+        document.getElementById("starVisible").style.left = `${mX}`
+        document.getElementById("starVisible").style.top = `${mY}`
       }
 
-      function hideStar() {
-        $("#brightStar").fadeOut(500);
-      }
+
+
     </script>
     <dot id="brightStar"></dot>
     <detailedWindow id="AriesDetailedWindow"> Aries
@@ -751,6 +795,7 @@
           class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
+    <starVisible id="starVisible">Look up! This star is highlighted on the constellation</starVisible>
   </detailedWindows>
   <completedWindow id="completedWindow">
     You just finished drawing <AriesName id="Aries">Aries! </AriesName>
@@ -788,6 +833,9 @@
       }
     }
 
+    // If mouse over Quiz, fade in
+    // If mouse no longer within quiz, fade out
+
     function quizMouseOver() {
       if (quizAccessible == 0) {
         $("#quizNA").fadeIn(250);
@@ -796,8 +844,7 @@
     }
 
     function quizMouseOut() {
-        $("#quizNA").fadeOut(250);
-        quizBtnVis = 0;
+      $("#quizNA").fadeOut(250);
     }
 
     function quizButtonPress() {
@@ -846,9 +893,10 @@
   <buttons onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
     <button class="libButton" onclick="libButtonPress()"><span
         class="material-symbols-outlined">dictionary</span><br>Library</button>
-    <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseover="quizMouseOver()"
-      onmouseout="quizMouseOut()"><b><span class="material-symbols-outlined">quiz</span></b><br>Quiz</button>
-    <button class="aboutButton" onclick="aboutButtonPress()"><span class="material-symbols-outlined">info</span><br>About</button>
+    <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseenter="quizMouseOver()"
+      onmouseleave="quizMouseOut()"><b><span class="material-symbols-outlined">quiz</span></b><br>Quiz</button>
+    <button class="aboutButton" onclick="aboutButtonPress()"><span
+        class="material-symbols-outlined">info</span><br>About</button>
 
   </buttons>
   <quizNotAccessible id="quizNA">You can access the quiz once you've discovered at least <b>4</b> constellations!

@@ -11,7 +11,7 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-var translationX = -100;
+var translationX = -1600;
 let translationY = -500;
 
 // Stars
@@ -105,7 +105,7 @@ function setup() {
 
 	completedWindow = document.getElementById("completedWindow");
 	detailedWindow = document.getElementById("detailedWindows");
-	
+
 	//--fix later
 	imageAns = [AriesImg, TaurusImg, GeminiImg, LeoImg];
 	nameAns = ["Aries", "Taurus", "Gemini", "Leo"];
@@ -149,8 +149,8 @@ function hoveringMenuFalse() {
 		quizMouseOut();
 	}
 }
-
 //#endregion
+
 
 
 //#region Set Up Constellations
@@ -248,7 +248,7 @@ function setupConstellations() {
 			name: "Leo", img: LeoImg, size: 9,
 			v1: Leo.v1, v2: Leo.v2, v3: Leo.v3, v4: Leo.v4,
 			v5: Leo.v5, v6: Leo.v6, v7: Leo.v7, v8: Leo.v8, v9: Leo.v9,
-			line: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+			line: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 			completed: 0, glowArray: [],
 			startStars: [Leo.v1[0], Leo.v1[1], Leo.v1[2]]
 		},
@@ -380,19 +380,14 @@ function draw() {
 	// Draws the lines of the constellations if they're visible
 	stroke("#e5e5ffff");
 	lines.forEach(drawLineIfVisible);
-	
 
-	/*stroke(25, 29, 81);
-	strokeWeight(dilatingStroke / 3 + 7);
-	lines.forEach(drawLineIfVisible);
-
-	stroke(45, 49, 102);
-	strokeWeight(dilatingStroke / 3 + 2);
-	lines.forEach(drawLineIfVisible);
-
-	stroke("white");
-	strokeWeight(dilatingStroke / 15 + 1);
-	lines.forEach(drawLineIfVisible);*/
+	print(hoveringMenus);
+	// Notate stars
+	/*for (let i = 1; i <= constellations[currentConstellation].size; i++) {
+		let storv = 'v' + i
+		strokeWeight(1)
+		text(`${i}`, constellations[currentConstellation][storv][0] + 5, constellations[currentConstellation][storv][1])
+	}*/
 
 	// Display Framerate
 	/*textSize(40);
@@ -432,7 +427,7 @@ function toggleCompletedWindow() {
 
 function mouseDrawingLines() {
 	if (isDrawing) {
-		
+
 		// Ensures starting stars stop glowing larger when you start drawing
 		// by resetting the starting star scale value to 1;
 		for (let i = 1; i < constellations.length; i++) {
@@ -489,7 +484,6 @@ function drawLineIfVisible(l) {
 }
 
 function mousePressed() {
-	//print(constellations[currentConstellation].line[5], constellations[currentConstellation].line[6])
 	//#region Start Playing Sound
 	if (soundEffectsOn == 0) {
 		soundByte = new p5.PolySynth();
@@ -567,7 +561,7 @@ function mousePressed() {
 	}
 	//#endregion
 
-	else if (mouseButton === LEFT) {
+	else if (mouseButton === LEFT && !keyIsDown(32)) {
 		soundEffects(5);
 	}
 
@@ -583,10 +577,9 @@ function mousePressed() {
 	}
 	//#endregion
 
-	//#region Closing
-
-	//#endregion
-	//print(currentStar, constellations[currentConstellation].line);
+	for (let i = 0; i < constellations[currentConstellation].line.length; i++) {
+		//--print(i, constellations[currentConstellation].line[i])
+	}
 }
 
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
@@ -606,7 +599,7 @@ function constellationCheck() {
 			if (isDrawing != 1 && dist(constellations[i].startStars[j], constellations[i].startStars[j + 1],
 				newMouseX, newMouseY) < 1000 && constellations[i].completed == 0 && constellations[i].line.every(noLinesDrawn)) {
 				// the scale of the glowing is proportional to the mouse's distance to the star
-				startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 1000, 8, 5)
+				startingStarScale = map((abs(dist(newMouseX, newMouseY, constellations[i].startStars[j], constellations[i].startStars[j + 1]))), 0, 1000, 7, 5)
 				constellations[i].v1[4] += (startingStarScale - constellations[i].v1[4]) * 0.2
 			}
 
@@ -628,8 +621,11 @@ function constellationCheck() {
 				nearestStar = [constellations[i].startStars[j],
 				constellations[i].startStars[j + 1]];
 
-				// draws a circle so I know I am hovering over a startingStar
-				ellipse(newMouseX, newMouseY, 10, 10);
+				// Draws a star so I know I can start drawing
+				textSize(((sin(millis() * 0.003) + 1) * 4) + 12);
+				fill('white');
+				textAlign(CENTER, CENTER);
+				text("★", newMouseX, newMouseY - 8)
 
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;

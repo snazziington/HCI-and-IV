@@ -1,5 +1,18 @@
+@font-face {
+  font-family: myFont;
+  src: url(fonts/Urbanist-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: emojiFont;
+  src: url(fonts/NotoEmoji-VariableFont_wght.ttf);
+  font-weight: bold;
+}
+
 html,
 body {
+  font-family: myFont;
+  font-weight: normal;
   margin: 0;
   padding: 0;
   display: block;
@@ -38,14 +51,16 @@ button {
   width: 80px;
   height: 80px;
   text-align: center;
-  padding: 10px 6px;
-  display: flex;
+  padding: 10% 0px 10%;
+  display: block;
   background-color: var(--button-colour);
   border: double var(--border-colour) 3px;
   border-radius: 5px;
   color: var(--text-colour);
   font-size: 20px;
   cursor: pointer;
+  font-family: myFont;
+  font-weight: normal;
 }
 
 buttons {
@@ -106,6 +121,28 @@ button.quizButton {
   height: 80px;
   display: inline;
   margin: 16px 12px;
+  padding: 0px 0px;
+}
+
+button.quizButtonMCQ {
+  background-color: var(--button-colour);
+  background-color: red;
+  font-size: 28px;
+  width: 400px;
+  height: 225px;
+  display: inline;
+  margin: 8px 8px;
+}
+
+sb {
+  font-weight: 570;
+}
+
+img.mcq {
+  margin-top: -65px;
+  width: 300px;
+  height: 150px;
+  display: inline;
 }
 
 button.nextQuestion {
@@ -123,8 +160,9 @@ button.nextQuestion {
 
 quizDesc {
   display: block;
-  margin: 48px;
+  margin: 48px 0px 36px;
   font-weight: bold;
+  height: 0px;
 }
 
 quizNotAccessible {
@@ -171,16 +209,16 @@ img.thumbnail {
 
 button.closeDetailedWindow {
   display: block;
-  margin: -3px 0px 0px 866px;
-  width: 24px;
-  height: 24px;
+  margin: -3px 0px 0px 858px;
+  width: 32px;
+  height: 32px;
   text-align: center;
   padding: 0px 0px;
 
   color: var(--text-colour);
 
   text-decoration: none;
-  font-size: 12px;
+  font-size: 16px;
   display: absolute;
   cursor: pointer;
 }
@@ -252,21 +290,27 @@ detailedWindows {
   border: double var(--border-colour) 3px;
   border-radius: 15px;
 }
-
+           
 description {
   font-weight: normal;
   font-size: 24px;
-  line-height: 125%;
+  line-height: 120%;
   height: 295px;
   display: block;
   text-align: left;
-  padding: 32px 24px;
-  text-indent: 50px;
+  padding: 32px 32px;
+  text-indent: 64px;
 }
+
+sup, sub { vertical-align: 0;
+           position: relative; }
+sup { bottom: 1ex; }
+sub { top: 0.8ex; }
 
 p {
   margin-block-start: 8px;
   margin-block-end: 8px;
+  margin: 0px;
 }
 
 ul.help {
@@ -303,12 +347,12 @@ about {
 aboutDescription {
   font-weight: normal;
   font-size: 24px;
-  padding: 0px 24px;
-  line-height: 125%;
+  line-height: 120%;
   height: 295px;
   display: block;
   text-align: left;
-  text-indent: 50px;
+  padding: 32px 32px;
+  text-indent: 64px;
 }
 
 completedWindow {
@@ -341,8 +385,9 @@ button.navButton {
   text-decoration: none;
   font-size: 12px;
   right: 0%;
-  margin-top: 13px;
+  margin-top: 6px;
   margin-left: 843px;
+  padding: 0px;
   cursor: pointer;
 }
 

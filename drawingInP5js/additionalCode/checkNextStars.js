@@ -408,29 +408,34 @@ function checkNextStars(currentConstellation) {
 				constellations[currentConstellation].line[3] = 1;
 			}
 
+			else if ((previousStar == 5 && currentStar == 6) ||
+				(previousStar == 6 && currentStar == 5)) {
+				constellations[currentConstellation].line[4] = 1;
+			}
+
 			else if ((previousStar == 4 && currentStar == 7) ||
 				(previousStar == 7 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
+				constellations[currentConstellation].line[5] = 1;
 			}
 
 			else if ((previousStar == 6 && currentStar == 8) ||
 				(previousStar == 8 && currentStar == 6)) {
-				constellations[currentConstellation].line[5] = 1;
+				constellations[currentConstellation].line[6] = 1;
 			}
 
 			else if ((previousStar == 7 && currentStar == 8) ||
 				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[6] = 1;
+				constellations[currentConstellation].line[7] = 1;
 			}
 
 			else if ((previousStar == 7 && currentStar == 9) ||
 				(previousStar == 9 && currentStar == 7)) {
-				constellations[currentConstellation].line[7] = 1;
+				constellations[currentConstellation].line[8] = 1;
 			}
 
 			else if ((previousStar == 8 && currentStar == 9) ||
 				(previousStar == 9 && currentStar == 8)) {
-				constellations[currentConstellation].line[8] = 1;
+				constellations[currentConstellation].line[9] = 1;
 			}
 			break;
 
@@ -1304,4 +1309,5 @@ function checkNextStars(currentConstellation) {
 	if (constellations[currentConstellation].completed == 1) {
 		isDrawing = false;
 	}
+
 }

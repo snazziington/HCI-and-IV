@@ -109,8 +109,8 @@ function setup() {
 	detailedWindow = document.getElementById("detailedWindows");
 
 	//--fix later
-	imageAns = [AriesImg, TaurusImg, GeminiImg, LeoImg];
-	nameAns = ["Aries", "Taurus", "Gemini", "Leo"];
+	//imageAns = [AriesImg, TaurusImg, GeminiImg, LeoImg];
+	//nameAns = ["Aries", "Taurus", "Gemini", "Leo"];
 	frameRate(30);
 }
 
@@ -625,17 +625,18 @@ function constellationCheck() {
 				// Draws a star so I know I can start drawing
 				noStroke();
 				textFont(font);
-				textSize(((sin(millis() * 0.003) + 1) * 4) + 12);
 				fill('white');
 				textAlign(CENTER, CENTER);
 				if (constellations[currentConstellation].completed == 1) {
 					textSize(24);
 					text(`This is ${constellations[currentConstellation].name}!`, newMouseX + 65, newMouseY - 15)
-					
+
 				} else {
-					text("★", newMouseX, newMouseY - 8)
+					textFont('Verdana');
+					textSize(((sin(millis() * 0.003) + 1) * 4) + 16);
+					text("★", newMouseX + 2, newMouseY - 8)
 				}
-				
+
 
 				// you can draw because you are hovering over a starting star
 				canDraw = 1;
@@ -678,16 +679,16 @@ function addConstellationToLibrary(c) {
 
 	//--fix Later
 	// Push constellation's image into imageAnswers array
-	//imageAns.push(constellations[c].img)
+	imageAns.push(constellations[c].img)
 
 	// Push name of constellation into nameAnswers array
-	//nameAns.push(constellations[c].name)
+	nameAns.push(constellations[c].name)
 
 	// Stops startingStar from glowing(?)
 	constellations[c].v1[4] = 1;
 
 	//--fix later
-	if (nameAns.length > -1 && quizAccessible == 0) {
+	if (nameAns.length > 3 && quizAccessible == 0) {
 		quizAccessible = 1;
 		quizButton.style.opacity = '1'
 		quizButton.style.backgroundColor = rs.getPropertyValue('--button-colour');

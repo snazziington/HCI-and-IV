@@ -120,7 +120,7 @@ quiz {
 
   line-height: 0px;
   width: 900px;
-  height: 700px;
+  height: 725px;
   top: 15%;
   bottom: 20%;
   left: 1%;
@@ -144,11 +144,11 @@ quizQuestion {
 
 button.quizButton {
   background-color: var(--button-colour);
-  font-size: 28px;
+  font-size: 24px;
   width: 400px;
   height: 80px;
   display: inline;
-  margin: 16px 12px;
+  margin: 4px 4px;
   padding: 0px 0px;
 }
 
@@ -190,6 +190,7 @@ button.nextQuestion {
   left: 1%;
   width: 175px;
   height: 60px;
+  margin-top: 12px;
   padding: 16px 20px;
   text-align: center;
 }
@@ -197,7 +198,6 @@ button.nextQuestion {
 quizDesc {
   display: block;
   padding: 6px;
-  font-size: 44px;
   margin: 48px 0px 36px;
   font-weight: bold;
   height: 0px;
@@ -453,7 +453,7 @@ button.navButton {
 
 item {
   /*---fix later*/
-  display: block;
+  display: none;
   width: 220px;
   margin-bottom: 5px;
   padding: 5px 0px;

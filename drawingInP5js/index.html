@@ -888,6 +888,13 @@
       }
     }
 
+    let splashScreen = document.getElementById("splashScreen");
+
+    function hideSplashScreen() {
+      $("#splashScreen").fadeOut(150);
+      print("herllo")
+    }
+
   </script>
   <buttons onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
     <button class="libButton" onclick="libButtonPress()"><span
@@ -900,6 +907,7 @@
   </buttons>
   <quizNotAccessible id="quizNA">You can access the quiz once you've discovered at least <b>4</b> constellations!
   </quizNotAccessible>
+
 </body>
 
 </html>

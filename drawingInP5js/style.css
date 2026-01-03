@@ -30,6 +30,31 @@ canvas {
   display: flex;
 }
 
+splash {
+  position: fixed;
+  display: inline;
+  width: 60vw;
+  height: 60vh;
+
+  background-color: var(--detailed-window-colour);
+  margin: auto;
+  padding: 20vh 20vw 20vh 20vw;
+  font-size: 38px;
+  font-weight: bold;
+  color: var(--text-colour);
+
+  text-align: center;
+
+  border: double var(--border-colour) 3px;
+  border-radius: 15px;
+}
+
+button.start {
+  margin: auto;
+  width: 200px;
+  height: 50px;
+}
+
 :root {
   --Library-colour: rgba(44, 47, 105, 0.418);
   --Library-item-colour: #00063552;
@@ -358,7 +383,7 @@ ul.help {
 about {
   background-color: var(--detailed-window-colour);
   position: absolute;
-  display: block;
+  display: none;
   margin: auto;
 
   width: 1000px;

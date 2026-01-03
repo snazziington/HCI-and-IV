@@ -21,8 +21,8 @@
 
 <body>
   <script src="sketch.js"></script>
-  <script src="additionalCode/checkNextStars.js"></script>
-  <script src="additionalCode/checkNeighbouringStars.js"></script>
+  <script src="./additionalCode/checkNextStars.js"></script>
+  <script src="./additionalCode/checkNeighbouringStars.js"></script>
   <!-- Sidebar -->
   <!-- Library -->
 
@@ -69,11 +69,11 @@
       <ul class="help">
         <li>
           <p>
-          <p style="margin-top:-15px"><img class="star" src="assets/star1.png">Stars glow blue if they belong to the
+          <p style="margin-top:-15px"><img class="star" src="./assets/star1.png">Stars glow blue if they belong to the
             constellation you're currently drawing.</p>
                   </li>
         <li>
-          <p style="margin-top:-15px"><img class="star" src="assets/star2.png">Stars glow pink if they are adjacent to
+          <p style="margin-top:-15px"><img class="star" src="./assets/star2.png">Stars glow pink if they are adjacent to
             the star you're drawing
             from; you can left-click to continue drawing to this star</p>
                   </li>
@@ -98,52 +98,52 @@
 
       <ul>
         <item onclick="detailedMenu('AriesDetailedWindow')" id="AriesItem">
-          <img class="thumbnail" src="assets/TNAries.png">
+          <img class="thumbnail" src="./assets/TNAries.png">
           <constNameLibrary>Aries</constNameLibrary>
         </item>
 
         <item onclick="detailedMenu('TaurusDetailedWindow')" id="TaurusItem">
-          <img class="thumbnail" src="assets/TNTaurus.png">
+          <img class="thumbnail" src="./assets/TNTaurus.png">
           <constNameLibrary>Taurus</constNameLibrary>
         </item>
         <item onclick="detailedMenu('GeminiDetailedWindow')" id="GeminiItem">
-          <img class="thumbnail" src="assets/TNGemini.png">
+          <img class="thumbnail" src="./assets/TNGemini.png">
           <constNameLibrary>Gemini</constNameLibrary>
         </item>
         <item onclick="detailedMenu('CancerDetailedWindow')" id="CancerItem">
-          <img class="thumbnail" src="assets/TNCancer.png">
+          <img class="thumbnail" src="./assets/TNCancer.png">
           <constNameLibrary>Cancer</constNameLibrary>
         </item>
         <item onclick="detailedMenu('LeoDetailedWindow')" id="LeoItem">
-          <img class="thumbnail" src="assets/TNLeo.png">
+          <img class="thumbnail" src="./assets/TNLeo.png">
           <constNameLibrary>Leo</constNameLibrary>
         </item>
         <item onclick="detailedMenu('VirgoDetailedWindow')" id="VirgoItem">
-          <img class="thumbnail" src="assets/TNVirgo.png">
+          <img class="thumbnail" src="./assets/TNVirgo.png">
           <constNameLibrary>Virgo</constNameLibrary>
         </item>
         <item onclick="detailedMenu('LibraDetailedWindow')" id="LibraItem">
-          <img class="thumbnail" src="assets/TNLibra.png">
+          <img class="thumbnail" src="./assets/TNLibra.png">
           <constNameLibrary>Libra</constNameLibrary>
         </item>
         <item onclick="detailedMenu('ScorpiusDetailedWindow')" id="ScorpiusItem">
-          <img class="thumbnail" src="assets/TNScorpius.png">
+          <img class="thumbnail" src="./assets/TNScorpius.png">
           <constNameLibrary>Scorpius</constNameLibrary>
         </item>
         <item onclick="detailedMenu('SagittariusDetailedWindow')" id="SagittariusItem">
-          <img class="thumbnail" src="assets/TNSagittarius.png">
+          <img class="thumbnail" src="./assets/TNSagittarius.png">
           <constNameLibrary>Sagittarius</constNameLibrary>
         </item>
         <item onclick="detailedMenu('CapricornusDetailedWindow')" id="CapricornusItem">
-          <img class="thumbnail" src="assets/TNCapricornus.png">
+          <img class="thumbnail" src="./assets/TNCapricornus.png">
           <constNameLibrary>Capricornus</constNameLibrary>
         </item>
         <item onclick="detailedMenu('AquariusDetailedWindow')" id="AquariusItem">
-          <img class="thumbnail" src="assets/TNAquarius.png">
+          <img class="thumbnail" src="./assets/TNAquarius.png">
           <constNameLibrary>Aquarius</constNameLibrary>
         </item>
         <item onclick="detailedMenu('PiscesDetailedWindow')" id="PiscesItem">
-          <img class="thumbnail" src="assets/TNPisces.png">
+          <img class="thumbnail" src="./assets/TNPisces.png">
           <constNameLibrary>Pisces</constNameLibrary>
         </item>
       </ul>
@@ -535,7 +535,7 @@
     <dot id="brightStar"></dot>
     <detailedWindow id="AriesDetailedWindow"> Aries
       <hr>
-      <img id="AriesImg" src="assets/Aries.png">
+      <img id="AriesImg" src="./assets/Aries.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Aries is a constellation in the northern sky between Pisces and Taurus.
@@ -556,7 +556,7 @@
 
     <detailedWindow id="TaurusDetailedWindow"> Taurus
       <hr>
-      <img id="TaurusImg" src="assets/Taurus.png">
+      <img id="TaurusImg" src="./assets/Taurus.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Taurus is a constellation in the northern sky between Aries and Gemini. Its brightest
@@ -577,7 +577,7 @@
     <detailedWindow id="GeminiDetailedWindow">Gemini
       <hr>
 
-      <img id="GeminiImg" src="assets/Gemini.png">
+      <img id="GeminiImg" src="./assets/Gemini.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Gemini lies in the northern sky between Taurus and Cancer. Its brightest stars are
@@ -599,7 +599,7 @@
 
     <detailedWindow id="CancerDetailedWindow"> Cancer
       <hr>
-      <img id="CancerImg" src="assets/Cancer.png">
+      <img id="CancerImg" src="./assets/Cancer.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Cancer lies in the northern sky between Gemini and Leo. Its brightest star,
@@ -622,7 +622,7 @@
 
     <detailedWindow id="LeoDetailedWindow"> Leo
       <hr>
-      <img id="LeoImg" src="assets/Leo.png">
+      <img id="LeoImg" src="./assets/Leo.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Leo lies in the northern sky between Cancer and Virgo and its brightest star, <brightestStar
@@ -643,7 +643,7 @@
 
     <detailedWindow id="VirgoDetailedWindow"> Virgo
       <hr>
-      <img id="VirgoImg" src="assets/Virgo.png">
+      <img id="VirgoImg" src="./assets/Virgo.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Virgo lies in the southern sky between Leo and Libra, and its brightest star <brightestStar
@@ -665,7 +665,7 @@
 
     <detailedWindow id="LibraDetailedWindow"> Libra
       <hr>
-      <img id="LibraImg" src="assets/Libra.png">
+      <img id="LibraImg" src="./assets/Libra.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Libra lies in the southern sky between Virgo and Scorpius, and its brightest star <brightestStar
@@ -686,7 +686,7 @@
 
     <detailedWindow id="ScorpiusDetailedWindow"> Scorpius
       <hr>
-      <img id="ScorpiusImg" src="assets/Scorpius.png">
+      <img id="ScorpiusImg" src="./assets/Scorpius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Scorpius lies in the southern sky between Libra and Sagittarius. Its brightest star, <brightestStar
@@ -709,7 +709,7 @@
 
     <detailedWindow id="SagittariusDetailedWindow"> Sagittarius
       <hr>
-      <img id="SagittariusImg" src="assets/Sagittarius.png">
+      <img id="SagittariusImg" src="./assets/Sagittarius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Sagittarius lies in the southern sky between Scorpius and Capricornus. Its brightest star is <brightestStar
@@ -732,7 +732,7 @@
 
     <detailedWindow id="CapricornusDetailedWindow"> Capricornus
       <hr>
-      <img id="CapricornusImg" src="assets/Capricornus.png">
+      <img id="CapricornusImg" src="./assets/Capricornus.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Capricornus lies in the southern sky between Sagittarius and Aquarius. It consists of dim stars; its
@@ -754,7 +754,7 @@
 
     <detailedWindow id="AquariusDetailedWindow"> Aquarius
       <hr>
-      <img id="AquariusImg" src="assets/Aquarius.png">
+      <img id="AquariusImg" src="./assets/Aquarius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Aquarius lies in the southern sky between Capricornus and Pisces. Its brightest star, <brightestStar
@@ -774,7 +774,7 @@
 
     <detailedWindow id="PiscesDetailedWindow"> Pisces
       <hr>
-      <img id="PiscesImg" src="assets/Pisces.png">
+      <img id="PiscesImg" src="./assets/Pisces.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Pisces lies in the northern sky between Aquarius and Aries and mostly consists of dim stars; the brightest

@@ -9,116 +9,384 @@
   <link rel="icon" type="/x-icon" href="/favicon.ico">
 
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=quiz,dictionary,location_on,info" />
 
-  <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script>
+
+  <script src="librAries/p5.min.js"></script>
+  <script src="librAries/p5.sound.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
 </head>
 
 <body>
   <script src="sketch.js"></script>
   <script src="additionalCode/checkNextStars.js"></script>
+  <script src="additionalCode/checkNeighbouringStars.js"></script>
   <!-- Sidebar -->
   <!-- Library -->
 
-  <library id="library">
-    <libraryTitle>Discovered Constellations</libraryTitle>
-    <libraryItems id="libraryItems">
+  <About id="About">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeAbout()"
+      style="margin-left:958px">X</button>
+    <p>About</p>
+    <aboutDescription>
+      <p>Welcome to <sb>My Little Observatory</sb>, a site where you can learn the constellations!
+
+      <p>You can draw existing constellations on the <sb>Star Map</sb>, and find out more
+        about them in the <sb>Library</sb>. Once you've discovered at least 4 constellations, you can start
+        testing your knowledge in the <sb>Quiz</sb>!</p>
+      <br>
+      <p><b>Controls:</b></p>
+      <ul class="help">
+        <li>
+          <p>
+            <sb>Left-click</sb> to start drawing constellations
+          </p>
+        </li>
+        <li>
+          <p>
+            <sb>Right-click</sb> to stop drawing
+          </p>
+        </li>
+        </li>
+        <li>
+          <p>
+            <sb>Middle-click</sb> and drag to navigate the star map
+          </p>
+        </li>
+        </li>
+        </p>
+        <ul class="help">
+          <p>
+            <li>You can also hold <b>spacebar</b> and drag to navigate the star map</li>
+            <br>
+          </p>
+        </ul>
+      </ul>
+
+      <p><b>Key:</b></p>
+      <ul class="help">
+        <li>
+          <p>
+          <p style="margin-top:-15px"><img class="star" src="assets/star1.png">Stars glow blue if they belong to the
+            constellation you're currently drawing.</p>
+                  </li>
+        <li>
+          <p style="margin-top:-15px"><img class="star" src="assets/star2.png">Stars glow pink if they are adjacent to
+            the star you're drawing
+            from; you can left-click to continue drawing to this star</p>
+                  </li>
+        <li>
+          <p><span style="margin-left:-24px" class="material-symbols-outlined">location_on</button></span>
+            Click this icon in a library page to travel to the selected constellation.</p>
+                    </li>
+          <br>
+          <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <sb>brighter</sb> the
+            object, the <sb>lower</sb> the number assigned as a magnitude. E.g., Polaris (the North Star) has a
+            magnitude of
+            2, whereas Betelgeuse, a brighter star, has a
+            magnitude of 0.6.</p>
+          <br>
+          <p><b>Data Sources</b>: Stellarium, Britannica</p>
+      </ul>      
+    </aboutDescription>
+  </About>
+  <Library id="Library" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <LibraryTitle><b>Discovered Constellations</b></LibraryTitle>
+    <LibraryItems id="LibraryItems">
 
       <ul>
-        <item onclick="detailedMenu('ariesDetailedWindow')" id="ariesItem">
-          <img class="thumbnail" src="assets/TNaries.png">
+        <item onclick="detailedMenu('AriesDetailedWindow')" id="AriesItem">
+          <img class="thumbnail" src="assets/TNAries.png">
           <constNameLibrary>Aries</constNameLibrary>
         </item>
 
-        <item onclick="detailedMenu('taurusDetailedWindow')" id="taurusItem">
-          <img class="thumbnail" src="assets/TNtaurus.png">
+        <item onclick="detailedMenu('TaurusDetailedWindow')" id="TaurusItem">
+          <img class="thumbnail" src="assets/TNTaurus.png">
           <constNameLibrary>Taurus</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('geminiDetailedWindow')" id="geminiItem">
-          <img class="thumbnail" src="assets/TNgemini.png">
+        <item onclick="detailedMenu('GeminiDetailedWindow')" id="GeminiItem">
+          <img class="thumbnail" src="assets/TNGemini.png">
           <constNameLibrary>Gemini</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('cancerDetailedWindow')" id="cancerItem">
-          <img class="thumbnail" src="assets/TNcancer.png">
+        <item onclick="detailedMenu('CancerDetailedWindow')" id="CancerItem">
+          <img class="thumbnail" src="assets/TNCancer.png">
           <constNameLibrary>Cancer</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('leoDetailedWindow')" id="leoItem">
-          <img class="thumbnail" src="assets/TNleo.png">
+        <item onclick="detailedMenu('LeoDetailedWindow')" id="LeoItem">
+          <img class="thumbnail" src="assets/TNLeo.png">
           <constNameLibrary>Leo</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('virgoDetailedWindow')" id="virgoItem">
-          <img class="thumbnail" src="assets/TNvirgo.png">
+        <item onclick="detailedMenu('VirgoDetailedWindow')" id="VirgoItem">
+          <img class="thumbnail" src="assets/TNVirgo.png">
           <constNameLibrary>Virgo</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('libraDetailedWindow')" id="libraItem">
-          <img class="thumbnail" src="assets/TNlibra.png">
+        <item onclick="detailedMenu('LibraDetailedWindow')" id="LibraItem">
+          <img class="thumbnail" src="assets/TNLibra.png">
           <constNameLibrary>Libra</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('scorpiusDetailedWindow')" id="scorpiusItem">
-          <img class="thumbnail" src="assets/TNscorpius.png">
+        <item onclick="detailedMenu('ScorpiusDetailedWindow')" id="ScorpiusItem">
+          <img class="thumbnail" src="assets/TNScorpius.png">
           <constNameLibrary>Scorpius</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('sagittariusDetailedWindow')" id="sagittariusItem">
-          <img class="thumbnail" src="assets/TNsagittarius.png">
+        <item onclick="detailedMenu('SagittariusDetailedWindow')" id="SagittariusItem">
+          <img class="thumbnail" src="assets/TNSagittarius.png">
           <constNameLibrary>Sagittarius</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('capricornusDetailedWindow')" id="capricornusItem">
-          <img class="thumbnail" src="assets/TNcapricornus.png">
+        <item onclick="detailedMenu('CapricornusDetailedWindow')" id="CapricornusItem">
+          <img class="thumbnail" src="assets/TNCapricornus.png">
           <constNameLibrary>Capricornus</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('aquariusDetailedWindow')" id="aquariusItem">
-          <img class="thumbnail" src="assets/TNaquarius.png">
+        <item onclick="detailedMenu('AquariusDetailedWindow')" id="AquariusItem">
+          <img class="thumbnail" src="assets/TNAquarius.png">
           <constNameLibrary>Aquarius</constNameLibrary>
         </item>
-        <item onclick="detailedMenu('piscesDetailedWindow')" id="piscesItem">
-          <img class="thumbnail" src="assets/TNpisces.png">
+        <item onclick="detailedMenu('PiscesDetailedWindow')" id="PiscesItem">
+          <img class="thumbnail" src="assets/TNPisces.png">
           <constNameLibrary>Pisces</constNameLibrary>
         </item>
       </ul>
       <script>
+        let prevWindow;
         function detailedMenu(x) {
-          // Close Quiz
-          quiz = document.getElementById("quiz");
-          quiz.style.display = "none";
+          if (lib.style.display == 'block' && x == prevWindow) {
+            closeDetailedWindow()
+            prevWindow = 0;
+          } else {
+            prevWindow = x
+            // Close Quiz
+            quiz.style.display = "none";
+            about.style.display = "none";
 
-          // Close completedWindow
-          completedWindow.style.display = "none";
+            // Close completedWindow
+            completedWindow.style.display = "none";
 
-          // Close constCompletedWindow
-          for (let i = 1; i < 13; i++) {
-            var constCompletedWindow = document.getElementById(constellations[i].name);
-            constCompletedWindow.style.display = "none";
+            // Close constCompletedWindow
+            for (let i = 1; i < 13; i++) {
+              var constCompletedWindow = document.getElementById(constellations[i].name);
+              constCompletedWindow.style.display = "none";
+            }
+
+            var constDetailedWindow = document.getElementById(x);
+
+            for (let i = 1; i < 13; i++) {
+              let closingWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+              closingWindow.style.display = "none";
+            }
+
+            detailedWindow.style.display = "block";
+            constDetailedWindow.style.display = "block";
           }
-
-          var constDetailedWindow = document.getElementById(x);
-
-          for (let i = 1; i < 13; i++) {
-            let closingWindow = document.getElementById(constellations[i].name + "DetailedWindow")
-            closingWindow.style.display = "none";
-          }
-
-          detailedWindow.style.display = "block";
-          constDetailedWindow.style.display = "block";
         }
       </script>
-    </libraryItems>
+    </LibraryItems>
+  </Library>
 
-  </library>
 
-  <quiz id="quiz">
-    <button id="submit">Submit Answer</button>
+  <quiz id="quiz" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <button class="closeDetailedWindow" id="closeQuiz" onclick="closeQuiz()">X</button>
+    <quizQuestion id="quizQuestion"></quizQuestion>
+    <quizDesc id="quizDesc"></quizDesc>
+    <img id="quizImg"></img>
+    <script>
+      var answer1 = "", answer2 = "", answer3 = "", answer4 = "", answerName, correctAnswer;
+      var r = document.querySelector(':root');
+      var rs = getComputedStyle(r);
+
+      function closeAbout() {
+        about.style.display = 'none';
+      }
+      function closeQuiz() {
+        quiz.style.display = 'none';
+      }
+
+      let prevAns;
+
+      function nextQuestion() {
+        questionAnswered = 0;
+        nextQuestionButton.style.display = "none";
+
+        var answers = [];
+
+        document.getElementById("answer1").style.backgroundColor = rs.getPropertyValue('--button-colour');
+        document.getElementById("answer2").style.backgroundColor = rs.getPropertyValue('--button-colour');
+        document.getElementById("answer3").style.backgroundColor = rs.getPropertyValue('--button-colour');
+        document.getElementById("answer4").style.backgroundColor = rs.getPropertyValue('--button-colour');
+
+        let questions = ["Which constellation is depicted in this image?",
+          `Select the following constellation:`];
+
+        let q = round(random(0, 1.1))
+        switch (q) {
+          case 0: // Which const is depicted in image?
+            answerInt = round(random(imageAns.length - 1));
+            while (prevAns == answerInt) {
+              answerInt = round(random(imageAns.length - 1));
+            }
+            prevAns = answerInt;
+            answerName = imageAns[answerInt];
+            correctAnswer = nameAns[answerInt];
+            answers.push(correctAnswer);
+            while (answers.length < 4) {
+              let newAns = random(nameAns);
+              if (answers.indexOf(newAns) === -1) answers.push(newAns);
+            }
+            document.getElementById("quizImg").src = answerName;
+
+            //#region Answers
+            answer1 = random(answers);
+            remEt(answers, answer1);
+
+            answer2 = random(answers);
+            remEt(answers, answer2);
+
+            answer3 = random(answers);
+            remEt(answers, answer3);
+
+            answer4 = random(answers);
+            remEt(answers, answer4);
+            //#endregion
+            document.getElementById("answer1").className = 'quizButton'
+            document.getElementById("answer2").className = 'quizButton'
+            document.getElementById("answer3").className = 'quizButton'
+            document.getElementById("answer4").className = 'quizButton'
+
+            document.getElementById("quizImg").style.height = '300px'
+
+            document.getElementById("answer1").innerHTML = answer1;
+            document.getElementById("answer2").innerHTML = answer2;
+            document.getElementById("answer3").innerHTML = answer3;
+            document.getElementById("answer4").innerHTML = answer4;
+            document.getElementById("quizDesc").innerHTML = '';
+            break;
+
+          case 1: // Select image that shows [constName].
+            answerInt = round(random(nameAns.length - 1));
+            while (prevAns == answerInt) {
+              answerInt = round(random(nameAns.length - 1));
+            }
+            prevAns = answerInt;
+            answerName = nameAns[answerInt];
+            correctAnswer = imageAns[answerInt];
+            answers.push(correctAnswer);
+            while (answers.length < 4) {
+              let newAns = random(imageAns);
+              if (answers.indexOf(newAns) === -1) answers.push(newAns);
+            }
+            document.getElementById("quizDesc").innerHTML = answerName;
+
+            //#region Answers
+            answer1 = random(answers);
+            remEt(answers, answer1);
+
+            answer2 = random(answers);
+            remEt(answers, answer2);
+
+            answer3 = random(answers);
+            remEt(answers, answer3);
+
+            answer4 = random(answers);
+            remEt(answers, answer4);
+            //#endregion
+
+            document.getElementById("answer1").className = 'quizButtonMCQ'
+            document.getElementById("answer2").className = 'quizButtonMCQ'
+            document.getElementById("answer3").className = 'quizButtonMCQ'
+            document.getElementById("answer4").className = 'quizButtonMCQ'
+
+            document.getElementById("quizImg").style.height = '0px'
+
+            document.getElementById("answer1").innerHTML = `<img class=\"mcq\" src=\"${answer1}\">`;
+            document.getElementById("answer2").innerHTML = `<img class=\"mcq\" src=\"${answer2}\">`;
+            document.getElementById("answer3").innerHTML = `<img class=\"mcq\" src=\"${answer3}\">`;
+            document.getElementById("answer4").innerHTML = `<img class=\"mcq\" src=\"${answer4}\">`;
+            break;
+        }
+
+        document.getElementById("quizQuestion").innerHTML = questions[q];
+      }
+
+      greenButton = rs.getPropertyValue('--green-button');
+      redButton = rs.getPropertyValue('--red-button');
+      var questionAnswered;
+
+      function evaluateAnswer(choice, button) {
+        if (questionAnswered == 0) {
+          if (choice == correctAnswer) {
+            document.getElementById(button).style.backgroundColor = greenButton;
+            document.getElementById(button).innerHTML += " ✓"
+          } else {
+            document.getElementById(button).style.backgroundColor = redButton;
+            document.getElementById(button).innerHTML += " X";
+
+            if (answer1 == correctAnswer) {
+              document.getElementById("answer1").style.backgroundColor = greenButton;
+              document.getElementById("answer1").innerHTML += " ✓";
+            } else if (answer2 == correctAnswer) {
+              document.getElementById("answer2").style.backgroundColor = greenButton;
+              document.getElementById("answer2").innerHTML += " ✓";
+            } else if (answer3 == correctAnswer) {
+              document.getElementById("answer3").style.backgroundColor = greenButton;
+              document.getElementById("answer3").innerHTML += " ✓";
+            } else if (answer4 == correctAnswer) {
+              document.getElementById("answer4").style.backgroundColor = greenButton;
+              document.getElementById("answer4").innerHTML += " ✓";
+            }
+
+          }
+
+          nextQuestionButton.style.display = "block";
+          questionAnswered = 1;
+        }
+      }
+
+      function remEt(a, ele) {
+        a.forEach((item, index) => {
+          if (item === ele) {
+            a.splice(index, 1);
+          }
+        });
+        return a;
+      }
+    </script>
+    <quizButtonAnswers>
+      <button id="answer1" onclick="evaluateAnswer(answer1, 'answer1')" class="quizButton">
+        <script>
+          document.write(answer1)
+        </script>
+      </button>
+
+      <button id="answer2" onclick="evaluateAnswer(answer2, 'answer2')" class="quizButton">
+        <script>
+          document.write(answer2)
+        </script>
+      </button>
+
+      <button id="answer3" onclick="evaluateAnswer(answer3, 'answer3')" class="quizButton">
+        <script>
+          document.write(answer3);
+        </script>
+      </button>
+
+      <button id="answer4" onclick="evaluateAnswer(answer4, 'answer4')" class="quizButton">
+        <script>
+          document.write(answer4);
+        </script>
+      </button>
+    </quizButtonAnswers>
+
+
+    <button id="nextQ" onclick="nextQuestion()" class="nextQuestion">Next Question</button>
   </quiz>
 
-  <detailedWindows id="detailedWindows">
-    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeDetailedDetailedWindow()">X</button>
+  <detailedWindows id="detailedWindows" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeDetailedWindow()">X</button>
 
     <script>
-      let closeButton = document.getElementById("closeButton");
+      let nextQuestionButton = document.getElementById("nextQ");
 
-      function closeDetailedDetailedWindow() {
+      function closeDetailedWindow() {
         for (let i = 1; i < 13; i++) {
           let constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
           detailedWindow.style.display = "none";
@@ -129,31 +397,31 @@
       function navButtonPress(constellation) {
         let x, y;
         switch (constellation) {
-          case 1: // aries
+          case 1: // Aries
             x = -3719;
             y = 72;
             break;
-          case 2: // taurus
+          case 2: // Taurus
             x = -3423;
             y = -84;
             break;
-          case 3: // gemini
+          case 3: // Gemini
             x = -2924;
             y = -40;
             break;
-          case 4: // cancer
+          case 4: // Cancer
             x = -2629;
             y = -107;
             break;
-          case 5: // leo
+          case 5: // Leo
             x = -2253;
             y = -134;
             break;
-          case 6: // virgo
+          case 6: // Virgo
             x = -1653;
             y = -295;
             break;
-          case 7: // libra
+          case 7: // Libra
             x = -1294;
             y = -463;
             break;
@@ -161,7 +429,7 @@
             x = -1030;
             y = -543;
             break;
-          case 9: // sagittarius
+          case 9: // Sagittarius
             x = -698;
             y = -543;
             break;
@@ -169,11 +437,11 @@
             x = -215;
             y = -543;
             break;
-          case 11: // aquarius
+          case 11: // Aquarius
             x = 30;
             y = -532;
             break;
-          case 12: // pisces
+          case 12: // Pisces
             x = 364;
             y = -389;
             break;
@@ -184,46 +452,52 @@
         translationY = y;
       }
 
+
+      function hideStar() {
+        $("#brightStar").fadeOut(180);
+        $("#starVisible").fadeOut(180);
+      }
+
       function toggleBrightestStar(c) {
         var x, y;
         switch (c) {
-          case 1: // aries
+          case 1: // Aries
             x = "541px";
             y = "205px";
             break;
-          case 2: // taurus
+          case 2: // Taurus
             x = "430px";
             y = "320px";
             break;
-          case 31: // gemini; castor
+          case 31: // Gemini; castor
             x = "329px";
             y = "137px";
             break;
-          case 32: // gemini; pollux
+          case 32: // Gemini; pollux
             x = "302px";
             y = "202px";
             break;
-          case 4: // cancer
+          case 4: // Cancer
             x = "529px";
             y = "385px";
             break;
-          case 5: // leo
+          case 5: // Leo
             x = "620px";
             y = "380px";
             break;
-          case 6: // virgo
+          case 6: // Virgo
             x = "402px";
             y = "370px";
             break;
-          case 7: // libra
-            x = "475px";
+          case 7: // Libra
+            x = "477px";
             y = "95px";
             break;
           case 8: // scorpio
             x = "521px";
             y = "172px";
             break;
-          case 9: // sagittarius
+          case 9: // Sagittarius
             x = "533px";
             y = "237px";
             break;
@@ -231,105 +505,124 @@
             x = "256px";
             y = "295px";
             break;
-          case 11: // aquarius
+          case 11: // Aquarius
             x = "445px";
             y = "95px";
             break;
-          case 12: // pisces
-            x = "px";
-            y = "px";
+          case 12: // Pisces
+            x = "325px";
+            y = "248px";
             break;
         }
 
         document.getElementById("brightStar").style.left = x;
         document.getElementById("brightStar").style.top = y;
+
+        $("#starVisible").fadeIn(200);
         $("#brightStar").fadeIn(200);
+
+        let mX = mouseX + "px";  // Horizontal
+        let mY = mouseY + "px";  // Vertical
+        print(mouseX, mouseY);
+
+        document.getElementById("starVisible").style.left = `${mX}`
+        document.getElementById("starVisible").style.top = `${mY}`
       }
 
-      function hideStar() {
-        $("#brightStar").fadeOut(500);
-      }
+
+
     </script>
     <dot id="brightStar"></dot>
-    <detailedWindow id="ariesDetailedWindow"> Aries
+    <detailedWindow id="AriesDetailedWindow"> Aries
       <hr>
-      <img src="assets/aries.png">
+      <img id="AriesImg" src="assets/Aries.png">
       <description>
         <p><b>Astronomy</b></p>
-        <p>Aries is a constellation in the northern sky between Pisces and Taurus. It doesn't contain very bright
-          stars; its brightest star <brightestStar id="brightestStar" onmouseout="hideStar()" onmouseover="toggleBrightestStar(1)">Hamal</brightestStar> has a
+        <p>Aries is a constellation in the northern sky between Pisces and Taurus.
+          It doesn't contain very bright
+          stars; its brightest star <brightestStar id="brightestStar" onmouseout="hideStar()"
+            onmouseover="toggleBrightestStar(1)">Hamal</brightestStar> has a
           magnitude of 2.0.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Aries is the first sign of the zodiac and governs the period March 21st to April 19th. Its representation as
-          a ram is identified with the Egyptian god Amon and, in Greek mythology, with the ram with the golden fleece.
+        <p>Aries (♈︎) is the 1<sup>st</sup> sign of the zodiac and governs the period March 21st to April
+          19th. Its representation as a ram is identified with the Egyptian god Amon and,
+          in Greek mythology, with the ram with the golden fleece.
         </p>
       </description>
-      <button class="navButton" onclick="navButtonPress(1)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(1)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="taurusDetailedWindow"> Taurus
+    <detailedWindow id="TaurusDetailedWindow"> Taurus
       <hr>
-      <img src="assets/taurus.png">
+      <img id="TaurusImg" src="assets/Taurus.png">
       <description>
         <p><b>Astronomy</b></p>
-        <p>Taurus is a constellation in the northern sky between Aries and Gemini. Its brightest star is
-          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(2)">Aldebaran</brightestStar>,
+        <p>Taurus is a constellation in the northern sky between Aries and Gemini. Its brightest
+          star is <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(2)">Aldebaran</brightestStar>,
           which is the 14th brightest star in the sky with a magnitude of 0.85.
         </p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Taurus is the second sign of the zodiac and governs the period April 20th to May 20th. Its representation as
-          a bull is related to the Greek myth of Zeus, who assumed the form of a bull to abduct Europa.</p>
+        <p>Taurus (♉︎) is the 2<sup>nd</sup> sign of the zodiac and governs the period April 20th to May 20th.
+          Its representation as a bull is related to the Greek myth of Zeus, who assumed the
+          form of a bull to abduct Europa.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(2)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(2)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="geminiDetailedWindow">Gemini
+    <detailedWindow id="GeminiDetailedWindow">Gemini
       <hr>
 
-      <img src="assets/gemini.png">
+      <img id="GeminiImg" src="assets/Gemini.png">
       <description>
         <p><b>Astronomy</b></p>
-        <p>Gemini lies in the northern sky between Taurus and Cancer. Its brightest stars are <brightestStar
-            onmouseout="hideStar()" onmouseover="toggleBrightestStar(31)">Castor</brightestStar> (magnitude
-          of 1.58)
-          and <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(32)">Pollux</brightestStar> (magnitude of 1.15; the 17th
-          brightest star in the sky).</p>
+        <p>Gemini lies in the northern sky between Taurus and Cancer. Its brightest stars are
+          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(31)">Castor
+          </brightestStar> (magnitude of 1.58) and <brightestStar onmouseout="hideStar()"
+            onmouseover="toggleBrightestStar(32)">Pollux</brightestStar> (magnitude of 1.15; the 17th
+          brightest star in the sky).
+        </p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Gemini is the third sign of the zodiac, and governs the period May 21st to June 21st. It's represented by a
-          set of twins in Greek astrology (namely Castor and Pollux), a pair of goats in Egyptian astrology, and a pair
-          of peacocks in Arabian astrology.</p>
+        <p>Gemini (♊︎) is the 3rd sign of the zodiac, and governs the period May 21st to June 21st. It's represented by
+          a set of twins in Greek astrology (namely Castor and Pollux), a pair of goats in Egyptian astrology, and a
+          pair of peacocks in Arabian astrology.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(3)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(3)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="cancerDetailedWindow"> Cancer
+    <detailedWindow id="CancerDetailedWindow"> Cancer
       <hr>
-      <img src="assets/cancer.png">
+      <img id="CancerImg" src="assets/Cancer.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Cancer lies in the northern sky between Gemini and Leo. Its brightest star,
-          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(4)">Al Tarf</brightestStar>, is quite dim with a magnitude
+          <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(4)">Al Tarf</brightestStar>, is quite
+          dim with a magnitude
           of 3.6.
         </p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Cancer is the fourth sign of the zodiac, and governs the period June 22nd to July 22nd. Its representation as
+        <p>Cancer (♋︎) is the 4<sup>th</sup> sign of the zodiac, and governs the period June 22nd to July 22nd. Its
+          representation as
           a crab (or lobster or crayfish) is related to the crab in Greek mythology that pinched Heracles while he was
           fighting the Lernaean hydra. Crushed by Heracles, the crab was rewarded by Heracles' enemy, Hera, by being
           placed in the heavens.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(4)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(4)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="leoDetailedWindow"> Leo
+    <detailedWindow id="LeoDetailedWindow"> Leo
       <hr>
-      <img src="assets/leo.png">
+      <img id="LeoImg" src="assets/Leo.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Leo lies in the northern sky between Cancer and Virgo and its brightest star, <brightestStar
@@ -338,17 +631,19 @@
           1.35.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Leo is the fifth sign of the zodiac and governs the period July 23rd to about August 22nd. Its representation
+        <p>Leo (♌︎) is the 5<sup>th</sup> sign of the zodiac and governs the period July 23rd to about August 22nd. Its
+          representation
           as a lion is usually linked with the Nemean lion slain by Heracles (Hercules) as part of the 12 Labours he was
           forced to do as penance for killing his wife and children.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(5)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(5)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="virgoDetailedWindow"> Virgo
+    <detailedWindow id="VirgoDetailedWindow"> Virgo
       <hr>
-      <img src="assets/virgo.png">
+      <img id="VirgoImg" src="assets/Virgo.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Virgo lies in the southern sky between Leo and Libra, and its brightest star <brightestStar
@@ -357,18 +652,20 @@
           in the sky with a magnitude of 1.04.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Virgo is the sixth sign of the zodiac and governs the period from August 23rd to September 22nd. It is
+        <p>Virgo (♍︎) is the 6<sup>th</sup> sign of the zodiac and governs the period from August 23rd to September
+          22nd. It is
           represented as a young maiden carrying a sheaf of wheat. She is variously identified as a fertility goddess
           (the Babylonian and Assyrian Ishtar, among others) or the harvest maiden (the Greek Persephone and others).
         </p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(6)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(6)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="libraDetailedWindow"> Libra
+    <detailedWindow id="LibraDetailedWindow"> Libra
       <hr>
-      <img src="assets/libra.png">
+      <img id="LibraImg" src="assets/Libra.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Libra lies in the southern sky between Virgo and Scorpius, and its brightest star <brightestStar
@@ -377,17 +674,19 @@
           “northern claw,”) has a dim magnitude of 2.6.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Libra is the seventh sign of the zodiac and is considered as governing the period from September 22nd to
+        <p>Libra (♎︎) is the 7<sup>th</sup> sign of the zodiac and is considered as governing the period from September
+          22nd to
           about October 23rd. It is represented by a woman (sometimes identified with Astraea, the Roman goddess of
           justice), holding a balance scale, or by the balance alone.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(7)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(7)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="scorpiusDetailedWindow"> Scorpius
+    <detailedWindow id="ScorpiusDetailedWindow"> Scorpius
       <hr>
-      <img src="assets/scorpius.png">
+      <img id="ScorpiusImg" src="assets/Scorpius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Scorpius lies in the southern sky between Libra and Sagittarius. Its brightest star, <brightestStar
@@ -396,19 +695,21 @@
           brightest star with a magnitude of 1.1.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Scorpius (most-commonly known as Scorpio in astrology) is the eighth sign of the zodiac and is considered as
+        <p>Scorpius (♏︎, most-commonly known as Scorpio in astrology) is the 8<sup>th</sup> sign of the zodiac and is
+          considered as
           governing the period from about October 24th to about November 21st. Its representation as a scorpion is
           related to the Greek legend of the scorpion that stung Orion to death (this is said to be why Orion sets as
           Scorpius
           rises in the sky).</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(8)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(8)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="sagittariusDetailedWindow"> Sagittarius
+    <detailedWindow id="SagittariusDetailedWindow"> Sagittarius
       <hr>
-      <img src="assets/sagittarius.png">
+      <img id="SagittariusImg" src="assets/Sagittarius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Sagittarius lies in the southern sky between Scorpius and Capricornus. Its brightest star is <brightestStar
@@ -418,38 +719,42 @@
           Epsilon Sagittarii), with a magnitude of 1.9.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Sagittarius is the ninth sign of the zodiac, considered as governing the period from about November 22nd to
+        <p>Sagittarius (♐︎) is the 9<sup>th</sup> sign of the zodiac, considered as governing the period from about
+          November 22nd to
           about December 21st. It is represented either by a centaur shooting a bow and arrow or by an arrow drawn
           across a bow. The identification of Sagittarius as a mounted archer was made by the Babylonians as early as
-          the 11th century BCE. Fun fact: Sagittarius points towards the center of our galaxy, the Milky Way.</p>
+          the 11th century BCE.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(9)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(9)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="capricornusDetailedWindow"> Capricornus
+    <detailedWindow id="CapricornusDetailedWindow"> Capricornus
       <hr>
-      <img src="assets/capricornus.png">
+      <img id="CapricornusImg" src="assets/Capricornus.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Capricornus lies in the southern sky between Sagittarius and Aquarius. It consists of dim stars; its
-          brightest star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(10)">Deneb Algedi</brightestStar> (Arabic for
+          brightest star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(10)">Deneb Algedi
+          </brightestStar> (Arabic for
           “kid's tail”), has a magnitude of 2.9.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>In astrology, Capricornus is known as Capricornus and it is the tenth sign in the zodiac, considered
-          as governing the period from about December 22nd to January 19th. It's commonly represented as a goat with a
-          fishtail; in the Greek myth of Pan, in an attempt to avoid the monster Typhon, he jumped
-          into the water as he was changing into an animal's shape. The half above water assumed the shape of a goat
-          while the lower half assumed the shape of a fish.</p>
+        <p>In astrology, Capricorn (♑︎, Capricornus) is the 10<sup>th</sup> sign in the zodiac, governing the period
+          from
+          December 22nd to January 19th. It's commonly styled as a goat with a fishtail; in the Greek myth of Pan he
+          jumped into water as he was morphing into an animal to avoid the monster Typhon. The half above
+          water took the shape of a goat, while the lower half took the shape of a fish.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(10)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(10)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="aquariusDetailedWindow"> Aquarius
+    <detailedWindow id="AquariusDetailedWindow"> Aquarius
       <hr>
-      <img src="assets/aquarius.png">
+      <img id="AquariusImg" src="assets/Aquarius.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Aquarius lies in the southern sky between Capricornus and Pisces. Its brightest star, <brightestStar
@@ -458,56 +763,151 @@
           “the lucky stars of the king”), has a dim magnitude of 3.0.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Aquarius is the eleventh sign of the zodiac and is considered as governing the period from about January 20th
+        <p>Aquarius (♒︎) is the 11<sup>th</sup> sign of the zodiac and is considered as governing the period from about
+          January 20th
           to about February 18th. It is represented as a man pouring a stream of water out of a jug, likely because in
           ancient times the rising of Aquarius coincided in the Middle East with a period of floods and rain.</p>
       </description>
-      <button class="navButton" onclick="navButtonPress(11)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(11)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
-    <detailedWindow id="piscesDetailedWindow"> Pisces
+    <detailedWindow id="PiscesDetailedWindow"> Pisces
       <hr>
-      <img src="assets/pisces.png">
+      <img id="PiscesImg" src="assets/Pisces.png">
       <description>
         <p><b>Astronomy</b></p>
         <p>Pisces lies in the northern sky between Aquarius and Aries and mostly consists of dim stars; the brightest
-          star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(12)">Eta Piscium</brightestStar>, has a magnitude of
+          star, <brightestStar onmouseout="hideStar()" onmouseover="toggleBrightestStar(12)">Eta Piscium</brightestStar>
+          , has a magnitude of
           3.6.</p>
         <br>
         <p><b>Astrology</b></p>
-        <p>Pisces is the 12th sign of the zodiac, and is considered as governing the period from about February 19th to
+        <p>Pisces (♓︎) is the 12<sup>th</sup> sign of the zodiac, and is considered as governing the period from about
+          February 19th to
           about
           March 20th. Its representation as two fish tied together is usually related to the Greek myth of Aphrodite and
           Eros, who jumped into a river to escape the monster Typhon and changed into fish, or alternatively, the two
           fish that carried them to safety.</p>
 
       </description>
-      <button class="navButton" onclick="navButtonPress(12)">🚩</button>
+      <button class="navButton" style="font-family:emojiFont" onclick="navButtonPress(12)"><span
+          class="material-symbols-outlined">location_on</span></button>
     </detailedWindow>
 
+    <starVisible id="starVisible">Look up! This star is highlighted on the constellation</starVisible>
   </detailedWindows>
   <completedWindow id="completedWindow">
-    You just finished drawing <ariesName id="aries">Aries! </ariesName>
-    <taurusName id="taurus">Taurus!</taurusName>
-    <geminiName id="gemini">Gemini!</geminiName>
-    <cancerName id="cancer">Cancer!</cancerName>
-    <leoName id="leo">Leo!</leoName>
-    <virgoName id="virgo">Virgo!</virgoName>
-    <libraName id="libra">Libra!</libraName>
-    <scorpiusName id="scorpius">Scorpius!</scorpiusName>
-    <sagittariusName id="sagittarius">Sagittarius!</sagittariusName>
-    <capricornusName id="capricornus">Capricornus!</capricornusName>
-    <aquariusName id="aquarius">Aquarius!</aquariusName>
-    <piscesName id="pisces">Pisces!
-    </piscesName>
-    Click its name in the library to learn more!
+    You just finished drawing <AriesName id="Aries">Aries! </AriesName>
+    <TaurusName id="Taurus">Taurus!</TaurusName>
+    <GeminiName id="Gemini">Gemini!</GeminiName>
+    <CancerName id="Cancer">Cancer!</CancerName>
+    <LeoName id="Leo">Leo!</LeoName>
+    <VirgoName id="Virgo">Virgo!</VirgoName>
+    <LibraName id="Libra">Libra!</LibraName>
+    <ScorpiusName id="Scorpius">Scorpius!</ScorpiusName>
+    <SagittariusName id="Sagittarius">Sagittarius!</SagittariusName>
+    <CapricornusName id="Capricornus">Capricornus!</CapricornusName>
+    <AquariusName id="Aquarius">Aquarius!</AquariusName>
+    <PiscesName id="Pisces">Pisces!
+    </PiscesName>
+    Click it in the Library to learn more!
   </completedWindow>
   <script>
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
     });
   </script>
-</body>
 
+  <script>
+    lib = document.getElementById("Library");
+    about = document.getElementById("About");
+
+    function libButtonPress() {
+      if (lib.style.display === "block" && mouseButton === LEFT) {
+        lib.style.display = "none";
+      } else if (mouseButton === LEFT) {
+        lib.style.display = "block";
+        quiz.style.display = "none";
+      }
+    }
+
+    // If mouse over Quiz, fade in
+    // If mouse no longer within quiz, fade out
+
+    function quizMouseOver() {
+      if (quizAccessible == 0) {
+        $("#quizNA").fadeIn(250);
+        document.getElementById("quizMenuButton").style.cursor = "no-drop"
+      }
+    }
+
+    function quizMouseOut() {
+      $("#quizNA").fadeOut(250);
+    }
+
+    function quizButtonPress() {
+      if (quizAccessible == 1) {
+        quizButton.style.display = "block";
+        about.style.display = "none";
+        lib.style.display = "none";
+        nextQuestion();
+
+
+        // Close Detailed Window
+        for (let i = 1; i < 13; i++) {
+          constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+          detailedWindow.style.display = "none";
+          constDetailedWindow.style.display = "none";
+        }
+
+        if (quiz.style.display === "block" && mouseButton === LEFT) {
+          quiz.style.display = "none";
+        } else if (mouseButton === LEFT) {
+          quiz.style.display = "block";
+        }
+      }
+    }
+
+    function aboutButtonPress() {
+      // Close Detailed Window
+      for (let i = 1; i < 13; i++) {
+        constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+        detailedWindow.style.display = "none";
+        constDetailedWindow.style.display = "none";
+      }
+
+      // Close library
+      lib.style.display = "none";
+      quiz.style.display = "none";
+
+      if (about.style.display === "block" && mouseButton === LEFT) {
+        about.style.display = "none";
+      } else if (mouseButton === LEFT) {
+        about.style.display = "block";
+      }
+    }
+
+    let splashScreen = document.getElementById("splashScreen");
+
+    function hideSplashScreen() {
+      $("#splashScreen").fadeOut(150);
+      print("herllo")
+    }
+
+  </script>
+  <buttons onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <button class="libButton" onclick="libButtonPress()"><span
+        class="material-symbols-outlined">dictionary</span><br>Library</button>
+    <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseenter="quizMouseOver()"
+      onmouseleave="quizMouseOut()"><b><span class="material-symbols-outlined">quiz</span></b><br>Quiz</button>
+    <button class="aboutButton" onclick="aboutButtonPress()"><span
+        class="material-symbols-outlined">info</span><br>About</button>
+
+  </buttons>
+  <quizNotAccessible id="quizNA">You can access the quiz once you've discovered at least <b>4</b> constellations!
+  </quizNotAccessible>
+
+</body>
 
 </html>

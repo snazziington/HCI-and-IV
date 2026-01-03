@@ -1,20 +1,20 @@
 function checkNextStars(currentConstellation) {
 	switch (currentConstellation) { // Check which constellation we are currently drawing
 
-		case 1: // 0 = aries
+		case 1: // 0 = Aries
 			switch (currentStar) { // Check which star we are on, and
 				// determines neighbouring stars based on currentStar
 				case 1:
-					neighbouringStars = [aries.v2]
+					neighbouringStars = [Aries.v2]
 					break;
 				case 2:
-					neighbouringStars = [aries.v1, aries.v3]
+					neighbouringStars = [Aries.v1, Aries.v3]
 					break;
 				case 3:
-					neighbouringStars = [aries.v2, aries.v4]
+					neighbouringStars = [Aries.v2, Aries.v4]
 					break;
 				case 4:
-					neighbouringStars = [aries.v3]
+					neighbouringStars = [Aries.v3]
 					break;
 			}
 
@@ -35,44 +35,44 @@ function checkNextStars(currentConstellation) {
 			}
 			break;
 
-		case 2: // 1 = taurus
+		case 2: // 1 = Taurus
 			switch (currentStar) { // Check which star we are on, and
 				// determines neighbouring stars based on currentStar
 				case 1:
-					neighbouringStars = [taurus.v2];
+					neighbouringStars = [Taurus.v2];
 					break;
 				case 2:
-					neighbouringStars = [taurus.v1, taurus.v3];
+					neighbouringStars = [Taurus.v1, Taurus.v3];
 					break;
 				case 3:
-					neighbouringStars = [taurus.v2, taurus.v4, taurus.v12];
+					neighbouringStars = [Taurus.v2, Taurus.v4, Taurus.v12];
 					break;
 				case 4:
-					neighbouringStars = [taurus.v3, taurus.v5];
+					neighbouringStars = [Taurus.v3, Taurus.v5];
 					break;
 				case 5:
-					neighbouringStars = [taurus.v4, taurus.v6, taurus.v7];
+					neighbouringStars = [Taurus.v4, Taurus.v6, Taurus.v7];
 					break;
 				case 6:
-					neighbouringStars = [taurus.v5];
+					neighbouringStars = [Taurus.v5];
 					break;
 				case 7:
-					neighbouringStars = [taurus.v5, taurus.v8, taurus.v11,];
+					neighbouringStars = [Taurus.v5, Taurus.v8, Taurus.v11,];
 					break;
 				case 8:
-					neighbouringStars = [taurus.v7, taurus.v9];
+					neighbouringStars = [Taurus.v7, Taurus.v9];
 					break;
 				case 9:
-					neighbouringStars = [taurus.v8];
+					neighbouringStars = [Taurus.v8];
 					break;
 				case 10:
-					neighbouringStars = [taurus.v12];
+					neighbouringStars = [Taurus.v12];
 					break;
 				case 11:
-					neighbouringStars = [taurus.v7, taurus.v12];
+					neighbouringStars = [Taurus.v7, Taurus.v12];
 					break;
 				case 12:
-					neighbouringStars = [taurus.v11, taurus.v3, taurus.v10];
+					neighbouringStars = [Taurus.v11, Taurus.v3, Taurus.v10];
 					break;
 			}
 
@@ -143,71 +143,71 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [gemini.v2]
+					neighbouringStars = [Gemini.v2]
 					break;
 
 				case 2:
-					neighbouringStars = [gemini.v1, gemini.v3]
+					neighbouringStars = [Gemini.v1, Gemini.v3]
 					break;
 
 				case 3:
-					neighbouringStars = [gemini.v2, gemini.v4]
+					neighbouringStars = [Gemini.v2, Gemini.v4]
 					break;
 
 				case 4:
-					neighbouringStars = [gemini.v3, gemini.v5, gemini.v6]
+					neighbouringStars = [Gemini.v3, Gemini.v5, Gemini.v6]
 					break;
 
 				case 5:
-					neighbouringStars = [gemini.v4]
+					neighbouringStars = [Gemini.v4]
 					break;
 
 				case 6:
-					neighbouringStars = [gemini.v4, gemini.v7, gemini.v8, gemini.v9]
+					neighbouringStars = [Gemini.v4, Gemini.v7, Gemini.v8, Gemini.v9]
 					break;
 
 				case 7:
-					neighbouringStars = [gemini.v6]
+					neighbouringStars = [Gemini.v6]
 					break;
 
 				case 8:
-					neighbouringStars = [gemini.v6]
+					neighbouringStars = [Gemini.v6]
 					break;
 
 				case 9:
-					neighbouringStars = [gemini.v6, gemini.v11]
+					neighbouringStars = [Gemini.v6, Gemini.v11]
 					break;
 
 				case 10:
-					neighbouringStars = [gemini.v11]
+					neighbouringStars = [Gemini.v11]
 					break;
 
 				case 11:
-					neighbouringStars = [gemini.v9, gemini.v10, gemini.v12, gemini.v13]
+					neighbouringStars = [Gemini.v9, Gemini.v10, Gemini.v12, Gemini.v13]
 					break;
 
 				case 12:
-					neighbouringStars = [gemini.v11]
+					neighbouringStars = [Gemini.v11]
 					break;
 
 				case 13:
-					neighbouringStars = [gemini.v11, gemini.v14, gemini.v15]
+					neighbouringStars = [Gemini.v11, Gemini.v14, Gemini.v15]
 					break;
 
 				case 14:
-					neighbouringStars = [gemini.v13, gemini.v17]
+					neighbouringStars = [Gemini.v13, Gemini.v17]
 					break;
 
 				case 15:
-					neighbouringStars = [gemini.v13, gemini.v16]
+					neighbouringStars = [Gemini.v13, Gemini.v16]
 					break;
 
 				case 16:
-					neighbouringStars = [gemini.v15]
+					neighbouringStars = [Gemini.v15]
 					break;
 
 				case 17:
-					neighbouringStars = [gemini.v14]
+					neighbouringStars = [Gemini.v14]
 					break;
 			}
 
@@ -297,27 +297,27 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [cancer.v3]
+					neighbouringStars = [Cancer.v3]
 					break;
 
 				case 2:
-					neighbouringStars = [cancer.v3]
+					neighbouringStars = [Cancer.v3]
 					break;
 
 				case 3:
-					neighbouringStars = [cancer.v1, cancer.v2, cancer.v4]
+					neighbouringStars = [Cancer.v1, Cancer.v2, Cancer.v4]
 					break;
 
 				case 4:
-					neighbouringStars = [cancer.v3, cancer.v5, cancer.v6]
+					neighbouringStars = [Cancer.v3, Cancer.v5, Cancer.v6]
 					break;
 
 				case 5:
-					neighbouringStars = [cancer.v4]
+					neighbouringStars = [Cancer.v4]
 					break;
 
 				case 6:
-					neighbouringStars = [cancer.v4]
+					neighbouringStars = [Cancer.v4]
 					break;
 			}
 
@@ -352,39 +352,39 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [leo.v2]
+					neighbouringStars = [Leo.v2]
 					break;
 
 				case 2:
-					neighbouringStars = [leo.v1, leo.v3]
+					neighbouringStars = [Leo.v1, Leo.v3]
 					break;
 
 				case 3:
-					neighbouringStars = [leo.v2, leo.v4]
+					neighbouringStars = [Leo.v2, Leo.v4]
 					break;
 
 				case 4:
-					neighbouringStars = [leo.v3, leo.v5, leo.v7]
+					neighbouringStars = [Leo.v3, Leo.v5, Leo.v7]
 					break;
 
 				case 5:
-					neighbouringStars = [leo.v4, leo.v6]
+					neighbouringStars = [Leo.v4, Leo.v6]
 					break;
 
 				case 6:
-					neighbouringStars = [leo.v5, leo.v8]
+					neighbouringStars = [Leo.v5, Leo.v8]
 					break;
 
 				case 7:
-					neighbouringStars = [leo.v4, leo.v8, leo.v9]
+					neighbouringStars = [Leo.v4, Leo.v8, Leo.v9]
 					break;
 
 				case 8:
-					neighbouringStars = [leo.v6, leo.v7, leo.v9]
+					neighbouringStars = [Leo.v6, Leo.v7, Leo.v9]
 					break;
 
 				case 9:
-					neighbouringStars = [leo.v7, leo.v8]
+					neighbouringStars = [Leo.v7, Leo.v8]
 					break;
 			}
 
@@ -408,29 +408,34 @@ function checkNextStars(currentConstellation) {
 				constellations[currentConstellation].line[3] = 1;
 			}
 
+			else if ((previousStar == 5 && currentStar == 6) ||
+				(previousStar == 6 && currentStar == 5)) {
+				constellations[currentConstellation].line[4] = 1;
+			}
+
 			else if ((previousStar == 4 && currentStar == 7) ||
 				(previousStar == 7 && currentStar == 4)) {
-				constellations[currentConstellation].line[4] = 1;
+				constellations[currentConstellation].line[5] = 1;
 			}
 
 			else if ((previousStar == 6 && currentStar == 8) ||
 				(previousStar == 8 && currentStar == 6)) {
-				constellations[currentConstellation].line[5] = 1;
+				constellations[currentConstellation].line[6] = 1;
 			}
 
 			else if ((previousStar == 7 && currentStar == 8) ||
 				(previousStar == 8 && currentStar == 7)) {
-				constellations[currentConstellation].line[6] = 1;
+				constellations[currentConstellation].line[7] = 1;
 			}
 
 			else if ((previousStar == 7 && currentStar == 9) ||
 				(previousStar == 9 && currentStar == 7)) {
-				constellations[currentConstellation].line[7] = 1;
+				constellations[currentConstellation].line[8] = 1;
 			}
 
 			else if ((previousStar == 8 && currentStar == 9) ||
 				(previousStar == 9 && currentStar == 8)) {
-				constellations[currentConstellation].line[8] = 1;
+				constellations[currentConstellation].line[9] = 1;
 			}
 			break;
 
@@ -438,51 +443,51 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [virgo.v2];
+					neighbouringStars = [Virgo.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [virgo.v1, virgo.v3];
+					neighbouringStars = [Virgo.v1, Virgo.v3];
 					break;
 
 				case 3:
-					neighbouringStars = [virgo.v2, virgo.v4, virgo.v9];
+					neighbouringStars = [Virgo.v2, Virgo.v4, Virgo.v9];
 					break;
 
 				case 4:
-					neighbouringStars = [virgo.v3, virgo.v5, virgo.v6];
+					neighbouringStars = [Virgo.v3, Virgo.v5, Virgo.v6];
 					break;
 
 				case 5:
-					neighbouringStars = [virgo.v4];
+					neighbouringStars = [Virgo.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [virgo.v4, virgo.v7, virgo.v9];
+					neighbouringStars = [Virgo.v4, Virgo.v7, Virgo.v9];
 					break;
 
 				case 7:
-					neighbouringStars = [virgo.v6, virgo.v8];
+					neighbouringStars = [Virgo.v6, Virgo.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [virgo.v7];
+					neighbouringStars = [Virgo.v7];
 					break;
 
 				case 9:
-					neighbouringStars = [virgo.v3, virgo.v6, virgo.v10];
+					neighbouringStars = [Virgo.v3, Virgo.v6, Virgo.v10];
 					break;
 
 				case 10:
-					neighbouringStars = [virgo.v9, virgo.v11];
+					neighbouringStars = [Virgo.v9, Virgo.v11];
 					break;
 
 				case 11:
-					neighbouringStars = [virgo.v10, virgo.v12];
+					neighbouringStars = [Virgo.v10, Virgo.v12];
 					break;
 
 				case 12:
-					neighbouringStars = [virgo.v11];
+					neighbouringStars = [Virgo.v11];
 					break;
 			}
 
@@ -551,23 +556,23 @@ function checkNextStars(currentConstellation) {
 		case 7: // Libra
 			switch (currentStar) {
 				case 1:
-					neighbouringStars = [libra.v2, libra.v5];
+					neighbouringStars = [Libra.v2, Libra.v5];
 					break;
 
 				case 2:
-					neighbouringStars = [libra.v1, libra.v3];
+					neighbouringStars = [Libra.v1, Libra.v3];
 					break;
 
 				case 3:
-					neighbouringStars = [libra.v2, libra.v4, libra.v5];
+					neighbouringStars = [Libra.v2, Libra.v4, Libra.v5];
 					break;
 
 				case 4:
-					neighbouringStars = [libra.v3];
+					neighbouringStars = [Libra.v3];
 					break;
 
 				case 5:
-					neighbouringStars = [libra.v1, libra.v3];
+					neighbouringStars = [Libra.v1, Libra.v3];
 					break;
 			}
 
@@ -602,55 +607,55 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [scorpius.v4];
+					neighbouringStars = [Scorpius.v4];
 					break;
 
 				case 2:
-					neighbouringStars = [scorpius.v4];
+					neighbouringStars = [Scorpius.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [scorpius.v4];
+					neighbouringStars = [Scorpius.v4];
 					break;
 
 				case 4:
-					neighbouringStars = [scorpius.v1, scorpius.v2, scorpius.v3, scorpius.v5];
+					neighbouringStars = [Scorpius.v1, Scorpius.v2, Scorpius.v3, Scorpius.v5];
 					break;
 
 				case 5:
-					neighbouringStars = [scorpius.v4, scorpius.v6];
+					neighbouringStars = [Scorpius.v4, Scorpius.v6];
 					break;
 
 				case 6:
-					neighbouringStars = [scorpius.v5, scorpius.v7];
+					neighbouringStars = [Scorpius.v5, Scorpius.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [scorpius.v6, scorpius.v8];
+					neighbouringStars = [Scorpius.v6, Scorpius.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [scorpius.v7, scorpius.v9];
+					neighbouringStars = [Scorpius.v7, Scorpius.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [scorpius.v8, scorpius.v10];
+					neighbouringStars = [Scorpius.v8, Scorpius.v10];
 					break;
 
 				case 10:
-					neighbouringStars = [scorpius.v9, scorpius.v11];
+					neighbouringStars = [Scorpius.v9, Scorpius.v11];
 					break;
 
 				case 11:
-					neighbouringStars = [scorpius.v10, scorpius.v12];
+					neighbouringStars = [Scorpius.v10, Scorpius.v12];
 					break;
 
 				case 12:
-					neighbouringStars = [scorpius.v11, scorpius.v13];
+					neighbouringStars = [Scorpius.v11, Scorpius.v13];
 					break;
 
 				case 13:
-					neighbouringStars = [scorpius.v12];
+					neighbouringStars = [Scorpius.v12];
 					break;
 			}
 
@@ -720,87 +725,87 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [sagittarius.v3];
+					neighbouringStars = [Sagittarius.v3];
 					break;
 
 				case 2:
-					neighbouringStars = [sagittarius.v4];
+					neighbouringStars = [Sagittarius.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [sagittarius.v1, sagittarius.v5, sagittarius.v9];
+					neighbouringStars = [Sagittarius.v1, Sagittarius.v5, Sagittarius.v9];
 					break;
 
 				case 4:
-					neighbouringStars = [sagittarius.v2, sagittarius.v5, sagittarius.v6];
+					neighbouringStars = [Sagittarius.v2, Sagittarius.v5, Sagittarius.v6];
 					break;
 
 				case 5:
-					neighbouringStars = [sagittarius.v3, sagittarius.v4, sagittarius.v6, sagittarius.v9];
+					neighbouringStars = [Sagittarius.v3, Sagittarius.v4, Sagittarius.v6, Sagittarius.v9];
 					break;
 
 				case 6:
-					neighbouringStars = [sagittarius.v4, sagittarius.v5, sagittarius.v7, sagittarius.v8];
+					neighbouringStars = [Sagittarius.v4, Sagittarius.v5, Sagittarius.v7, Sagittarius.v8];
 					break;
 
 				case 7:
-					neighbouringStars = [sagittarius.v6];
+					neighbouringStars = [Sagittarius.v6];
 					break;
 
 				case 8:
-					neighbouringStars = [sagittarius.v6, sagittarius.v9, sagittarius.v15];
+					neighbouringStars = [Sagittarius.v6, Sagittarius.v9, Sagittarius.v15];
 					break;
 
 				case 9:
-					neighbouringStars = [sagittarius.v3, sagittarius.v5, sagittarius.v8, sagittarius.v10];
+					neighbouringStars = [Sagittarius.v3, Sagittarius.v5, Sagittarius.v8, Sagittarius.v10];
 					break;
 
 				case 10:
-					neighbouringStars = [sagittarius.v9, sagittarius.v11, sagittarius.v15];
+					neighbouringStars = [Sagittarius.v9, Sagittarius.v11, Sagittarius.v15];
 					break;
 
 				case 11:
-					neighbouringStars = [sagittarius.v10, sagittarius.v12];
+					neighbouringStars = [Sagittarius.v10, Sagittarius.v12];
 					break;
 
 				case 12:
-					neighbouringStars = [sagittarius.v11, sagittarius.v13];
+					neighbouringStars = [Sagittarius.v11, Sagittarius.v13];
 					break;
 
 				case 13:
-					neighbouringStars = [sagittarius.v12, sagittarius.v14];
+					neighbouringStars = [Sagittarius.v12, Sagittarius.v14];
 					break;
 
 				case 14:
-					neighbouringStars = [sagittarius.v13];
+					neighbouringStars = [Sagittarius.v13];
 					break;
 
 				case 15:
-					neighbouringStars = [sagittarius.v8, sagittarius.v10, sagittarius.v16];
+					neighbouringStars = [Sagittarius.v8, Sagittarius.v10, Sagittarius.v16];
 					break;
 
 				case 16:
-					neighbouringStars = [sagittarius.v15, sagittarius.v17];
+					neighbouringStars = [Sagittarius.v15, Sagittarius.v17];
 					break;
 
 				case 17:
-					neighbouringStars = [sagittarius.v16, sagittarius.v18];
+					neighbouringStars = [Sagittarius.v16, Sagittarius.v18];
 					break;
 
 				case 18:
-					neighbouringStars = [sagittarius.v17, sagittarius.v19];
+					neighbouringStars = [Sagittarius.v17, Sagittarius.v19];
 					break;
 
 				case 19:
-					neighbouringStars = [sagittarius.v18, sagittarius.v20, sagittarius.v21];
+					neighbouringStars = [Sagittarius.v18, Sagittarius.v20, Sagittarius.v21];
 					break;
 
 				case 20:
-					neighbouringStars = [sagittarius.v19];
+					neighbouringStars = [Sagittarius.v19];
 					break;
 
 				case 21:
-					neighbouringStars = [sagittarius.v19];
+					neighbouringStars = [Sagittarius.v19];
 					break;
 			}
 
@@ -926,43 +931,43 @@ function checkNextStars(currentConstellation) {
 
 			break;
 
-		case 10: // capricornus
+		case 10: // Capricornus
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [Capricornus.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [capricornus.v1, capricornus.v3, capricornus.v4];
+					neighbouringStars = [Capricornus.v1, Capricornus.v3, Capricornus.v4];
 					break;
 
 				case 3:
-					neighbouringStars = [capricornus.v2];
+					neighbouringStars = [Capricornus.v2];
 					break;
 
 				case 4:
-					neighbouringStars = [capricornus.v2, capricornus.v5, capricornus.v6, capricornus.v7];
+					neighbouringStars = [Capricornus.v2, Capricornus.v5, Capricornus.v6, Capricornus.v7];
 					break;
 
 				case 5:
-					neighbouringStars = [capricornus.v4];
+					neighbouringStars = [Capricornus.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [capricornus.v4, capricornus.v7];
+					neighbouringStars = [Capricornus.v4, Capricornus.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [capricornus.v4, capricornus.v6, capricornus.v8];
+					neighbouringStars = [Capricornus.v4, Capricornus.v6, Capricornus.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [capricornus.v7, capricornus.v9];
+					neighbouringStars = [Capricornus.v7, Capricornus.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [capricornus.v8];
+					neighbouringStars = [Capricornus.v8];
 					break;
 			}
 
@@ -1008,67 +1013,67 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [aquarius.v2];
+					neighbouringStars = [Aquarius.v2];
 					break;
 
 				case 2:
-					neighbouringStars = [aquarius.v1, aquarius.v3];
+					neighbouringStars = [Aquarius.v1, Aquarius.v3];
 					break;
 
 				case 3:
-					neighbouringStars = [aquarius.v2, aquarius.v4];
+					neighbouringStars = [Aquarius.v2, Aquarius.v4];
 					break;
 
 				case 4:
-					neighbouringStars = [aquarius.v3, aquarius.v5, aquarius.v11];
+					neighbouringStars = [Aquarius.v3, Aquarius.v5, Aquarius.v11];
 					break;
 
 				case 5:
-					neighbouringStars = [aquarius.v4, aquarius.v6, aquarius.v7];
+					neighbouringStars = [Aquarius.v4, Aquarius.v6, Aquarius.v7];
 					break;
 
 				case 6:
-					neighbouringStars = [aquarius.v5];
+					neighbouringStars = [Aquarius.v5];
 					break;
 
 				case 7:
-					neighbouringStars = [aquarius.v5, aquarius.v8];
+					neighbouringStars = [Aquarius.v5, Aquarius.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [aquarius.v7, aquarius.v9];
+					neighbouringStars = [Aquarius.v7, Aquarius.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [aquarius.v8, aquarius.v10];
+					neighbouringStars = [Aquarius.v8, Aquarius.v10];
 					break;
 
 				case 10:
-					neighbouringStars = [aquarius.v9];
+					neighbouringStars = [Aquarius.v9];
 					break;
 
 				case 11:
-					neighbouringStars = [aquarius.v4, aquarius.v12];
+					neighbouringStars = [Aquarius.v4, Aquarius.v12];
 					break;
 
 				case 12:
-					neighbouringStars = [aquarius.v11, aquarius.v13];
+					neighbouringStars = [Aquarius.v11, Aquarius.v13];
 					break;
 
 				case 13:
-					neighbouringStars = [aquarius.v12, aquarius.v14];
+					neighbouringStars = [Aquarius.v12, Aquarius.v14];
 					break;
 
 				case 14:
-					neighbouringStars = [aquarius.v13, aquarius.v15];
+					neighbouringStars = [Aquarius.v13, Aquarius.v15];
 					break;
 
 				case 15:
-					neighbouringStars = [aquarius.v14, aquarius.v16];
+					neighbouringStars = [Aquarius.v14, Aquarius.v16];
 					break;
 
 				case 16:
-					neighbouringStars = [aquarius.v15];
+					neighbouringStars = [Aquarius.v15];
 					break;
 			}
 
@@ -1138,75 +1143,75 @@ function checkNextStars(currentConstellation) {
 			switch (currentStar) {
 
 				case 1:
-					neighbouringStars = [pisces.v2, pisces.v5];
+					neighbouringStars = [Pisces.v2, Pisces.v5];
 					break;
 
 				case 2:
-					neighbouringStars = [pisces.v1, pisces.v3];
+					neighbouringStars = [Pisces.v1, Pisces.v3];
 					break;
 
 				case 3:
-					neighbouringStars = [pisces.v2, pisces.v4];
+					neighbouringStars = [Pisces.v2, Pisces.v4];
 					break;
 
 				case 4:
-					neighbouringStars = [pisces.v3, pisces.v5, pisces.v6];
+					neighbouringStars = [Pisces.v3, Pisces.v5, Pisces.v6];
 					break;
 
 				case 5:
-					neighbouringStars = [pisces.v1, pisces.v4];
+					neighbouringStars = [Pisces.v1, Pisces.v4];
 					break;
 
 				case 6:
-					neighbouringStars = [pisces.v4, pisces.v7];
+					neighbouringStars = [Pisces.v4, Pisces.v7];
 					break;
 
 				case 7:
-					neighbouringStars = [pisces.v6, pisces.v8];
+					neighbouringStars = [Pisces.v6, Pisces.v8];
 					break;
 
 				case 8:
-					neighbouringStars = [pisces.v7, pisces.v9];
+					neighbouringStars = [Pisces.v7, Pisces.v9];
 					break;
 
 				case 9:
-					neighbouringStars = [pisces.v8, pisces.v10];
+					neighbouringStars = [Pisces.v8, Pisces.v10];
 					break;
 
 				case 10:
-					neighbouringStars = [pisces.v9, pisces.v11];
+					neighbouringStars = [Pisces.v9, Pisces.v11];
 					break;
 
 				case 11:
-					neighbouringStars = [pisces.v10, pisces.v12];
+					neighbouringStars = [Pisces.v10, Pisces.v12];
 					break;
 
 				case 12:
-					neighbouringStars = [pisces.v11, pisces.v13];
+					neighbouringStars = [Pisces.v11, Pisces.v13];
 					break;
 
 				case 13:
-					neighbouringStars = [pisces.v12, pisces.v14];
+					neighbouringStars = [Pisces.v12, Pisces.v14];
 					break;
 
 				case 14:
-					neighbouringStars = [pisces.v13, pisces.v15];
+					neighbouringStars = [Pisces.v13, Pisces.v15];
 					break;
 
 				case 15:
-					neighbouringStars = [pisces.v14, pisces.v16];
+					neighbouringStars = [Pisces.v14, Pisces.v16];
 					break;
 
 				case 16:
-					neighbouringStars = [pisces.v15, pisces.v17, pisces.v18];
+					neighbouringStars = [Pisces.v15, Pisces.v17, Pisces.v18];
 					break;
 
 				case 17:
-					neighbouringStars = [pisces.v16, pisces.v18];
+					neighbouringStars = [Pisces.v16, Pisces.v18];
 					break;
 
 				case 18:
-					neighbouringStars = [pisces.v16, pisces.v17];
+					neighbouringStars = [Pisces.v16, Pisces.v17];
 					break;
 			}
 
@@ -1290,6 +1295,9 @@ function checkNextStars(currentConstellation) {
 
 	// allLinesDrawn = method which returns true if all lines have been drawn
 	const allLinesDrawn = (value) => value == 1;
+	for (let i = 0; i < neighbouringStars.length; i++) {
+		neighbouringStars[i][6] = 1;
+	}
 
 	if (constellations[currentConstellation].line.every(allLinesDrawn)) {
 		constellations[currentConstellation].completed = 1;
@@ -1301,4 +1309,5 @@ function checkNextStars(currentConstellation) {
 	if (constellations[currentConstellation].completed == 1) {
 		isDrawing = false;
 	}
+
 }

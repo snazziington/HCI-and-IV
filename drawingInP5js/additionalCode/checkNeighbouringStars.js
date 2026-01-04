@@ -84,7 +84,7 @@ function updateNeighbours() {
     for (let i = 0; i < neighbouringStars.length; i++) {
         // Check whether the star is complete or not (by seeing which lines are drawn)
         switch (currentConstellation) {
-            case 1: // Aries -- Done
+            case 1: // Aries -- Double-Checked
                 switch (previousStar) {
                     case 1:
                         if (constellations[currentConstellation].line[0] == 1) {
@@ -321,55 +321,56 @@ function updateNeighbours() {
                 }
                 break;
 
-            case 5: // Leo -- Done
+            case 5: // Leo -- Double-checked
                 switch (previousStar) {
                     case 1:
                         if (constellations[currentConstellation].line[0] == 1) {
                             constellations[currentConstellation].v1[5] = 1;
-
                         }
                         break;
                     case 2:
-                        if (constellations[currentConstellation].line[0] == 1 && constellations[currentConstellation].line[2] == 1) {
+                        if (constellations[currentConstellation].line[0] == 1 && constellations[currentConstellation].line[1] == 1) {
                             constellations[currentConstellation].v2[5] = 1;
                         }
                         break;
                     case 3:
-                        if (constellations[currentConstellation].line[2] == 1 && constellations[currentConstellation].line[3] == 1
-                            && constellations[currentConstellation].line[4] == 1
-                        ) {
+                        if (constellations[currentConstellation].line[1] == 1 && constellations[currentConstellation].line[2] == 1) {
                             constellations[currentConstellation].v3[5] = 1;
                         }
                         break;
                     case 4:
-                        if (constellations[currentConstellation].line[3] == 1) {
+                        if (constellations[currentConstellation].line[2] == 1 && constellations[currentConstellation].line[3] == 1
+                            && constellations[currentConstellation].line[5] == 1
+                        ) {
                             constellations[currentConstellation].v4[5] = 1;
                         }
                         break;
                     case 5:
-                        if (constellations[currentConstellation].line[1] == 1 && constellations[currentConstellation].line[4] == 1) {
+                        if (constellations[currentConstellation].line[3] == 1 && constellations[currentConstellation].line[4] == 1) {
                             constellations[currentConstellation].v5[5] = 1;
                         }
                         break;
                     case 6:
-                        if (constellations[currentConstellation].line[4] == 1 && constellations[currentConstellation].line[5] == 1
-                            && constellations[currentConstellation].line[6] == 1 && constellations[currentConstellation].line[7] == 1
-                        ) {
+                        if (constellations[currentConstellation].line[4] == 1 && constellations[currentConstellation].line[6] == 1) {
                             constellations[currentConstellation].v6[5] = 1
                         }
                         break;
                     case 7:
-                        if (constellations[currentConstellation].line[5] == 1) {
+                        if (constellations[currentConstellation].line[5] == 1 && constellations[currentConstellation].line[7] == 1
+                            && constellations[currentConstellation].line[8] == 1
+                        ) {
                             constellations[currentConstellation].v7[5] = 1;
                         }
                         break;
                     case 8:
-                        if (constellations[currentConstellation].line[6] == 1) {
+                        if (constellations[currentConstellation].line[6] == 1 && constellations[currentConstellation].line[7] == 1
+                            && constellations[currentConstellation].line[9] == 1
+                        ) {
                             constellations[currentConstellation].v8[5] = 1;
                         }
                         break;
                     case 9:
-                        if (constellations[currentConstellation].line[7] == 1 && constellations[currentConstellation].line[8] == 1) {
+                        if (constellations[currentConstellation].line[8] == 1 && constellations[currentConstellation].line[9] == 1) {
                             constellations[currentConstellation].v9[5] = 1;
                         }
                         break;

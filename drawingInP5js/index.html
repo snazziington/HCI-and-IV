@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=quiz,dictionary,location_on,info" />
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=quiz,dictionary,location_on,info,mouse" />
 
 
   <script src="librAries/p5.min.js"></script>
@@ -28,7 +28,7 @@
 
   <About id="About">
     <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeAbout()"
-      style="margin-left:958px">X</button>
+      style="margin-left:858px">X</button>
     <p>About</p>
     <aboutDescription>
       <p>Welcome to <sb>My Little Observatory</sb>, a site where you can learn the constellations!
@@ -37,7 +37,28 @@
         about them in the <sb>Library</sb>. Once you've discovered at least 4 constellations, you can start
         testing your knowledge in the <sb>Quiz</sb>!</p>
       <br>
-      <p><b>Controls:</b></p>
+      <p><b>Definitions</b></p>
+      <p><b>Constellation:</b> Groupings of stars that were imagined to form configurations of objects or creatures
+        in the sky. Constellations are useful in assisting astronomers and navigators to locate certain stars.</p>
+      <br>
+      <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <sb>brighter</sb> the
+        object, the <sb>lower</sb> the number assigned as a magnitude. E.g., Polaris (the North Star) has a
+        magnitude of
+        2, whereas Betelgeuse, a brighter star, has a
+        magnitude of 0.6.</p>
+      <br>
+      <p><b>Data Sources</b>: Stellarium, Britannica</p>
+      </ul>
+    </aboutDescription>
+  </About>
+
+
+
+  <Controls id="Controls">
+    <button class="closeDetailedWindow" id="closeDetailedWindow" onclick="closeControls()">X</button>
+    <p>Controls</p>
+    <aboutDescription>
+      <p><b>Interaction Controls:</b></p>
       <ul class="help">
         <li>
           <p>
@@ -46,54 +67,58 @@
         </li>
         <li>
           <p>
-            <sb>Right-click</sb> to stop drawing
+            <sb>Right-click</sb> to stop drawing or to close windows
           </p>
         </li>
         </li>
         <li>
           <p>
-            <sb>Middle-click</sb> and drag to navigate the star map
+            Hold the <sb>middle-button</sb> or <sb>spacebar</sb> and drag the mouse to navigate the star map
           </p>
         </li>
         </li>
         </p>
-        <ul class="help">
-          <p>
-            <li>You can also hold <b>spacebar</b> and drag to navigate the star map</li>
-            <br>
-          </p>
-        </ul>
       </ul>
-
+      <br>
       <p><b>Key:</b></p>
       <ul class="help">
         <li>
           <p>
+          <p style="margin-top:-15px"><img class="star" src="assets/star3.png">Stars glow larger if you can start
+            drawing a constellation with them.</p>
+        </li>
+        <li>
+          <p>
           <p style="margin-top:-15px"><img class="star" src="assets/star1.png">Stars glow blue if they belong to the
             constellation you're currently drawing.</p>
-                  </li>
+        </li>
         <li>
           <p style="margin-top:-15px"><img class="star" src="assets/star2.png">Stars glow pink if they are adjacent to
             the star you're drawing
             from; you can left-click to continue drawing to this star</p>
-                  </li>
+        </li>
         <li>
           <p><span style="margin-left:-24px" class="material-symbols-outlined">location_on</button></span>
             Click this icon in a library page to travel to the selected constellation.</p>
-                    </li>
-          <br>
-          <p><b>Magnitude:</b> A measure of the brightness of a star of other celestial body. The <sb>brighter</sb> the
-            object, the <sb>lower</sb> the number assigned as a magnitude. E.g., Polaris (the North Star) has a
-            magnitude of
-            2, whereas Betelgeuse, a brighter star, has a
-            magnitude of 0.6.</p>
-          <br>
-          <p><b>Data Sources</b>: Stellarium, Britannica</p>
-      </ul>      
+        </li>
+        <li>
+          <p>Text that is underlined can be hovered with the mouse to reveal more information. <brightestStar
+              onmouseout="hideExampleHover()" onmouseover="toggleExampleHover()">Hover here!</brightestStar>
+          </p>
+        </li>
+        <br>
+      </ul>
+
     </aboutDescription>
-  </About>
+  </Controls>
+
+
+
   <Library id="Library" onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
-    <LibraryTitle><b>Discovered Constellations</b></LibraryTitle>
+    <LibraryTitle><b>Discovered Constellations</b>
+      <br>
+      <p id="libraryNumber">0/12</p>
+    </LibraryTitle>
     <LibraryItems id="LibraryItems">
 
       <ul>
@@ -158,15 +183,7 @@
             // Close Quiz
             quiz.style.display = "none";
             about.style.display = "none";
-
-            // Close completedWindow
-            completedWindow.style.display = "none";
-
-            // Close constCompletedWindow
-            for (let i = 1; i < 13; i++) {
-              var constCompletedWindow = document.getElementById(constellations[i].name);
-              constCompletedWindow.style.display = "none";
-            }
+            controls.style.display = "none";
 
             var constDetailedWindow = document.getElementById(x);
 
@@ -190,6 +207,16 @@
     <quizDesc id="quizDesc"></quizDesc>
     <img id="quizImg"></img>
     <script>
+      let hoveringQuiz
+
+      function hoveringQuizTrue() {
+        hoveringQuiz = true;
+      }
+
+      function hoveringQuizFalse() {
+        hoveringQuiz = false;
+      }
+
       var answer1 = "", answer2 = "", answer3 = "", answer4 = "", answerName, correctAnswer;
       var r = document.querySelector(':root');
       var rs = getComputedStyle(r);
@@ -197,8 +224,13 @@
       function closeAbout() {
         about.style.display = 'none';
       }
+
       function closeQuiz() {
         quiz.style.display = 'none';
+      }
+
+      function closeControls() {
+        document.getElementById("Controls").style.display = 'none';
       }
 
       let prevAns;
@@ -316,9 +348,11 @@
           if (choice == correctAnswer) {
             document.getElementById(button).style.backgroundColor = greenButton;
             document.getElementById(button).innerHTML += " ✓"
+            soundEffects(4)
           } else {
             document.getElementById(button).style.backgroundColor = redButton;
             document.getElementById(button).innerHTML += " X";
+            soundEffects(0)
 
             if (answer1 == correctAnswer) {
               document.getElementById("answer1").style.backgroundColor = greenButton;
@@ -350,7 +384,7 @@
         return a;
       }
     </script>
-    <quizButtonAnswers>
+    <quizButtonAnswers onmouseenter="hoveringQuizTrue()" onmouseleave="hoveringQuizFalse()">
       <button id="answer1" onclick="evaluateAnswer(answer1, 'answer1')" class="quizButton">
         <script>
           document.write(answer1)
@@ -452,66 +486,75 @@
         translationY = y;
       }
 
+      function toggleExampleHover() {
+        $("#exampleHover").fadeIn(200);
+      }
+
+      function hideExampleHover() {
+        $("#exampleHover").fadeOut(200);
+      }
 
       function hideStar() {
         $("#brightStar").fadeOut(180);
         $("#starVisible").fadeOut(180);
       }
 
+
+
       function toggleBrightestStar(c) {
         var x, y;
         switch (c) {
           case 1: // Aries
             x = "541px";
-            y = "205px";
+            y = "214px";
             break;
           case 2: // Taurus
             x = "430px";
-            y = "320px";
+            y = "330px";
             break;
           case 31: // Gemini; castor
             x = "329px";
-            y = "137px";
+            y = "147px";
             break;
           case 32: // Gemini; pollux
             x = "302px";
-            y = "202px";
+            y = "210px";
             break;
           case 4: // Cancer
             x = "529px";
-            y = "385px";
+            y = "393px";
             break;
           case 5: // Leo
             x = "620px";
-            y = "380px";
+            y = "390px";
             break;
           case 6: // Virgo
             x = "402px";
-            y = "370px";
+            y = "379px";
             break;
           case 7: // Libra
-            x = "477px";
-            y = "95px";
+            x = "476px";
+            y = "105px";
             break;
           case 8: // scorpio
             x = "521px";
-            y = "172px";
+            y = "182px";
             break;
           case 9: // Sagittarius
             x = "533px";
-            y = "237px";
+            y = "247px";
             break;
           case 10: // capricorn
             x = "256px";
-            y = "295px";
+            y = "303px";
             break;
           case 11: // Aquarius
             x = "445px";
-            y = "95px";
+            y = "103px";
             break;
           case 12: // Pisces
             x = "325px";
-            y = "248px";
+            y = "258px";
             break;
         }
 
@@ -523,7 +566,6 @@
 
         let mX = mouseX + "px";  // Horizontal
         let mY = mouseY + "px";  // Vertical
-        print(mouseX, mouseY);
 
         document.getElementById("starVisible").style.left = `${mX}`
         document.getElementById("starVisible").style.top = `${mY}`
@@ -829,6 +871,8 @@
       } else if (mouseButton === LEFT) {
         lib.style.display = "block";
         quiz.style.display = "none";
+        about.style.display = "none";
+        controls.style.display = "none";
       }
     }
 
@@ -859,6 +903,8 @@
           constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
           detailedWindow.style.display = "none";
           constDetailedWindow.style.display = "none";
+          about.style.display = "none";
+          controls.style.display = "none";
         }
 
         if (quiz.style.display === "block" && mouseButton === LEFT) {
@@ -880,6 +926,7 @@
       // Close library
       lib.style.display = "none";
       quiz.style.display = "none";
+      controls.style.display = "none";
 
       if (about.style.display === "block" && mouseButton === LEFT) {
         about.style.display = "none";
@@ -888,26 +935,56 @@
       }
     }
 
+    let controls = document.getElementById("Controls");
+    function controlsButtonPress() {
+      // Close Detailed Window
+      for (let i = 1; i < 13; i++) {
+        constDetailedWindow = document.getElementById(constellations[i].name + "DetailedWindow")
+        detailedWindow.style.display = "none";
+        constDetailedWindow.style.display = "none";
+      }
+
+      // Close library
+      lib.style.display = "none";
+      quiz.style.display = "none";
+      about.style.display = "none";
+
+      if (controls.style.display === "block" && mouseButton === LEFT) {
+        controls.style.display = "none";
+      } else if (mouseButton === LEFT) {
+        controls.style.display = "block";
+      }
+    }
+
     let splashScreen = document.getElementById("splashScreen");
 
     function hideSplashScreen() {
       $("#splashScreen").fadeOut(150);
-      print("herllo")
+      soundEffects(1);
+      hoveringMenus = 0;
     }
 
   </script>
   <buttons onmouseover="hoveringMenuTrue()" onmouseout="hoveringMenuFalse()">
+    <button class="aboutButton" onclick="aboutButtonPress()"><span
+        class="material-symbols-outlined">info</span><br>About</button>
+    <button class="controlsButton" onclick="controlsButtonPress()"><span
+        class="material-symbols-outlined">mouse</span><br>Controls</button>
     <button class="libButton" onclick="libButtonPress()"><span
         class="material-symbols-outlined">dictionary</span><br>Library</button>
     <button id="quizMenuButton" class="quizMenuButton" onclick="quizButtonPress()" onmouseenter="quizMouseOver()"
       onmouseleave="quizMouseOut()"><b><span class="material-symbols-outlined">quiz</span></b><br>Quiz</button>
-    <button class="aboutButton" onclick="aboutButtonPress()"><span
-        class="material-symbols-outlined">info</span><br>About</button>
+
 
   </buttons>
   <quizNotAccessible id="quizNA">You can access the quiz once you've discovered at least <b>4</b> constellations!
   </quizNotAccessible>
-
+  <quizNotAccessible style="margin: 410px 0px 0px 575px; height: 40px; width: 125px;" id="exampleHover">Hi there!
+  </quizNotAccessible>
+  <splash id="splashScreen">
+    <p class="splashText">My Little Observatory</p>
+    <button class="start" onclick="hideSplashScreen()">Start</button>
+  </splash>
 </body>
 
 </html>

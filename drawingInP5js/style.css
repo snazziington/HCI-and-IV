@@ -507,7 +507,7 @@ button.navButton {
 
 item {
   /*---fix later*/
-  display: block;
+  display: none;
   width: 220px;
   margin-bottom: 5px;
   margin-left: 17px;

@@ -11,8 +11,8 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-var translationX = -1600;
-let translationY = -500;
+var translationX = -2000;
+let translationY = -200;
 
 // Stars
 let stars = [];
@@ -384,11 +384,11 @@ function draw() {
 	lines.forEach(drawLineIfVisible);
 
 	// Notate stars
-	for (let i = 1; i <= constellations[currentConstellation].size; i++) {
+	/*for (let i = 1; i <= constellations[currentConstellation].size; i++) {
 		let storv = 'v' + i
 		strokeWeight(1)
 		text(`${i}`, constellations[currentConstellation][storv][0] + 5, constellations[currentConstellation][storv][1])
-	}
+	}*/
 
 	// Display Framerate
 	/*textSize(40);

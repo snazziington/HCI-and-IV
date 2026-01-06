@@ -11,8 +11,8 @@ let dilatingStroke;
 let buttons = [];
 
 // Navigation
-var translationX = -1600;
-let translationY = -500;
+var translationX = -2000;
+let translationY = -200;
 
 // Stars
 let stars = [];
@@ -339,7 +339,7 @@ let maxFrameRate = 0;
 
 let leftBound, rightBound, topBound, bottomBound, constWindowWidth, constWindowHeight;
 let currentMillis;
-
+let purr;
 //#region Draw 
 function draw() {
 	currentMillis = millis();
@@ -562,7 +562,7 @@ function mousePressed() {
 	}
 	//#endregion
 
-	else if (mouseButton === LEFT && !keyIsDown(32)) {
+	else if (mouseButton === LEFT && !keyIsDown(32) && hoveringQuiz == 0) {
 		soundEffects(5);
 	}
 
@@ -586,7 +586,7 @@ function mousePressed() {
 const closeDetailedWindowButton = document.getElementById("closeDetailedWindow");
 
 let startingStarScale = 1;
-let hoveringMenus = 0;
+let hoveringMenus = 1;
 
 function constellationCheck() {
 	// for each constellation
@@ -683,6 +683,9 @@ function addConstellationToLibrary(c) {
 
 	// Push name of constellation into nameAnswers array
 	nameAns.push(constellations[c].name)
+
+	// Update number of constellations unlocked
+	document.getElementById("libraryNumber").innerHTML = `${nameAns.length}/12`
 
 	// Stops startingStar from glowing(?)
 	constellations[c].v1[4] = 1;
@@ -880,7 +883,6 @@ function soundEffects(n) {
 					//clickingButtons
 					soundByte.play('F3', velocity, 0, dur * 1.1);
 					soundByte.play('C4', velocity, 0, dur * 1.1);
-
 					break;
 			}
 		}
